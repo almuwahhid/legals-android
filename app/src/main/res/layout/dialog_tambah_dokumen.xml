@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/lay_dialog"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".app.buatdokumen.TambahDokumenDialog">
+    <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                                       android:id="@+id/card_bar"
+                                       android:layout_height="wrap_content">
+        <id.go.kemlu.legalisasidokumen.utils.animationtoggle.AnimationToggle android:layout_width="match_parent"
+                                                                             android:paddingLeft="@dimen/dimen_16dp"
+                                                                             android:paddingRight="@dimen/dimen_16dp"
+                                                                             android:layout_height="56dp">
+            <RelativeLayout android:layout_width="match_parent"
+                            android:id="@+id/lay_toolbar"
+                            android:layout_height="match_parent">
+                <ImageView android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           style="@style/clickable"
+                           android:id="@+id/img_back"
+                           android:layout_centerVertical="true"
+                           android:src="@drawable/ic_chevron_left_black_24dp"
+                           android:tint="@color/colorPrimary"/>
+                <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:id="@+id/toolbar_title"
+                        style="@style/Text.Title.Banner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Upload Dokumen"
+                        android:textColor="@color/grey_800"/>
+                <ImageView android:layout_width="wrap_content"
+                           android:layout_alignParentRight="true"
+                           android:layout_height="wrap_content"
+                           style="@style/clickable"
+                           android:id="@+id/img_ok"
+                           android:tint="@color/colorPrimary"
+                           android:layout_centerVertical="true"
+                           android:src="@drawable/ic_check_black_24dp"/>
+            </RelativeLayout>
+        </id.go.kemlu.legalisasidokumen.utils.animationtoggle.AnimationToggle>
+    </androidx.cardview.widget.CardView>
+    <ScrollView android:layout_width="match_parent"
+                android:layout_below="@id/card_bar"
+                android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent"
+                      android:padding="@dimen/dimen_16dp"
+                      android:orientation="vertical"
+                      android:layout_height="match_parent">
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    style="@style/EditText.Form"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_jenisdokumen"
+                        android:inputType="text"
+                        android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                        android:layout_width="match_parent"
+                        style="@style/EditText.Form"
+                        android:hint="Jenis Dokumen"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_marginTop="@dimen/dimen_8dp"
+                      android:text="*Upload Foto Dokumen"
+                      style="@style/Text.Caption"
+                      android:layout_height="wrap_content"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_marginTop="@dimen/dimen_4dp"
+                      android:text="*Maksimal berukuran 2 MB"
+                      style="@style/Text.Caption"
+                      android:layout_height="wrap_content"/>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dimen_12dp"
+                    style="@style/EditText.Form"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_nomorpengesahan"
+                        android:inputType="text"
+                        android:layout_width="match_parent"
+                        android:padding="@dimen/dimen_14dp"
+                        style="@style/EditText.Form"
+                        android:hint="Nomor Pengesahan"
+                        android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dimen_12dp"
+                    style="@style/EditText.Form"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_namapengesah"
+                        android:inputType="text"
+                        android:layout_width="match_parent"
+                        android:padding="@dimen/dimen_14dp"
+                        style="@style/EditText.Form"
+                        android:hint="Nama Pengesah"
+                        android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dimen_12dp"
+                    style="@style/EditText.Form"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_instansi"
+                        android:clickable="true"
+                        android:inputType="text"
+                        android:layout_width="match_parent"
+                        android:padding="@dimen/dimen_14dp"
+                        style="@style/EditText.Form"
+                        android:hint="Instansi/Lembaga"
+                        android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

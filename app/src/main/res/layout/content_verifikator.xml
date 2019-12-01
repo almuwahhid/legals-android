@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="id.go.kemlu.legalisasidokumen.app.home.HomeActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:visibility="visible"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            style="@style/AppTheme.AppBarCustom">
+        <!--android:theme="@style/ToolBarThemeMain.AppBarOverlay"-->
+
+        <id.go.kemlu.legalisasidokumen.utils.BaseToolbar
+                android:id="@+id/toolbar"
+                app:titleTextColor="@color/grey_700"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white">
+            <TextView
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:id="@+id/title"
+                    style="@style/Text.Title.Banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingRight="@dimen/dimen_48dp"
+                    android:text="Legalisasi"
+                    android:textColor="@color/grey_800"/>
+        </id.go.kemlu.legalisasidokumen.utils.BaseToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+    <RelativeLayout android:layout_width="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:layout_height="match_parent">
+                    <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                                               android:id="@+id/rv"
+                                                               android:layout_height="match_parent">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <include layout="@layout/layout_helper"/>
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

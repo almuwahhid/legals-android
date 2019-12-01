@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/dimen_16dp"
+        tools:context="id.go.kemlu.legalisasidokumen.app.verifikasiakun.VerifikasiAkunActivity">
+        <ImageView android:layout_width="@dimen/dimen_224dp"
+                   android:layout_height="wrap_content"
+                   android:paddingTop="@dimen/dimen_64dp"
+                   android:paddingBottom="@dimen/dimen_64dp"
+                   android:src="@drawable/ic_verifikasi"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/dimen_4dp"
+              android:clickable="true"
+              style="@style/Text.SubTitleField.Bold"
+              android:textColor="@color/grey_700"
+              android:text="VERIFIKASI AKUN ANDA"/>
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:textAlignment="center"
+              android:layout_marginTop="@dimen/dimen_16dp"
+              android:clickable="true"
+              style="@style/Text.SubTitleField.Regular"
+              android:textColor="@color/grey_700"
+              android:text="Kami telah mengirimkan mail verifikasi ke muh.almuwahhid@gmail.com "/>
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:textAlignment="center"
+              android:layout_marginTop="@dimen/dimen_16dp"
+              android:clickable="true"
+              style="@style/Text.SubTitleField.Regular"
+              android:textColor="@color/grey_700"
+              android:text="Verifikasi akun Anda dengan klik tautan yang telah kami kirimkan ke email tersebut."/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/dimen_16dp"
+              android:clickable="true"
+              style="@style/Text.SubTitleField.Bold"
+              android:textColor="@color/colorPrimary"
+              android:text="Belum menerima email ?"/>
+    <Button
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:paddingLeft="@dimen/dimen_24dp"
+            android:paddingRight="@dimen/dimen_24dp"
+            android:textColor="@color/colorPrimary"
+            android:text="KIRIM ULANG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_filled"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/dimen_4dp"
+              android:clickable="true"
+              style="@style/Text.SubTitleField.Bold"
+              android:textColor="@color/grey_700"
+              android:text="atau"/>
+    <Button
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:paddingLeft="@dimen/dimen_24dp"
+            android:paddingRight="@dimen/dimen_24dp"
+            android:layout_marginBottom="@dimen/dimen_8dp"
+            android:textColor="@color/white"
+            android:text="SAYA SUDAH VERIFIKASI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_main"/>
+
+
+</LinearLayout>

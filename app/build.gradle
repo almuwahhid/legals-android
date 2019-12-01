@@ -1,0 +1,180 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'com.jakewharton.butterknife'
+
+android {
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    compileSdkVersion 28
+    buildToolsVersion "29.0.1"
+
+    def package_name = "id.co.antrian"
+    def app_alias_name = "Antrian Online"
+    def versionPropsFile = file('version.properties')
+
+    flavorDimensions "default"
+    if (versionPropsFile.canRead()) {
+        Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+        def runTasks = gradle.startParameter.taskNames
+
+        if (runTasks.grep(':app:assembleRelease')) {
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    output.outputFile = new File(
+                            output.outputFile.parent,
+                            output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
+                }
+            }
+        }
+
+        def version_major = versionProps['VERSION_MAJOR'].toInteger()
+        def version_minor = versionProps['VERSION_MINOR'].toInteger()
+        def version_maintenance = versionProps['VERSION_MAINTENANCE'].toInteger()
+        def version_build = versionProps['VERSION_BUILD'].toInteger() + 1
+        def version_code = versionProps['VERSION_CODE'].toInteger()
+
+        versionProps['VERSION_MAJOR'] = version_major.toString()
+        versionProps['VERSION_MINOR'] = version_minor.toString()
+        versionProps['VERSION_MAINTENANCE'] = version_maintenance.toString()
+        versionProps['VERSION_BUILD'] = version_build.toString()
+        versionProps['VERSION_CODE'] = version_code.toString()
+
+        versionProps.store(versionPropsFile.newWriter(), null)
+
+        defaultConfig {
+            applicationId package_name
+            minSdkVersion 19
+            targetSdkVersion 28
+            versionCode version_code
+            versionName "${version_major}.${version_minor}.${version_maintenance}.${version_build}"
+            testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+            def addUrl = { constantName, constantValue ->
+                buildConfigField "String", "${constantName}", "\"${constantValue}\""
+            }
+            addUrl("base_url", "http://149.28.146.53:2000")
+            addUrl("api", "/")
+            addUrl("login", "api/user_login")
+            addUrl("authEmail", "api/auth_email")
+            addUrl("register", "api/user_registration")
+            addUrl("lupaPassword", "api/forgot_password")
+            addUrl("reffCountry", "api/reff_country")
+            addUrl("reffInstitution", "api/reff_institution")
+            addUrl("reffPejabat", "apix/list_pejabat")
+            addUrl("reffPengesah", "apix/list_pengesah")
+            addUrl("reffDocType", "api/reff_document_type")
+            addUrl("reffOfficialType", "api/reff_official_type")
+            addUrl("reffOfficialInstitution", "api/reff_official_institution")
+            addUrl("submitLegalisasi", "apix/submit_legalisasi")
+            addUrl("getProfile", "apix/get_profile")
+            addUrl("getLegalisasi", "apix/get_legalisasi")
+            addUrl("getNotification", "apix/get_notification")
+            addUrl("daftarRequest", "apix/get_online_request")
+        }
+
+        signingConfigs {
+            release {
+                storeFile file('/Users/al/AndroidStudioProjects/SmartOffice/key_smartoffice.jks')
+                storePassword 'dev@gamatechno'
+                keyAlias 'KeySmartOffice'
+                keyPassword 'dev@gamatechno'
+            }
+            debug {
+
+            }
+        }
+
+        productFlavors {
+            development {
+                applicationId package_name + ".dev"
+                versionName "${version_major}.${version_minor}.${version_maintenance}.${version_build}"
+                def makeAConstant = { constantName, constantValue ->
+                    manifestPlaceholders += [(constantName): constantValue]
+                    buildConfigField "String", "${constantName}", "\"${constantValue}\""
+                }
+                makeAConstant("base_api", "http://149.28.146.53:2000")
+                resValue "string", "app_name", "Dev " + app_alias_name
+                makeAConstant("application_name", "Dev " + app_alias_name)
+                /*resValue "string", "google_maps_key",
+                        (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")*/
+                manifestPlaceholders = [
+                        appIcon: "@mipmap/ic_launcher"
+                ]
+//                multiDexEnabled true
+            }
+
+            production {
+                applicationId package_name
+                versionName "${version_major}.${version_minor}.${version_maintenance}"
+                def makeAConstant = { constantName, constantValue ->
+                    manifestPlaceholders += [(constantName): constantValue]
+                    buildConfigField "String", "${constantName}", "\"${constantValue}\""
+                }
+                makeAConstant("base_api", "http://149.28.146.53:2000")
+                makeAConstant("application_name", app_alias_name)
+                resValue "string", "app_name", app_alias_name
+                /*resValue "string", "google_maps_key",
+                        (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")*/
+                manifestPlaceholders = [
+                        appIcon: "@mipmap/ic_launcher"
+                ]
+            }
+        }
+    } else {
+        throw new GradleException("Could not read version.properties!")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.github.smarteist:autoimageslider:1.3.2'
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.github.egovgt:gmsframeworkx-lite:1.0.3'
+//    implementation 'com.github.egovgt:gmsframework-lite:1.0'
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    implementation 'joda-time:joda-time:2.10.5'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    implementation 'com.github.gcacace:signature-pad:1.2.1'
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+}

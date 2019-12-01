@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/lay_buattandatangan"
+                android:visibility="gone"
+              android:orientation="vertical"
+              android:padding="@dimen/dimen_16dp"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView android:layout_width="wrap_content"
+              style="@style/Text.Title"
+              android:text="Silahkan tanda tangan dibawah ini :"
+              android:layout_height="wrap_content"/>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:background="@drawable/field_filled"
+                    android:layout_height="@dimen/dimen_180dp">
+        <com.github.gcacace.signaturepad.views.SignaturePad
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/signature_pad"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:penColor="@android:color/black"
+        />
+
+    </RelativeLayout>
+    <androidx.appcompat.widget.AppCompatCheckBox android:layout_width="wrap_content"
+                                                 android:textColor="@color/grey_700"
+                                                 android:id="@+id/checked_permohonan"
+                                                 android:layout_marginTop="@dimen/dimen_8dp"
+                                                 android:gravity="top"
+                                                 android:text="Dengan ini, menyatakan bahwa data yang saya masukan adalah benar dan dapat dipertanggungjawabkan"
+                                                 android:layout_height="wrap_content"/>
+    <Button android:layout_width="match_parent"
+            android:background="@drawable/button_disable"
+            android:id="@+id/btn_submit"
+            android:clickable="false"
+            android:textColor="@color/white"
+            android:text="S U B M I T"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

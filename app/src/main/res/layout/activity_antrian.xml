@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@color/grey_100"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="id.go.kemlu.legalisasidokumen.app.antriansaya.AntrianActivity">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:gravity="left"
+                  android:layout_marginTop="@dimen/dimen_16dp"
+                  android:layout_marginRight="@dimen/dimen_16dp"
+                  android:layout_marginLeft="@dimen/dimen_16dp">
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <ImageView android:layout_width="@dimen/dimen_18dp" android:layout_height="@dimen/dimen_18dp"
+                       android:src="@drawable/ic_hospital"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_marginLeft="@dimen/dimen_8dp"
+                      android:textAlignment="center"
+                      android:clickable="true"
+                      style="@style/Text.SubTitleField.Regular"
+                      android:text="Poli Umum"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:gravity="right"
+                      android:layout_weight="1">
+            <ImageView android:layout_width="@dimen/dimen_18dp" android:layout_height="@dimen/dimen_18dp"
+                       android:tint="@color/colorPrimaryDark"
+                       android:src="@drawable/ic_calendar"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_marginLeft="@dimen/dimen_8dp"
+                      android:textAlignment="center"
+                      android:clickable="true"
+                      style="@style/Text.SubTitleField.Regular"
+                      android:textColor="@color/colorPrimaryDark"
+                      android:text="12 November 2019"/>
+        </LinearLayout>
+    </LinearLayout>
+        <ImageView android:layout_width="@dimen/dimen_280dp"
+                   android:layout_gravity="center_horizontal"
+               android:layout_height="wrap_content"
+               android:paddingTop="@dimen/dimen_64dp"
+               android:paddingBottom="@dimen/dimen_32dp"
+               android:src="@drawable/ic_antrian_saya"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:padding="@dimen/dimen_16dp"
+                  android:orientation="vertical"
+                  android:background="@drawable/bg_dialog">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:layout_marginBottom="@dimen/dimen_32dp"
+                  android:layout_marginTop="@dimen/dimen_16dp"
+                  android:textAlignment="center"
+                  android:clickable="true"
+                  android:textSize="@dimen/dimen_48dp"
+                  style="@style/Text.SubTitleField.Regular"
+                  android:text="PU - 54"/>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent">
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1" tools:ignore="WebViewLayout">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:textAlignment="center"
+                          android:clickable="true"
+                          style="@style/Text.SubTitleField.Regular"
+                          android:textColor="@color/colorPrimaryDark"
+                          android:text="Estimasi Waktu Tunggu"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:textAlignment="center"
+                          android:clickable="true"
+                          style="@style/Text.SubTitleField.Regular"
+                          android:text="01:00:00"/>
+                <WebView
+                        android:layout_marginTop="@dimen/dimen_16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                </WebView>
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                    <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_gravity="bottom"
+                            android:text="KEMBALI KE MENU UTAMA"
+                            android:textColor="@color/white"
+                            android:background="@drawable/button_main"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

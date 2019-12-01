@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="id.go.kemlu.legalisasidokumen.app.detailpermohonan.permohonanberstatus.PermohonanBerstatusActivity">
+    <include layout="@layout/toolbar_white"/>
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="vertical"
+                  android:padding="@dimen/dimen_16dp"
+                  android:layout_height="match_parent">
+        <TextView android:layout_width="wrap_content"
+                  android:textColor="@color/grey_400"
+                  style="@style/Text.Standard"
+                  android:text="Nomor Permohonan"
+                  android:layout_height="wrap_content"/>
+        <TextView android:layout_width="wrap_content"
+                  style="@style/Text.Title.Banner"
+                  android:text="G009909/18/01"
+                  android:layout_height="wrap_content"/>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_marginTop="@dimen/dimen_8dp"
+                  android:textColor="@color/grey_400"
+                  style="@style/Text.Standard"
+                  android:text="Negara Tujuan"
+                  android:layout_height="wrap_content"/>
+        <TextView android:layout_width="wrap_content"
+                  style="@style/Text.Title.Banner"
+                  android:text="Australia"
+                  android:layout_height="wrap_content"/>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_marginTop="@dimen/dimen_16dp"
+                      android:background="@color/grey_400"
+                      android:layout_height="@dimen/dimen_1dp"></LinearLayout>
+        <TextView android:layout_width="match_parent"
+                  android:layout_marginTop="@dimen/dimen_16dp"
+                  style="@style/Text.Standard"
+                  android:text="Permohonan legalisasi dokumen dengan nomor G0009/17/04 telah terkirim. Telah diterima pada tanggal 9 September 2019 pukul 10.30 WIB. \n\nMohon tunggu hingga proses verifikasi selesai."
+                  android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>
