@@ -8,14 +8,11 @@
         tools:context="id.go.kemlu.legalisasidokumen.app.home.HomeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-            android:visibility="visible"
-            android:layout_height="wrap_content"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:elevation="0dp"
-            android:stateListAnimator="@null"
+            android:layout_height="wrap_content"
             style="@style/AppTheme.AppBarCustom">
-        <!--android:theme="@style/ToolBarThemeMain.AppBarOverlay"-->
-
         <id.go.kemlu.legalisasidokumen.utils.BaseToolbar
                 android:id="@+id/toolbar"
                 app:titleTextColor="@color/grey_700"
@@ -25,31 +22,37 @@
             <TextView
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:id="@+id/title"
+                    android:id="@+id/toolbar_title"
                     style="@style/Text.Title.Banner"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/dimen_18dp"
                     android:gravity="center"
                     android:paddingRight="@dimen/dimen_48dp"
-                    android:text="Legalisasi"
+                    android:text="Verifikator Legalisasi"
                     android:textColor="@color/grey_800"/>
         </id.go.kemlu.legalisasidokumen.utils.BaseToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
-    <include layout="@layout/content_home" android:id="@+id/include"/>
-    <RelativeLayout android:layout_width="wrap_content"
-                    android:id="@+id/lay_fab"
-                    app:layout_anchor="@+id/include"
-                    app:layout_anchorGravity="end|bottom"
-                    android:layout_height="wrap_content">
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="140dp"
-                android:layout_margin="@dimen/dimen_16dp"
-                app:backgroundTint="@color/colorPrimary"
-                android:id="@+id/fab_add"
-                android:tint="@color/colorAccent"
-                android:src="@drawable/ic_add_black_24dp"
-                />
-    </RelativeLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:layout_width="match_parent"
+                                                               android:id="@+id/swipe"
+                                                               android:layout_height="match_parent">
+
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                </androidx.recyclerview.widget.RecyclerView>
+                <include layout="@layout/layout_helper"/>
+            </RelativeLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

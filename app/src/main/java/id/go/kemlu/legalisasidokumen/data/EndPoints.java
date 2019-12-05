@@ -30,6 +30,14 @@ public class EndPoints {
         return c + BuildConfig.daftarRequest+"?page="+page;
     }
 
+    public static String stringDaftarPengesah(String page) {
+        return c + BuildConfig.daftarPengesah+"?page="+page;
+    }
+
+    public static String stringDaftarRequestToVerif(String page) {
+        return c + BuildConfig.daftarRequestToVerif+"?page="+page;
+    }
+
     public static String stringBuatPermohonan() {
         return c + BuildConfig.submitLegalisasi;
     }

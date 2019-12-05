@@ -1,6 +1,6 @@
 package id.go.kemlu.legalisasidokumen.app.daftarlayanan
 
-import id.go.kemlu.legalisasidokumen.data.models.DaftarRequest
+import id.go.kemlu.legalisasidokumen.data.models.RequestModel
 import lib.gmsframeworkx.base.BaseView
 
 interface DaftarLayananView {
@@ -9,7 +9,7 @@ interface DaftarLayananView {
     }
 
     interface View: BaseView {
-        fun onRequestDaftarLayanan(list: MutableList<DaftarRequest>, isReload: Boolean)
+        fun onRequestDaftarLayanan(list: MutableList<RequestModel>, isReload: Boolean)
         fun onFailedRequestSomething(isFirst: Boolean, message : String)
         fun onFailedRequestMore(isFirst: Boolean, message : String)
         fun onLoadingMore()

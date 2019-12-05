@@ -16,28 +16,44 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/ToolBarThemeMain">
-        <activity android:name="id.go.kemlu.legalisasidokumen.app.PhotoPreview.PhotoPreviewActivity">
+        <activity android:name=".app.verifikatorapp.daftarpengesah.adapter.DaftarPengesahAdapter">
         </activity>
-        <activity android:name="id.go.kemlu.legalisasidokumen.app.verifikatorapp.detaildokumen.DetailDokumenActivity">
+        <activity android:name=".app.verifikatorapp.daftarpengesah.DaftarPengesahActivity">
         </activity>
-        <activity android:name="id.go.kemlu.legalisasidokumen.app.detailpermohonan.permohonanselesai.adapter.KualitasLayananAdapter">
+        <activity android:name=".app.notifikasi.adapter.NotifikasiAdapter">
         </activity>
-        <activity android:name="id.go.kemlu.legalisasidokumen.app.detailpermohonan.permohonanselesai.KwitansiActivity">
+        <activity android:name=".app.verifikatorapp.historipermohonan.HistoriPermohonanActivity">
         </activity>
-        <activity android:name="id.go.kemlu.legalisasidokumen.app.detailpermohonan.permohonanselesai.KualitasLayananActivity">
+        <activity android:name=".app.profileuser.ProfileUserActivity">
         </activity>
-        <activity android:name="id.go.kemlu.legalisasidokumen.app.detailpermohonan.permohonanberstatus.PermohonanBerstatusActivity">
+        <activity android:name=".app.verifikatorapp.layananlegalisasi.LayananLegalisasiFragment">
         </activity>
-        <activity android:name="id.go.kemlu.legalisasidokumen.app.detailpermohonan.pembayaranpermohonan.PembayaranPermohonanActivity">
+        <activity android:name=".app.verifikatorapp.layananlegalisasi.LayananLegalisasiActivity">
         </activity>
-        <activity android:name="id.go.kemlu.legalisasidokumen.app.notifikasi.NotifikasiActivity">
+        <activity android:name=".app.verifikatorapp.daftarrequest.DaftarRequestActivity">
         </activity>
-        <activity android:name="id.go.kemlu.legalisasidokumen.app.buatpermohonan.BuatPermohonanActivity">
+        <activity android:name=".app.PhotoPreview.PhotoPreviewActivity">
         </activity>
-        <activity android:name="id.go.kemlu.legalisasidokumen.app.detaillayanan.DetailLayananActivity">
+        <activity android:name=".app.verifikatorapp.detaildokumen.DetailDokumenActivity">
+        </activity>
+        <activity android:name=".app.detailpermohonan.permohonanselesai.adapter.KualitasLayananAdapter">
+        </activity>
+        <activity android:name=".app.detailpermohonan.permohonanselesai.KwitansiActivity">
+        </activity>
+        <activity android:name=".app.detailpermohonan.permohonanselesai.KualitasLayananActivity">
+        </activity>
+        <activity android:name=".app.detailpermohonan.permohonanberstatus.PermohonanBerstatusActivity">
+        </activity>
+        <activity android:name=".app.detailpermohonan.pembayaranpermohonan.PembayaranPermohonanActivity">
+        </activity>
+        <activity android:name=".app.notifikasi.NotifikasiActivity">
+        </activity>
+        <activity android:name=".app.buatpermohonan.BuatPermohonanActivity">
+        </activity>
+        <activity android:name=".app.detaillayanan.DetailLayananActivity">
         </activity>
         <activity
-                android:name="id.go.kemlu.legalisasidokumen.app.home.HomeActivity"
+                android:name=".app.home.HomeActivity"
                 android:label="@string/title_activity_home"
                 android:theme="@style/ToolBarThemeMain.NoActionBar">
         </activity>
@@ -46,20 +62,20 @@
                 android:name="org.apache.http.legacy"
                 android:required="false"/>
 
-        <activity android:name="id.go.kemlu.legalisasidokumen.app.antriansaya.AntrianActivity">
+        <activity android:name=".app.antriansaya.AntrianActivity">
         </activity>
-        <activity android:name="id.go.kemlu.legalisasidokumen.app.verifikasiakun.VerifikasiAkunActivity">
+        <activity android:name=".app.verifikasiakun.VerifikasiAkunActivity">
         </activity>
-        <activity android:name="id.go.kemlu.legalisasidokumen.app.login.LoginActivity">
+        <activity android:name=".app.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="id.go.kemlu.legalisasidokumen.app.register.RegisterActivity">
+        <activity android:name=".app.register.RegisterActivity">
         </activity>
-        <activity android:name="id.go.kemlu.legalisasidokumen.app.verifikatorapp.main.VerifikatorActivity">
+        <activity android:name=".app.verifikatorapp.main.VerifikatorActivity">
         </activity>
     </application>
 

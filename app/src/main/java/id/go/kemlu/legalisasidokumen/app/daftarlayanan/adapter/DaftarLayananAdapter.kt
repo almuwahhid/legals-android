@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.go.kemlu.legalisasidokumen.R
-import id.go.kemlu.legalisasidokumen.data.models.DaftarRequest
+import id.go.kemlu.legalisasidokumen.data.models.RequestModel
 import kotlinx.android.synthetic.main.adapter_daftar_layanan.view.*
 
-class DaftarLayananAdapter (context: Context, list: MutableList<DaftarRequest>, private val onDaftarLayananAdapter: DaftarLayananAdapter.OnDaftarLayananAdapter) : RecyclerView.Adapter<DaftarLayananAdapter.Holder>() {
+class DaftarLayananAdapter (context: Context, list: MutableList<RequestModel>, private val onDaftarLayananAdapter: DaftarLayananAdapter.OnDaftarLayananAdapter) : RecyclerView.Adapter<DaftarLayananAdapter.Holder>() {
 
-    lateinit var list: MutableList<DaftarRequest>
-    lateinit var context: Context
+    var list: MutableList<RequestModel>
+    var context: Context
 
 
     init {
@@ -36,11 +36,11 @@ class DaftarLayananAdapter (context: Context, list: MutableList<DaftarRequest>, 
     }
 
     interface OnDaftarLayananAdapter{
-        fun onLayananClick(model: DaftarRequest)
+        fun onLayananClick(model: RequestModel)
     }
 
     class Holder (itemView: View, viewType: Int) : RecyclerView.ViewHolder(itemView) {
-        fun bind(position: Int, data: DaftarRequest, onDaftarLayananAdapter: OnDaftarLayananAdapter): Unit = with(itemView) {
+        fun bind(position: Int, data: RequestModel, onDaftarLayananAdapter: OnDaftarLayananAdapter): Unit = with(itemView) {
             card_request.setOnClickListener({
                 onDaftarLayananAdapter.onLayananClick(data)
             })
@@ -48,6 +48,33 @@ class DaftarLayananAdapter (context: Context, list: MutableList<DaftarRequest>, 
             tv_nomorpermohonan.text = data.group_no
             tv_status.text = data.status_detail
             tv_date.text = data.request_date
+
+            when(data.status_id){
+                110 -> {
+                    lay_card.setBackgroundColor(context.resources.getColor(R.color.colorPrimary))
+                    tv_status.setTextColor(context.resources.getColor(R.color.colorPrimary))
+                }
+                120 -> {
+
+                }
+                121 -> {
+
+                }
+                150 -> {
+
+                }
+                160 -> {
+
+                }
+                190 -> {
+                    lay_card.setBackgroundColor(context.resources.getColor(R.color.red_400))
+                    tv_status.setTextColor(context.resources.getColor(R.color.red_400))
+                }
+                else -> {
+                    lay_card.setBackgroundColor(context.resources.getColor(R.color.colorPrimary))
+                    tv_status.setTextColor(context.resources.getColor(R.color.grey_800))
+                }
+            }
         }
     }
 }

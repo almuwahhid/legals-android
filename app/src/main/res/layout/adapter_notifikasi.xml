@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:paddingTop="@dimen/dimen_16dp"
+        android:paddingRight="@dimen/dimen_8dp"
+        style="@style/clickable"
+        android:paddingLeft="@dimen/dimen_8dp"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        tools:context="id.go.kemlu.legalisasidokumen.app.notifikasi.adapter.NotifikasiAdapter">
+        <LinearLayout android:layout_width="match_parent"
+                      android:padding="@dimen/dimen_8dp"
+                      android:orientation="vertical"
+                      android:layout_height="wrap_content">
+            <TextView android:layout_width="wrap_content"
+                      android:id="@+id/tv_status"
+                      style="@style/Text.Standard.Bold"
+                      android:text="Permohonan Terkirim"
+                      android:layout_height="wrap_content"/>
+            <TextView android:layout_width="wrap_content"
+                      android:id="@+id/tv_keterangan"
+                      android:layout_marginTop="@dimen/dimen_4dp"
+                      style="@style/Text.Standard"
+                      android:text="Permohonan telah terkirim dengan nomor G0009/17/04"
+                      android:layout_height="wrap_content"/>
+            <TextView android:layout_width="wrap_content"
+                      android:id="@+id/tv_date"
+                      android:layout_marginTop="@dimen/dimen_4dp"
+                      style="@style/Text.Caption"
+                      android:text="21 menit yang lalu"
+                      android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_marginTop="@dimen/dimen_8dp"
+                      android:background="@color/grey_400"
+                      android:layout_height="@dimen/dimen_1dp"></LinearLayout>
+</LinearLayout>

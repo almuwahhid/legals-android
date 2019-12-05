@@ -14,6 +14,7 @@ import com.google.android.material.tabs.TabLayout
 import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.app.buatpermohonan.BuatPermohonanActivity
 import id.go.kemlu.legalisasidokumen.app.login.LoginActivity
+import id.go.kemlu.legalisasidokumen.app.notifikasi.NotifikasiActivity
 import id.go.kemlu.legalisasidokumen.data.Preferences
 import id.go.kemlu.legalisasidokumen.module.Activity.LegalisasiActivity
 import id.go.kemlu.legalisasidokumen.utils.LegalisasiFunction
@@ -111,6 +112,10 @@ class HomeActivity : LegalisasiActivity(), NavigationView.OnNavigationItemSelect
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_notification -> true
+            R.id.action_notification -> {
+                startActivity(Intent(context, NotifikasiActivity::class.java))
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

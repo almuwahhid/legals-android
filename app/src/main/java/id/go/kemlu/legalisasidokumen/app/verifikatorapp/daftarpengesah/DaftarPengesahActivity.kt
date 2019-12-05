@@ -1,55 +1,54 @@
-package id.go.kemlu.legalisasidokumen.app.notifikasi
+package id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarpengesah
 
-import android.content.Intent
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import id.go.kemlu.legalisasidokumen.R
-import id.go.kemlu.legalisasidokumen.app.detaillayanan.DetailLayananActivity
-import id.go.kemlu.legalisasidokumen.app.notifikasi.adapter.NotifikasiAdapter
-import id.go.kemlu.legalisasidokumen.data.models.NotifikasiModel
+import id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarpengesah.adapter.DaftarPengesahAdapter
+import id.go.kemlu.legalisasidokumen.data.models.PengesahModel
 import id.go.kemlu.legalisasidokumen.module.Activity.LegalisasiActivity
 import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.EndlessRecyclerViewScrollListener
 import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.SpeedyLinearLayoutManager
-import kotlinx.android.synthetic.main.activity_notifikasi.*
+import kotlinx.android.synthetic.main.activity_daftar_pengesah.*
 import kotlinx.android.synthetic.main.layout_helper.*
 import kotlinx.android.synthetic.main.toolbar_white.*
 import lib.gmsframeworkx.utils.GmsStatic
 
-class NotifikasiActivity : LegalisasiActivity(), NotifikasiView.View {
+class DaftarPengesahActivity : LegalisasiActivity(), DaftarPengesahView.View {
 
-    lateinit var adapter: NotifikasiAdapter
-    var layananModels: MutableList<NotifikasiModel> = ArrayList()
+    lateinit var adapter: DaftarPengesahAdapter
+    var layananModels: MutableList<PengesahModel> = ArrayList()
     internal lateinit var endlessRecyclerViewScrollListener: EndlessRecyclerViewScrollListener
-    internal lateinit var presenter:NotifikasiPresenter
+    internal lateinit var presenter:DaftarPengesahPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_notifikasi)
+        setContentView(R.layout.activity_daftar_pengesah)
 
         setSupportActionBar(toolbar)
         supportActionBar.let {
             it!!.setDisplayHomeAsUpEnabled(true)
-            it!!.setTitle("Notifikasi")
+            it!!.setTitle("Daftar Pengesah")
         }
         getSupportActionBar()!!.setHomeAsUpIndicator(R.drawable.ic_chevron_left_black_24dp);
         toolbar.getNavigationIcon()!!.setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
-        toolbar_title.setText("Notifikasi")
+        toolbar_title.setText("Daftar Pengesah")
 
-        presenter = NotifikasiPresenter(context, this)
-        adapter = NotifikasiAdapter(context!!, layananModels, object : NotifikasiAdapter.OnNotifikasiClick{
-            override fun onClick(model: NotifikasiModel) {
-//                startActivity(Intent(context, DetailLayananActivity::class.java).putExtra("data", model).putExtra("type", "notifikasi"))
+        presenter = DaftarPengesahPresenter(context, this)
+        adapter = DaftarPengesahAdapter(context!!, layananModels, object : DaftarPengesahAdapter.OnClick{
+            override fun onClick(model: PengesahModel) {
+
             }
         })
+
         val layoutManager = SpeedyLinearLayoutManager(context)
         rv.layoutManager = layoutManager
         rv.adapter = adapter
         endlessRecyclerViewScrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
             override fun onLoadMore(var1: Int, var2: Int, var3: RecyclerView) {
-                presenter.requestNotifikasi(false)
+                presenter.requestPengesah(false)
             }
         }
         rv.addOnScrollListener(endlessRecyclerViewScrollListener)
@@ -57,13 +56,14 @@ class NotifikasiActivity : LegalisasiActivity(), NotifikasiView.View {
 
         swipe.setOnRefreshListener {
             swipe.isRefreshing = false
-            presenter.requestNotifikasi(true)
+            presenter.requestPengesah(true)
         }
 
-        presenter.requestNotifikasi(true)
+        presenter.requestPengesah(true)
+
     }
 
-    override fun onRequestNotifikasi(list: MutableList<NotifikasiModel>, isReload: Boolean) {
+    override fun onRequestPengesah(list: MutableList<PengesahModel>, isReload: Boolean) {
         endlessRecyclerViewScrollListener.resetState()
         if(isReload){
             layananModels.clear()

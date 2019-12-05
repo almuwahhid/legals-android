@@ -128,11 +128,18 @@ class BuatPermohonanActivity : LegalisasiPermissionActivity(), BuatPermohonanVie
             override fun onSigned() {
 //                TODO : Signature
                 if(signature_pad.signatureBitmap != null){
+                    img_clear_sign.visibility = View.VISIBLE
                     permohonanUiModel.signed_file = GmsStatic.convertToBase64(signature_pad.signatureBitmap)
                     initButtonSubmitStyle()
                 }
             }
 
+        })
+
+        img_clear_sign.setOnClickListener({
+            signature_pad.clear()
+            permohonanUiModel.signed_file = ""
+            it.visibility = View.GONE
         })
 
         btn_submit.setOnClickListener({

@@ -1,5 +1,6 @@
 package id.go.kemlu.legalisasidokumen.app.daftarlayanan
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,18 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.app.daftarlayanan.adapter.DaftarLayananAdapter
 import id.go.kemlu.legalisasidokumen.app.home.HomeViewModel
-import id.go.kemlu.legalisasidokumen.data.models.DaftarRequest
+import id.go.kemlu.legalisasidokumen.data.models.RequestModel
 import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.EndlessRecyclerViewScrollListener
 import kotlinx.android.synthetic.main.activity_daftar_layanan.*
 import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.SpeedyLinearLayoutManager
-import id.go.kemlu.legalisasidokumen.app.daftarlayanan.DaftarLayananPresenter
 import kotlinx.android.synthetic.main.layout_helper.*
 import lib.gmsframeworkx.utils.GmsStatic
+import id.go.kemlu.legalisasidokumen.app.detaillayanan.DetailLayananActivity
 
 class DaftarLayananFragment : Fragment(), DaftarLayananView.View {
 
     lateinit var daftarLayananAdapter: DaftarLayananAdapter
-    var daftarLayanans: MutableList<DaftarRequest> = ArrayList()
+    var layananModels: MutableList<RequestModel> = ArrayList()
     internal lateinit var endlessRecyclerViewScrollListener: EndlessRecyclerViewScrollListener
     internal lateinit var presenter:DaftarLayananPresenter
 
@@ -43,9 +44,9 @@ class DaftarLayananFragment : Fragment(), DaftarLayananView.View {
         helper_loading_more.setInOutAnimation(R.anim.pull_in_top, R.anim.push_out_bottom)
 
         presenter = DaftarLayananPresenter(context, this)
-        daftarLayananAdapter = DaftarLayananAdapter(context!!, daftarLayanans, object : DaftarLayananAdapter.OnDaftarLayananAdapter{
-            override fun onLayananClick(model: DaftarRequest) {
-
+        daftarLayananAdapter = DaftarLayananAdapter(context!!, layananModels, object : DaftarLayananAdapter.OnDaftarLayananAdapter{
+            override fun onLayananClick(model: RequestModel) {
+                startActivity(Intent(context, DetailLayananActivity::class.java).putExtra("data", model))
             }
         })
         val layoutManager = SpeedyLinearLayoutManager(context)
@@ -68,13 +69,13 @@ class DaftarLayananFragment : Fragment(), DaftarLayananView.View {
 
     }
 
-    override fun onRequestDaftarLayanan(list: MutableList<DaftarRequest>, isReload: Boolean) {
+    override fun onRequestDaftarLayanan(list: MutableList<RequestModel>, isReload: Boolean) {
         endlessRecyclerViewScrollListener.resetState()
         if(isReload){
-            daftarLayanans.clear()
+            layananModels.clear()
         }
 
-        daftarLayanans.addAll(list)
+        layananModels.addAll(list)
         daftarLayananAdapter.notifyDataSetChanged()
     }
 

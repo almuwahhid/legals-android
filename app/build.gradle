@@ -87,6 +87,8 @@ android {
             addUrl("getLegalisasi", "apix/get_legalisasi")
             addUrl("getNotification", "apix/get_notification")
             addUrl("daftarRequest", "apix/get_online_request")
+            addUrl("daftarRequestToVerif", "verificator/get_request_to_verif")
+            addUrl("daftarPengesah", "apix/list_pengesah")
         }
 
         signingConfigs {

@@ -110,7 +110,12 @@ class LoginActivity : LegalisasiActivity(), LoginView.View {
 
     override fun onSuccessLogin(model: UserModel) {
         LegalisasiFunction.setUserPreference(this, gson!!.toJson(model))
-        startActivity(Intent(context, HomeActivity::class.java))
+        if(model.user_role.equals("User APPS")){
+            startActivity(Intent(context, HomeActivity::class.java))
+        } else {
+            startActivity(Intent(context, VerifikatorActivity::class.java))
+        }
+
         finish()
     }
 

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:visibility="gone"
+              android:orientation="vertical"
+              android:id="@+id/layout_detail_permohonan"
+              android:padding="@dimen/dimen_16dp"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView android:layout_width="wrap_content"
+              style="@style/Text.Standard"
+              android:text="Nomor Permohonan"
+              android:textColor="@color/grey_500"
+              android:layout_height="wrap_content"/>
+    <TextView android:layout_width="wrap_content"
+              style="@style/Text.Standard.Bold"
+              android:id="@+id/tv_nomorpermohonan"
+              android:text="G009/17/1"
+              android:layout_height="wrap_content"/>
+    <TextView android:layout_width="wrap_content"
+              android:layout_marginTop="@dimen/dimen_8dp"
+              style="@style/Text.Standard"
+              android:text="Negara Tujuan"
+              android:textColor="@color/grey_500"
+              android:layout_height="wrap_content"/>
+    <TextView android:layout_width="wrap_content"
+              style="@style/Text.Standard.Bold"
+              android:id="@+id/tv_country"
+              android:text="Indonesia"
+              android:layout_height="wrap_content"/>
+    <LinearLayout android:layout_width="match_parent"
+                  android:background="@color/grey_400"
+                  android:layout_marginTop="@dimen/dimen_16dp"
+                  android:layout_height="@dimen/dimen_1dp"/>
+    <WebView android:layout_width="match_parent"
+             android:id="@+id/webview"
+             android:layout_marginTop="@dimen/dimen_16dp"
+             android:layout_height="wrap_content">
+
+    </WebView>
+</LinearLayout>

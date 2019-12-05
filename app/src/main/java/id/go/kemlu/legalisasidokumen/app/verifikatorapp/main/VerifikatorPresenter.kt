@@ -1,9 +1,9 @@
-package id.go.kemlu.legalisasidokumen.app.daftarlayanan
+package id.go.kemlu.legalisasidokumen.app.verifikatorapp.main
 
 import android.content.Context
 import android.util.Log
 import id.go.kemlu.legalisasidokumen.data.EndPoints
-import id.go.kemlu.legalisasidokumen.data.models.RequestModel
+import id.go.kemlu.legalisasidokumen.data.models.RequestToVerifModel
 import id.go.kemlu.legalisasidokumen.utils.LegalisasiFunction
 import lib.gmsframeworkx.base.BasePresenter
 import lib.gmsframeworkx.utils.GmsRequest
@@ -12,20 +12,20 @@ import org.json.JSONObject
 import java.util.ArrayList
 import java.util.HashMap
 
-class DaftarLayananPresenter(context: Context?, daftarLayananView: DaftarLayananView.View) : BasePresenter(context), DaftarLayananView.Presenter {
+class VerifikatorPresenter(context: Context, view : VerifikatorView.View) : BasePresenter(context), VerifikatorView.Presenter {
 
-    var view: DaftarLayananView.View
+    var view : VerifikatorView.View
     var page = 1
 
     init {
-        this.view = daftarLayananView
+        this.view = view
     }
 
-    override fun requestDaftarLayanan(isReload: Boolean) {
+    override fun requestDataVerifikasi(isReload: Boolean) {
         if(isReload){
-           page = 1
+            page = 1
         }
-        GmsRequest.GET(EndPoints.stringDaftarRequest(""+page), context, object : GmsRequest.OnGetRequest {
+        GmsRequest.GET(EndPoints.stringDaftarRequestToVerif(""+page), context, object : GmsRequest.OnGetRequest {
             override fun onPreExecuted() {
                 if(isReload)
                     view!!.onLoading()
@@ -38,16 +38,16 @@ class DaftarLayananPresenter(context: Context?, daftarLayananView: DaftarLayanan
                 view!!.onHideLoading(isReload)
                 try {
                     if (response.getBoolean("success")) {
-                        val list = ArrayList<RequestModel>()
+                        val list = ArrayList<RequestToVerifModel>()
                         val result = response.getJSONObject("result")
-                        val data = result.getJSONArray("list_online_request")
+                        val data = result.getJSONArray("list_user")
                         for (i in 0 until data.length()) {
                             list.add(
-                                gson.fromJson(data.getJSONObject(i).toString(), RequestModel::class.java)
+                                gson.fromJson(data.getJSONObject(i).toString(), RequestToVerifModel::class.java)
                             )
                         }
                         page++
-                        view.onRequestDaftarLayanan(list, isReload)
+                        view.onRequestDataVerifikasi(list, isReload)
                     } else {
 //                        view!!.onFailedRequestSomething(if(page == 1)true else false, response.getString("message"))
                         view!!.onFailedRequestMore(if(page == 1)true else false, response.getString("message"))

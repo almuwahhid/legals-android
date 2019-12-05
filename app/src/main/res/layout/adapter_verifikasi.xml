@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        app:cardCornerRadius="0dp"
+        android:layout_marginBottom="@dimen/dimen_4dp"
+        style="@style/clickable"
+        android:id="@+id/card_request"
+        app:cardElevation="@dimen/dimen_2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+            android:id="@+id/lay_card"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <RelativeLayout android:layout_width="match_parent"
+                        android:background="@color/white"
+                        android:layout_marginLeft="@dimen/dimen_8dp"
+                        android:padding="@dimen/dimen_16dp"
+                        android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="vertical"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          style="@style/Text.Standard"
+                          android:text="Nama Pemohon"
+                          android:textColor="@color/grey_500"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="wrap_content"
+                          style="@style/Text.Standard.Bold"
+                          android:id="@+id/tv_namapemohon"
+                          android:text="Bella Husada"
+                          android:textColor="@color/colorPrimary"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_marginTop="@dimen/dimen_8dp"
+                          style="@style/Text.Standard"
+                          android:text="Negara Tujuan"
+                          android:textColor="@color/grey_500"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="wrap_content"
+                          style="@style/Text.Standard.Bold"
+                          android:id="@+id/tv_country"
+                          android:text="Indonesia"
+                          android:textColor="@color/colorPrimary"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="match_parent"
+                          android:gravity="right"
+                          android:layout_marginTop="@dimen/dimen_4dp"
+                          style="@style/Text.Standard"
+                          android:id="@+id/tv_status"
+                          android:text="Menunggu"
+                          android:textColor="@color/orange_400"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_alignParentRight="true"
+                      android:id="@+id/tv_date"
+                      style="@style/Text.Standard"
+                      android:text="Kemarin"
+                      android:textColor="@color/grey_500"
+                      android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -8,4 +8,18 @@
         android:layout_height="match_parent"
         tools:context="id.go.kemlu.legalisasidokumen.app.notifikasi.NotifikasiActivity">
         <include layout="@layout/toolbar_white"/>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:layout_width="match_parent"
+                                                               android:id="@+id/swipe"
+                                                               android:layout_height="match_parent">
+
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                        <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+                        <include layout="@layout/layout_helper"/>
+                </RelativeLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>
