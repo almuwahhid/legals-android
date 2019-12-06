@@ -21,7 +21,7 @@ class DaftarLayananPresenter(context: Context?, daftarLayananView: DaftarLayanan
         this.view = daftarLayananView
     }
 
-    override fun requestDaftarLayanan(isReload: Boolean) {
+    override fun requestDaftarLayanan(isReload: Boolean, status_id: Int) {
         if(isReload){
            page = 1
         }
@@ -42,12 +42,25 @@ class DaftarLayananPresenter(context: Context?, daftarLayananView: DaftarLayanan
                         val result = response.getJSONObject("result")
                         val data = result.getJSONArray("list_online_request")
                         for (i in 0 until data.length()) {
-                            list.add(
-                                gson.fromJson(data.getJSONObject(i).toString(), RequestModel::class.java)
-                            )
+                            val requestModel = gson.fromJson(data.getJSONObject(i).toString(), RequestModel::class.java)
+                            if(status_id == 0){
+                                list.add(
+                                    requestModel
+                                )
+                            } else {
+                                if(requestModel.status_id == status_id){
+                                    list.add(
+                                        requestModel
+                                    )
+                                }
+                            }
                         }
-                        page++
-                        view.onRequestDaftarLayanan(list, isReload)
+                        if(list.size>0){
+                            page++
+                            view.onRequestDaftarLayanan(list, isReload)
+                        } else {
+                            view!!.onFailedRequestMore(if(page == 1)true else false, "Data saat ini tidak tersedia.")
+                        }
                     } else {
 //                        view!!.onFailedRequestSomething(if(page == 1)true else false, response.getString("message"))
                         view!!.onFailedRequestMore(if(page == 1)true else false, response.getString("message"))

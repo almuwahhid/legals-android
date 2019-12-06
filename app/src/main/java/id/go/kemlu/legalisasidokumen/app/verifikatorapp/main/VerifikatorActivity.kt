@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.app.login.LoginActivity
+import id.go.kemlu.legalisasidokumen.app.tentangaplikasi.TentangAplikasiActivity
 import id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarpengesah.DaftarPengesahActivity
 import id.go.kemlu.legalisasidokumen.app.verifikatorapp.main.adapter.VerifikasiAdapter
 import id.go.kemlu.legalisasidokumen.data.Preferences
@@ -89,7 +90,7 @@ class VerifikatorActivity : LegalisasiActivity(), NavigationView.OnNavigationIte
         }
 
         presenter.requestDataVerifikasi(true)
-
+        nav_view.getMenu().getItem(0).setChecked(true);
 
     }
 
@@ -126,7 +127,8 @@ class VerifikatorActivity : LegalisasiActivity(), NavigationView.OnNavigationIte
 
             }
             R.id.nav_tentang -> {
-
+                startActivity(Intent(context, TentangAplikasiActivity::class.java))
+                nav_view.getMenu().getItem(0).setChecked(true);
             }
             R.id.nav_pengesah -> {
                 startActivity(Intent(context, DaftarPengesahActivity::class.java))

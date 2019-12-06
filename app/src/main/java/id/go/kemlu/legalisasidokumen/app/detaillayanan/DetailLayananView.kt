@@ -4,10 +4,10 @@ import lib.gmsframeworkx.base.BaseView
 
 interface DetailLayananView {
     interface Presenter{
-
+        fun requestKualitasLayanan()
     }
 
     interface View: BaseView{
-
+        fun onAfterSendingKualitasLayanan()
     }
 }

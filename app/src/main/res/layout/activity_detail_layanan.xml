@@ -13,5 +13,7 @@
                         android:layout_height="match_parent">
             <include layout="@layout/layout_detail_permohonan"/>
             <include layout="@layout/layout_detail_pembayaran"/>
+            <include layout="@layout/layout_kualitas_layanan"/>
+            <include layout="@layout/layout_kwitansi"/>
         </RelativeLayout>
 </LinearLayout>

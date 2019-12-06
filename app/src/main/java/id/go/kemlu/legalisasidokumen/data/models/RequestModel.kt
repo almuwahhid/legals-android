@@ -35,7 +35,7 @@ data class RequestModel (var online_request_id : Int,
                          var status_id : Int,
                          var status_detail : String,
                          var source : Int,
-                         var create_date : MutableList<String>,
+//                         var create_date : String,
                          var is_open : Boolean,
                          var open_by : Int,
                          var open_date : String,
@@ -52,5 +52,6 @@ data class RequestModel (var online_request_id : Int,
                          var document_legal_by : String,
                          var document_legal_by_instansi : String,
                          var document_legal_desc : String,
-                         var country_name : String
+                         var country_name : String,
+                         var document : MutableList<DokumenModel>
                           ): Serializable

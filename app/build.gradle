@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'com.jakewharton.butterknife'
 
+apply plugin: 'com.google.gms.google-services'
+
 android {
     lintOptions {
         checkReleaseBuilds false
@@ -22,8 +24,8 @@ android {
     compileSdkVersion 28
     buildToolsVersion "29.0.1"
 
-    def package_name = "id.co.antrian"
-    def app_alias_name = "Antrian Online"
+    def package_name = "id.go.kemlu.legalisasidokumen"
+    def app_alias_name = "Legalisasi Dokumen"
     def versionPropsFile = file('version.properties')
 
     flavorDimensions "default"
@@ -61,6 +63,7 @@ android {
         defaultConfig {
             applicationId package_name
             minSdkVersion 19
+            multiDexEnabled true
             targetSdkVersion 28
             versionCode version_code
             versionName "${version_major}.${version_minor}.${version_maintenance}.${version_build}"
@@ -89,14 +92,16 @@ android {
             addUrl("daftarRequest", "apix/get_online_request")
             addUrl("daftarRequestToVerif", "verificator/get_request_to_verif")
             addUrl("daftarPengesah", "apix/list_pengesah")
+            addUrl("detailOnlineRequest", "apix/get_detail_online_request")
+            addUrl("detailOnlineRequestByGroup", "apix/get_detail_online_request_by_group")
         }
 
         signingConfigs {
             release {
-                storeFile file('/Users/al/AndroidStudioProjects/SmartOffice/key_smartoffice.jks')
-                storePassword 'dev@gamatechno'
-                keyAlias 'KeySmartOffice'
-                keyPassword 'dev@gamatechno'
+                storeFile file('/Users/al/AndroidStudioProjects/legalisasi-dokumen-kemlu/key_legalisasi.jks')
+                storePassword 'dev@legalisasi'
+                keyAlias 'KeyLegalisasi'
+                keyPassword 'dev@legalisasi'
             }
             debug {
 
@@ -147,6 +152,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
@@ -176,7 +182,11 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.1.0'
     implementation 'com.github.gcacace:signature-pad:1.2.1'
 
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+
     implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    implementation 'com.android.support:multidex:1.0.3'
 }

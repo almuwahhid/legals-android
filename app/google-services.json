@@ -1,0 +1,107 @@
+{
+  "project_info": {
+    "project_number": "572984051611",
+    "firebase_url": "https://legalisasi-90d0e.firebaseio.com",
+    "project_id": "legalisasi-90d0e",
+    "storage_bucket": "legalisasi-90d0e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572984051611:android:c6de6ea927c13cd6d8833e",
+        "android_client_info": {
+          "package_name": "id.go.kemlu.legalisasidokumen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572984051611-f8veikab9i326b7mdufjfcg8h0amcss6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.go.kemlu.legalisasidokumen",
+            "certificate_hash": "12897d8c8686a24edacf1998ed5053c8788aaa40"
+          }
+        },
+        {
+          "client_id": "572984051611-elntp8djfel4s7n925jm6cl9b3hfbkvh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.go.kemlu.legalisasidokumen",
+            "certificate_hash": "b8041a3d5f48ae0d45daaebd618f3020ee182e6b"
+          }
+        },
+        {
+          "client_id": "572984051611-klgndoaqhjmb1qd87vg3ts3jf2t273b6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcIKGxsqy00cwUR85GcQR7dkBQljh9sxI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572984051611-klgndoaqhjmb1qd87vg3ts3jf2t273b6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "572984051611-5lhskccoh8dccnkkl69t1rrutb8mms17.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "id.go.kemlu.Legalisasi-Dokumen"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572984051611:android:1c820f5671e31d97d8833e",
+        "android_client_info": {
+          "package_name": "id.go.kemlu.legalisasidokumen.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572984051611-u5q3c5r4k7ajte0f7h3gvnhehop73ga3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.go.kemlu.legalisasidokumen.dev",
+            "certificate_hash": "12897d8c8686a24edacf1998ed5053c8788aaa40"
+          }
+        },
+        {
+          "client_id": "572984051611-klgndoaqhjmb1qd87vg3ts3jf2t273b6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcIKGxsqy00cwUR85GcQR7dkBQljh9sxI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572984051611-klgndoaqhjmb1qd87vg3ts3jf2t273b6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "572984051611-5lhskccoh8dccnkkl69t1rrutb8mms17.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "id.go.kemlu.Legalisasi-Dokumen"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

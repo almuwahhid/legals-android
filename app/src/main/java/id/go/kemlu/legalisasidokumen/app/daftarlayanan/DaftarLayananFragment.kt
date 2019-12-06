@@ -24,10 +24,12 @@ class DaftarLayananFragment : Fragment(), DaftarLayananView.View {
     var layananModels: MutableList<RequestModel> = ArrayList()
     internal lateinit var endlessRecyclerViewScrollListener: EndlessRecyclerViewScrollListener
     internal lateinit var presenter:DaftarLayananPresenter
+    internal var status_id: Int = 0
 
     companion object{
-        public fun newInstance(viewModel: HomeViewModel): DaftarLayananFragment {
+        public fun newInstance(viewModel: HomeViewModel, status_id: Int): DaftarLayananFragment {
             val fragment = DaftarLayananFragment()
+            fragment.status_id = status_id
             return fragment
         }
     }
@@ -54,7 +56,7 @@ class DaftarLayananFragment : Fragment(), DaftarLayananView.View {
         rv.adapter = daftarLayananAdapter
         endlessRecyclerViewScrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
             override fun onLoadMore(var1: Int, var2: Int, var3: RecyclerView) {
-                presenter.requestDaftarLayanan(false)
+                presenter.requestDaftarLayanan(false, status_id)
             }
         }
         rv.addOnScrollListener(endlessRecyclerViewScrollListener)
@@ -62,14 +64,16 @@ class DaftarLayananFragment : Fragment(), DaftarLayananView.View {
 
         swipe.setOnRefreshListener {
             swipe.isRefreshing = false
-            presenter.requestDaftarLayanan(true)
+            presenter.requestDaftarLayanan(true, status_id)
         }
 
-        presenter.requestDaftarLayanan(true)
+        presenter.requestDaftarLayanan(true, status_id)
 
     }
 
     override fun onRequestDaftarLayanan(list: MutableList<RequestModel>, isReload: Boolean) {
+        helper_nodata.visibility = View.GONE
+        helper_error.visibility = View.GONE
         endlessRecyclerViewScrollListener.resetState()
         if(isReload){
             layananModels.clear()

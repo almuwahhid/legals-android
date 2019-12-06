@@ -5,7 +5,7 @@ import lib.gmsframeworkx.base.BaseView
 
 interface DaftarLayananView {
     interface Presenter{
-        fun requestDaftarLayanan(isReload: Boolean)
+        fun requestDaftarLayanan(isReload: Boolean, status_id: Int)
     }
 
     interface View: BaseView {

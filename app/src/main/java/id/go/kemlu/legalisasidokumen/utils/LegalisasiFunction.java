@@ -1,11 +1,15 @@
 package id.go.kemlu.legalisasidokumen.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import com.google.gson.Gson;
@@ -16,10 +20,14 @@ import id.go.kemlu.legalisasidokumen.data.models.UserModel;
 import lib.gmsframeworkx.utils.GmsStatic;
 import org.joda.time.LocalDate;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static com.airbnb.lottie.L.TAG;
 
 
 public class LegalisasiFunction {
@@ -221,5 +229,37 @@ public class LegalisasiFunction {
     public static void hideSoftKeyboard(Context context, EditText ettext){
         InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(ettext.getWindowToken(), 0);
+    }
+
+    public static Bitmap createBitmapFromLayout(View tv) {
+        Bitmap b = Bitmap.createBitmap(tv.getMeasuredWidth(), tv.getMeasuredHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        c.translate((-tv.getScrollX()), (-tv.getScrollY()));
+        tv.draw(c);
+        return b;
+    }
+
+    public static Uri saveImageExternal(Context context, Bitmap image, String id) {
+        //TODO - Should be processed in another thread
+        Uri uri = null;
+        try {
+            File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "legalisasi-dokumen-"+id+".png");
+            FileOutputStream stream = new FileOutputStream(file);
+            image.compress(Bitmap.CompressFormat.PNG, 90, stream);
+            stream.close();
+            uri = Uri.fromFile(file);
+        } catch (IOException e) {
+            Log.d(TAG, "IOException while trying to write file for sharing: " + e.getMessage());
+        }
+        return uri;
+    }
+
+    public static void shareImageUri(Context context, Uri uri){
+        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setType("image/png");
+        context.startActivity(intent);
     }
 }

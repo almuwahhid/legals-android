@@ -25,7 +25,7 @@ class VerifikatorPresenter(context: Context, view : VerifikatorView.View) : Base
         if(isReload){
             page = 1
         }
-        GmsRequest.GET(EndPoints.stringDaftarRequestToVerif(""+page), context, object : GmsRequest.OnGetRequest {
+        GmsRequest.GET(EndPoints.stringDaftarRequestToVerif(""+page, ""), context, object : GmsRequest.OnGetRequest {
             override fun onPreExecuted() {
                 if(isReload)
                     view!!.onLoading()
@@ -40,14 +40,18 @@ class VerifikatorPresenter(context: Context, view : VerifikatorView.View) : Base
                     if (response.getBoolean("success")) {
                         val list = ArrayList<RequestToVerifModel>()
                         val result = response.getJSONObject("result")
-                        val data = result.getJSONArray("list_user")
+                        val data = result.getJSONArray("list_request_to_verif")
                         for (i in 0 until data.length()) {
                             list.add(
                                 gson.fromJson(data.getJSONObject(i).toString(), RequestToVerifModel::class.java)
                             )
                         }
-                        page++
-                        view.onRequestDataVerifikasi(list, isReload)
+                        if(list.size>0){
+                            page++
+                            view.onRequestDataVerifikasi(list, isReload)
+                        } else {
+                            view!!.onFailedRequestMore(if(page == 1)true else false, response.getString("message"))
+                        }
                     } else {
 //                        view!!.onFailedRequestSomething(if(page == 1)true else false, response.getString("message"))
                         view!!.onFailedRequestMore(if(page == 1)true else false, response.getString("message"))

@@ -13,11 +13,11 @@ class TabMain(fm: FragmentManager, internal var viewModel: HomeViewModel) : Frag
     override fun getItem(position: Int): Fragment? {
         var fragment: Fragment? = null
         when (position) {
-            0 -> fragment = DaftarLayananFragment.newInstance(viewModel)
-            1 -> fragment = DaftarLayananFragment.newInstance(viewModel)
-            2 -> fragment = DaftarLayananFragment.newInstance(viewModel)
-            3 -> fragment = DaftarLayananFragment.newInstance(viewModel)
-            4 -> fragment = DaftarLayananFragment.newInstance(viewModel)
+            0 -> fragment = DaftarLayananFragment.newInstance(viewModel, 0)
+            1 -> fragment = DaftarLayananFragment.newInstance(viewModel, 110)
+            2 -> fragment = DaftarLayananFragment.newInstance(viewModel, 120)
+            3 -> fragment = DaftarLayananFragment.newInstance(viewModel, 160)
+            4 -> fragment = DaftarLayananFragment.newInstance(viewModel, 190)
         }
         return fragment
     }

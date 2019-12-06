@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.data.models.RequestModel
 import kotlinx.android.synthetic.main.adapter_daftar_layanan.view.*
+import id.go.kemlu.legalisasidokumen.data.StaticData
 
 class DaftarLayananAdapter (context: Context, list: MutableList<RequestModel>, private val onDaftarLayananAdapter: DaftarLayananAdapter.OnDaftarLayananAdapter) : RecyclerView.Adapter<DaftarLayananAdapter.Holder>() {
 
@@ -50,29 +51,33 @@ class DaftarLayananAdapter (context: Context, list: MutableList<RequestModel>, p
             tv_date.text = data.request_date
 
             when(data.status_id){
-                110 -> {
+                StaticData.STATUS_MENUGGGU_VERIFIKASI -> {
                     lay_card.setBackgroundColor(context.resources.getColor(R.color.colorPrimary))
                     tv_status.setTextColor(context.resources.getColor(R.color.colorPrimary))
                 }
-                120 -> {
-
+                StaticData.STATUS_MENUNGGU_PEMBAYARAN -> {
+                    lay_card.setBackgroundColor(context.resources.getColor(R.color.purple_400))
+                    tv_status.setTextColor(context.resources.getColor(R.color.purple_400))
                 }
-                121 -> {
-
+                StaticData.STATUS_BUKTIBAYAR_TIDAKVALID -> {
+                    lay_card.setBackgroundColor(context.resources.getColor(R.color.orange_400))
+                    tv_status.setTextColor(context.resources.getColor(R.color.orange_400))
                 }
-                150 -> {
-
+                StaticData.STATUS_MENUNGGU_VERIFIKASIPEMBAYARAN -> {
+                    lay_card.setBackgroundColor(context.resources.getColor(R.color.yellow_400))
+                    tv_status.setTextColor(context.resources.getColor(R.color.yellow_400))
                 }
-                160 -> {
-
+                StaticData.STATUS_BUKTIBAYAR_VALID -> {
+                    lay_card.setBackgroundColor(context.resources.getColor(R.color.green_400))
+                    tv_status.setTextColor(context.resources.getColor(R.color.green_400))
                 }
-                190 -> {
+                StaticData.STATUS_PERMOHONAN_DITOLAK -> {
                     lay_card.setBackgroundColor(context.resources.getColor(R.color.red_400))
                     tv_status.setTextColor(context.resources.getColor(R.color.red_400))
                 }
                 else -> {
                     lay_card.setBackgroundColor(context.resources.getColor(R.color.colorPrimary))
-                    tv_status.setTextColor(context.resources.getColor(R.color.grey_800))
+                    tv_status.setTextColor(context.resources.getColor(R.color.colorPrimary))
                 }
             }
         }

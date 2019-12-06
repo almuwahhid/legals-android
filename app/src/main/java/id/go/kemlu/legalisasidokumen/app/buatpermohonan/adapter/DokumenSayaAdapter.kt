@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.app.buatdokumen.model.DokumenUiModel
-import id.go.kemlu.legalisasidokumen.data.models.DokumenModel
 
 class DokumenSayaAdapter (context: Context, list: MutableList<DokumenUiModel>, private val onDokumenSayaAdapter: DokumenSayaAdapter.OnDokumenSayaAdapter) : RecyclerView.Adapter<DokumenSayaAdapter.Holder>() {
 

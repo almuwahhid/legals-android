@@ -39,8 +39,7 @@ class DaftarPengesahPresenter(context: Context, view: DaftarPengesahView.View) :
                 try {
                     if (response.getBoolean("success")) {
                         val list = ArrayList<PengesahModel>()
-                        val result = response.getJSONObject("result")
-                        val data = result.getJSONArray("result")
+                        val data = response.getJSONArray("result")
                         for (i in 0 until data.length()) {
                             list.add(
                                 gson.fromJson(data.getJSONObject(i).toString(), PengesahModel::class.java)

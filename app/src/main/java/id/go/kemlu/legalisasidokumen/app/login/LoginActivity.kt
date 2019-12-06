@@ -33,11 +33,16 @@ class LoginActivity : LegalisasiActivity(), LoginView.View {
 
         gson = Gson()
         if(LegalisasiFunction.checkUserPreference(this)){
-            startActivity(Intent(this, HomeActivity::class.java))
+            val usermodel = LegalisasiFunction.getUserPreference(context)
+            if(usermodel.user_role.equals("User APPS")){
+                startActivity(Intent(context, HomeActivity::class.java))
+            } else {
+                startActivity(Intent(context, VerifikatorActivity::class.java))
+            }
             finish()
         }
 
-        presenter = LoginPresenter(this, this)
+        presenter = LoginPresenter(context, this)
         setFormsToValidate()
         helper_loading_top.setInOutAnimation(R.anim.pull_in_bottom, R.anim.push_out_top)
 

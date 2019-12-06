@@ -9,9 +9,17 @@
 
                 android:title="@string/menu_beranda"/>
         <item
+                android:id="@+id/nav_indexkepuasan"
+
+                android:title="Index Kepuasan"/>
+        <item
                 android:id="@+id/nav_pengesah"
 
-                android:title="Daftar Pengesah"/>
+                android:title="Pengesah"/>
+        <item
+                android:id="@+id/nav_pejabat"
+
+                android:title="Pejabat"/>
         <item
                 android:id="@+id/nav_tentang"
 

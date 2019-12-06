@@ -10,6 +10,7 @@ import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.app.detaillayanan.DetailLayananActivity
 import id.go.kemlu.legalisasidokumen.app.notifikasi.adapter.NotifikasiAdapter
 import id.go.kemlu.legalisasidokumen.data.models.NotifikasiModel
+import id.go.kemlu.legalisasidokumen.data.models.RequestModel
 import id.go.kemlu.legalisasidokumen.module.Activity.LegalisasiActivity
 import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.EndlessRecyclerViewScrollListener
 import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.SpeedyLinearLayoutManager
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.toolbar_white.*
 import lib.gmsframeworkx.utils.GmsStatic
 
 class NotifikasiActivity : LegalisasiActivity(), NotifikasiView.View {
+
 
     lateinit var adapter: NotifikasiAdapter
     var layananModels: MutableList<NotifikasiModel> = ArrayList()
@@ -41,7 +43,7 @@ class NotifikasiActivity : LegalisasiActivity(), NotifikasiView.View {
         presenter = NotifikasiPresenter(context, this)
         adapter = NotifikasiAdapter(context!!, layananModels, object : NotifikasiAdapter.OnNotifikasiClick{
             override fun onClick(model: NotifikasiModel) {
-//                startActivity(Intent(context, DetailLayananActivity::class.java).putExtra("data", model).putExtra("type", "notifikasi"))
+                presenter.requestDetailNotifikasi(""+model.strNotifGroupNo)
             }
         })
         val layoutManager = SpeedyLinearLayoutManager(context)
@@ -103,7 +105,11 @@ class NotifikasiActivity : LegalisasiActivity(), NotifikasiView.View {
     }
 
     override fun onHideLoading() {
+        GmsStatic.hideLoadingDialog(context)
+    }
 
+    override fun onLoadingDetail() {
+        GmsStatic.showLoadingDialog(this, R.drawable.ic_logo)
     }
 
     override fun onErrorConnection() {
@@ -112,5 +118,9 @@ class NotifikasiActivity : LegalisasiActivity(), NotifikasiView.View {
 
     override fun onLoading() {
         helper_loading_top.show()
+    }
+
+    override fun onRequestDetailNotifikasi(model: RequestModel) {
+        startActivity(Intent(context, DetailLayananActivity::class.java).putExtra("data", model))
     }
 }

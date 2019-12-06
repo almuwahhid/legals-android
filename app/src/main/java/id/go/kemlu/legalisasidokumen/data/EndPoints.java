@@ -30,12 +30,24 @@ public class EndPoints {
         return c + BuildConfig.daftarRequest+"?page="+page;
     }
 
+    public static String stringNotifikasi(String page) {
+        return c + BuildConfig.getNotification+"?page="+page;
+    }
+
+    public static String stringDetailRequest(String id) {
+        return c + BuildConfig.detailOnlineRequest+"?request_id="+id;
+    }
+
     public static String stringDaftarPengesah(String page) {
         return c + BuildConfig.daftarPengesah+"?page="+page;
     }
 
-    public static String stringDaftarRequestToVerif(String page) {
-        return c + BuildConfig.daftarRequestToVerif+"?page="+page;
+    public static String stringDaftarRequestToVerif(String page, String keyword) {
+        return c + BuildConfig.daftarRequestToVerif+"?page="+page+"&keyword"+(keyword.equals("") ? "" : "="+keyword);
+    }
+
+    public static String stringDetailRequestByGroup(String group_no) {
+        return c + BuildConfig.detailOnlineRequestByGroup+"?group_no="+group_no;
     }
 
     public static String stringBuatPermohonan() {
