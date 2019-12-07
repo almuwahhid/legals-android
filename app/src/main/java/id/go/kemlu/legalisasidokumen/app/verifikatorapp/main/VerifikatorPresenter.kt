@@ -80,4 +80,8 @@ class VerifikatorPresenter(context: Context, view : VerifikatorView.View) : Base
             }
         })
     }
+
+    override fun requestDetail(model: RequestToVerifModel) {
+
+    }
 }

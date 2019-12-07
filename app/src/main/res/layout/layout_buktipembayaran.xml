@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:visibility="gone"
+              android:id="@+id/layout_buktipembayaran"
+              android:layout_width="match_parent"
+              android:padding="@dimen/dimen_16dp"
+              android:layout_height="match_parent">
+                <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+                    <LinearLayout android:layout_width="match_parent"
+                                  android:orientation="vertical"
+                                  android:layout_height="match_parent">
+                        <LinearLayout android:layout_width="match_parent"
+                                      android:orientation="vertical"
+                                      android:layout_height="wrap_content">
+                            <TextView android:layout_width="wrap_content"
+                                      android:textColor="@color/grey_500"
+                                      android:text="Nomor Permohonan"
+                                      style="@style/Text.Standard"
+                                      android:layout_height="wrap_content"/>
+                            <TextView android:layout_width="wrap_content"
+                                      android:textColor="@color/grey_800"
+                                      android:id="@+id/tv_bukti_nopermohonan"
+                                      android:text="Nomor Permohonan"
+                                      style="@style/Text.Title.Banner"
+                                      android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="match_parent"
+                                      android:layout_marginTop="@dimen/dimen_8dp"
+                                      android:orientation="vertical"
+                                      android:layout_height="wrap_content">
+                            <TextView android:layout_width="wrap_content"
+                                      android:textColor="@color/grey_500"
+                                      android:text="Tanggal Verifikasi"
+                                      style="@style/Text.Standard"
+                                      android:layout_height="wrap_content"/>
+                            <TextView android:layout_width="wrap_content"
+                                      android:id="@+id/tv_bukti_tglverif"
+                                      android:textColor="@color/grey_800"
+                                      android:text="29 Januari 2019"
+                                      style="@style/Text.Title.Banner"
+                                      android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="match_parent"
+                                      android:layout_marginTop="@dimen/dimen_8dp"
+                                      android:orientation="vertical"
+                                      android:layout_height="wrap_content">
+                            <TextView android:layout_width="wrap_content"
+                                      android:textColor="@color/grey_500"
+                                      android:text="Jumlah Dokumen disetujui"
+                                      style="@style/Text.Standard"
+                                      android:layout_height="wrap_content"/>
+                            <TextView android:layout_width="wrap_content"
+                                      android:textColor="@color/grey_800"
+                                      android:id="@+id/tv_bukti_jumlahdokumen"
+                                      android:text="2"
+                                      style="@style/Text.Title.Banner"
+                                      android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="match_parent"
+                                      android:orientation="vertical"
+                                      android:layout_height="wrap_content">
+                            <TextView android:layout_width="wrap_content"
+                                      android:layout_marginTop="@dimen/dimen_8dp"
+                                      android:textColor="@color/grey_500"
+                                      android:id="@+id/tv_dokumendisetujui"
+                                      android:text="Daftar Dokumen disetujui"
+                                      style="@style/Text.Standard"
+                                      android:layout_height="wrap_content"/>
+                            <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                                                       android:id="@+id/rv_bukti"
+                                                                       android:layout_height="wrap_content">
+
+                            </androidx.recyclerview.widget.RecyclerView>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="match_parent"
+                                      android:layout_marginTop="@dimen/dimen_8dp"
+                                      android:orientation="vertical"
+                                      android:layout_height="wrap_content">
+                            <TextView android:layout_width="wrap_content"
+                                      android:textColor="@color/grey_500"
+                                      android:text="Total Bayar"
+                                      style="@style/Text.Standard"
+                                      android:layout_height="wrap_content"/>
+                            <TextView android:layout_width="wrap_content"
+                                      android:id="@+id/tv_bukti_totalbayar"
+                                      android:textColor="@color/grey_800"
+                                      android:text="Rp. 20.000"
+                                      style="@style/Text.Title.Banner"
+                                      android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="match_parent"
+                                      android:layout_marginTop="@dimen/dimen_16dp"
+                                      android:orientation="vertical"
+                                      android:layout_height="wrap_content">
+                            <TextView android:layout_width="wrap_content"
+                                      android:textColor="@color/grey_500"
+                                      android:text="Rekening Pembayaran"
+                                      style="@style/Text.Standard"
+                                      android:layout_height="wrap_content"/>
+                            <ImageView android:layout_width="wrap_content"
+                                       android:layout_marginTop="@dimen/dimen_8dp"
+                                       android:src="@drawable/bukti_mandiri"
+                                       android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="match_parent"
+                                      android:layout_marginTop="@dimen/dimen_16dp"
+                                      android:orientation="vertical"
+                                      android:layout_height="wrap_content">
+                            <TextView android:layout_width="wrap_content"
+                                      android:textColor="@color/grey_500"
+                                      android:text="No. Rekening"
+                                      style="@style/Text.Standard"
+                                      android:layout_height="wrap_content"/>
+                            <RelativeLayout android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+                                <TextView android:layout_width="wrap_content"
+                                          android:textColor="@color/grey_800"
+                                          android:text="139-00-123975000001"
+                                          android:id="@+id/tv_bukti_norek"
+                                          style="@style/Text.Title.Banner"
+                                          android:layout_height="wrap_content"/>
+                                <TextView android:layout_width="wrap_content"
+                                          android:textColor="@color/blue_900"
+                                          android:layout_alignParentRight="true"
+                                          android:text="SALIN"
+                                          android:id="@+id/tv_bukti_salin"
+                                          android:clickable="true"
+                                          style="@style/Text.Title.Banner"
+                                          android:layout_height="wrap_content"/>
+                            </RelativeLayout>
+                        </LinearLayout>
+                        <Button android:layout_width="match_parent"
+                                android:textColor="@color/colorPrimary"
+                                android:text="UPLOAD BUKTI PEMBAYARAN"
+                                android:layout_marginTop="@dimen/dimen_16dp"
+                                android:id="@+id/btn_bukti_uploadbukti"
+                                android:background="@drawable/button_filled"
+                                android:layout_height="wrap_content">
+
+                        </Button>
+                    </LinearLayout>
+                </ScrollView>
+</LinearLayout>

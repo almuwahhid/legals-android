@@ -22,6 +22,18 @@ public class EndPoints {
         return c + BuildConfig.register;
     }
 
+    public static String stringUploadPaymentTransfer() {
+        return c + BuildConfig.uploadPaymentTransfer;
+    }
+
+    public static String stringUpdateRequestStatus() {
+        return c + BuildConfig.updateRequestStatus;
+    }
+
+    public static String stringUpdateDocumentStatus() {
+        return c + BuildConfig.updateDocumentStatus;
+    }
+
     public static String stringReferensiInstansi() {
         return c + BuildConfig.reffInstitution;
     }

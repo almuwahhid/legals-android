@@ -2,29 +2,47 @@ package id.go.kemlu.legalisasidokumen.app.detaillayanan
 
 import android.Manifest
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
 import android.graphics.PorterDuff
+import android.net.Uri
 import android.os.Bundle
 import android.os.StrictMode
+import android.provider.MediaStore
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import id.go.kemlu.legalisasidokumen.BuildConfig
 import id.go.kemlu.legalisasidokumen.R
+import id.go.kemlu.legalisasidokumen.app.adapters.DokumenSayaAdapter
 import id.go.kemlu.legalisasidokumen.data.StaticData
+import id.go.kemlu.legalisasidokumen.data.models.DokumenModel
 import id.go.kemlu.legalisasidokumen.data.models.RequestModel
+import id.go.kemlu.legalisasidokumen.dialogs.DialogImagePicker
+import id.go.kemlu.legalisasidokumen.dialogs.DialogUploadBuktiBayar.DialogUploadBuktiBayar
 import id.go.kemlu.legalisasidokumen.module.Activity.LegalisasiPermissionActivity
 import id.go.kemlu.legalisasidokumen.utils.LegalisasiFunction
 import kotlinx.android.synthetic.main.activity_kwitansi.*
+import kotlinx.android.synthetic.main.layout_buktipembayaran.*
 import kotlinx.android.synthetic.main.layout_detail_pembayaran.*
 import kotlinx.android.synthetic.main.layout_detail_permohonan.*
 import kotlinx.android.synthetic.main.layout_kualitas_layanan.*
 import kotlinx.android.synthetic.main.layout_kwitansi.*
 import kotlinx.android.synthetic.main.toolbar_white.*
 import lib.gmsframeworkx.Activity.Interfaces.PermissionResultInterface
+import lib.gmsframeworkx.easyphotopicker.DefaultCallback
+import lib.gmsframeworkx.easyphotopicker.EasyImage
 import lib.gmsframeworkx.utils.GmsStatic
+import java.io.File
 
 class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.View {
 
@@ -35,10 +53,17 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
     val encoding = "utf-8"
     var isKualitasLayananDone = false
     var stringKualitasLayanan = ""
+    lateinit var clipboard: ClipboardManager
 
     lateinit var menu : Menu
+    lateinit var dialoguploadbukti : DialogUploadBuktiBayar
 
     protected var RequiredPermissions = arrayOf(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    )
+    protected var RequiredPermissions2 = arrayOf(
+        Manifest.permission.CAMERA,
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
@@ -77,7 +102,8 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
                 initBuktiPembayaran()
             }
             StaticData.STATUS_BUKTIBAYAR_TIDAKVALID -> {
-
+                toolbar_title.setText("Bukti Pembayaran")
+                initBuktiPembayaran()
             }
             StaticData.STATUS_MENUNGGU_VERIFIKASIPEMBAYARAN -> {
                 toolbar_title.setText("Verifikasi Pembayaran")
@@ -147,6 +173,8 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
 
     }
 
+
+
     private fun initBuktiBayarTitle(){
         if(isKualitasLayananDone){
             toolbar_title.setText("Kwitansi")
@@ -164,7 +192,62 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
     }
 
     private fun initBuktiPembayaran(){
-        layout_detail_pembayaran.visibility = View.VISIBLE
+        layout_buktipembayaran.visibility = View.VISIBLE
+        clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+
+        tv_bukti_nopermohonan.setText(""+model.group_no)
+        tv_bukti_tglverif.setText(""+model.open_date)
+        tv_bukti_jumlahdokumen.setText(""+model.doc_qty)
+        tv_bukti_totalbayar.setText(""+model.total_price)
+        tv_bukti_norek.setText(""+model.trans_no)
+
+        tv_bukti_salin.setOnClickListener({
+            val clip = ClipData.newPlainText(BuildConfig.application_name, model.trans_no)
+            clipboard.setPrimaryClip(clip)
+            GmsStatic.ToastShort(context, "Nomot VA telah disalin ke clipboard")
+        })
+
+        val adapter = DokumenSayaAdapter(context, model.document, object: DokumenSayaAdapter.OnDokumenSayaAdapter{
+            override fun onDokumenClick(model: DokumenModel) {
+
+            }
+        })
+        rv_bukti.layoutManager = LinearLayoutManager(context)
+        rv_bukti.adapter = adapter
+
+        if(model.document.size==0){
+            tv_dokumendisetujui.visibility = View.GONE
+        }
+
+        btn_bukti_uploadbukti.setOnClickListener({
+            dialoguploadbukti = DialogUploadBuktiBayar(context, model, object: DialogUploadBuktiBayar.OnDialogUploadBuktiBayar{
+                override fun onpickBukti() {
+                    askCompactPermissions(RequiredPermissions2, object : PermissionResultInterface {
+                        override fun permissionDenied() {
+
+                        }
+
+                        override fun permissionGranted() {
+                            DialogImagePicker(context, object : DialogImagePicker.OnDialogImagePicker{
+                                override fun onCameraClick() {
+                                    EasyImage.openCamera(this@DetailLayananActivity, 0)
+                                }
+
+                                override fun onFileManagerClick() {
+                                    EasyImage.openGallery(this@DetailLayananActivity, 0)
+                                }
+
+                            })
+                        }
+                    })
+                }
+
+                override fun onAfterUploadBukti() {
+
+                }
+
+            })
+        })
     }
 
     private fun initVerifikasiPembayaran(){
@@ -245,5 +328,17 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
                 RelativeLayout.LayoutParams.WRAP_CONTENT
             )
         )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        EasyImage.handleActivityResult(requestCode, resultCode, data, activity, object : DefaultCallback(){
+            override fun onImagesPicked(imageFiles: MutableList<File>, source: EasyImage.ImageSource?, type: Int) {
+                Log.d("ikiopo", "")
+                val uri = Uri.fromFile(imageFiles.get(0))
+                val bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri)
+                dialoguploadbukti.setImage(bitmap)
+            }
+        })
     }
 }

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent"
+        tools:context="id.go.kemlu.legalisasidokumen.app.detaillayanan.DetailLayananActivity">
+    <include layout="@layout/toolbar_white"/>
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="vertical"
+                      android:padding="@dimen/dimen_16dp"
+                      android:layout_height="match_parent">
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="vertical"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/grey_500"
+                          android:text="Nomor Permohonan"
+                          style="@style/Text.Standard"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/grey_800"
+                          android:id="@+id/tv_bukti_nopermohonan"
+                          android:text="Nomor Permohonan"
+                          style="@style/Text.Title.Banner"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_marginTop="@dimen/dimen_8dp"
+                          android:orientation="vertical"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/grey_500"
+                          android:text="Tanggal Verifikasi"
+                          style="@style/Text.Standard"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="wrap_content"
+                          android:id="@+id/tv_bukti_tglverif"
+                          android:textColor="@color/grey_800"
+                          android:text="29 Januari 2019"
+                          style="@style/Text.Title.Banner"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_marginTop="@dimen/dimen_8dp"
+                          android:orientation="vertical"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/grey_500"
+                          android:text="Jumlah Dokumen disetujui"
+                          style="@style/Text.Standard"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/grey_800"
+                          android:id="@+id/tv_bukti_jumlahdokumen"
+                          android:text="2"
+                          style="@style/Text.Title.Banner"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="vertical"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:layout_marginTop="@dimen/dimen_8dp"
+                          android:textColor="@color/grey_500"
+                          android:id="@+id/tv_dokumendisetujui"
+                          android:text="Daftar Dokumen disetujui"
+                          style="@style/Text.Standard"
+                          android:layout_height="wrap_content"/>
+                <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                                           android:id="@+id/rv_bukti"
+                                                           android:layout_height="wrap_content">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

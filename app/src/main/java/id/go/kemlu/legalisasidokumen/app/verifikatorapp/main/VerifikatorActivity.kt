@@ -17,8 +17,10 @@ import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.app.login.LoginActivity
 import id.go.kemlu.legalisasidokumen.app.tentangaplikasi.TentangAplikasiActivity
 import id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarpengesah.DaftarPengesahActivity
+import id.go.kemlu.legalisasidokumen.app.verifikatorapp.detaildokumen.DetailDokumenToVerifActivity
 import id.go.kemlu.legalisasidokumen.app.verifikatorapp.main.adapter.VerifikasiAdapter
 import id.go.kemlu.legalisasidokumen.data.Preferences
+import id.go.kemlu.legalisasidokumen.data.models.RequestModel
 import id.go.kemlu.legalisasidokumen.data.models.RequestToVerifModel
 import id.go.kemlu.legalisasidokumen.module.Activity.LegalisasiActivity
 import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.EndlessRecyclerViewScrollListener
@@ -70,7 +72,7 @@ class VerifikatorActivity : LegalisasiActivity(), NavigationView.OnNavigationIte
 
         daftarLayananAdapter = VerifikasiAdapter(context!!, layananModels, object : VerifikasiAdapter.OnVerifikasiAdapter{
             override fun onClick(model: RequestToVerifModel) {
-//                startActivity(Intent(context, DetailLayananActivity::class.java).putExtra("data", model))
+                presenter.requestDetail(model)
             }
         })
         val layoutManager = SpeedyLinearLayoutManager(context)
@@ -207,5 +209,9 @@ class VerifikatorActivity : LegalisasiActivity(), NavigationView.OnNavigationIte
 
     override fun onLoadingMore() {
         helper_loading_more.show()
+    }
+
+    override fun onRequestDetail(model: RequestModel) {
+        startActivity(Intent(context, DetailDokumenToVerifActivity::class.java).putExtra("data", model))
     }
 }

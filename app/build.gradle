@@ -94,6 +94,11 @@ android {
             addUrl("daftarPengesah", "apix/list_pengesah")
             addUrl("detailOnlineRequest", "apix/get_detail_online_request")
             addUrl("detailOnlineRequestByGroup", "apix/get_detail_online_request_by_group")
+            addUrl("updateRequestStatus", "verificator/update_request_status")
+            addUrl("uploadPaymentTransfer", "apix/upload_payment_transfer")
+            addUrl("updateRequestStatus", "verificator/update_request_status")
+            addUrl("updateDocumentStatus", "verificator/update_document_status")
+            addUrl("detailRequestToVerif", "verificator/get_detail_request_to_verif")
         }
 
         signingConfigs {

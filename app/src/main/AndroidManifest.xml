@@ -16,6 +16,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/ToolBarThemeMain">
+        <activity android:name=".app.verifikatorapp.detailpermohonan.DetailPermohonanActivity">
+        </activity>
+        <activity android:name=".dialogs.DialogUploadBuktiBayar.DialogUploadBuktiBayar">
+        </activity>
         <activity android:name=".app.tentangaplikasi.TentangAplikasiActivity">
         </activity>
         <activity android:name=".app.verifikatorapp.daftarpengesah.adapter.DaftarPengesahAdapter">
@@ -36,7 +40,7 @@
         </activity>
         <activity android:name=".app.PhotoPreview.PhotoPreviewActivity">
         </activity>
-        <activity android:name=".app.verifikatorapp.detaildokumen.DetailDokumenActivity">
+        <activity android:name=".app.verifikatorapp.detaildokumen.DetailDokumenToVerifActivity">
         </activity>
         <activity android:name=".app.detailpermohonan.permohonanselesai.adapter.KualitasLayananAdapter">
         </activity>
