@@ -16,8 +16,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,7 +31,6 @@ import id.go.kemlu.legalisasidokumen.module.Activity.LegalisasiPermissionActivit
 import id.go.kemlu.legalisasidokumen.utils.LegalisasiFunction
 import kotlinx.android.synthetic.main.activity_kwitansi.*
 import kotlinx.android.synthetic.main.layout_buktipembayaran.*
-import kotlinx.android.synthetic.main.layout_detail_pembayaran.*
 import kotlinx.android.synthetic.main.layout_detail_permohonan.*
 import kotlinx.android.synthetic.main.layout_kualitas_layanan.*
 import kotlinx.android.synthetic.main.layout_kwitansi.*
@@ -139,7 +136,7 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
         val onClickKualitas = View.OnClickListener {
             when(it.id){
                 R.id.img_kualitas1->{
-                    stringKualitasLayanan = "1"
+                    stringKualitasLayanan = "3"
                     img_kualitas1.setImageResource(R.drawable.ic_smile_3);
                     img_kualitas2.setImageResource(R.drawable.ic_smile_def_2);
                     img_kualitas3.setImageResource(R.drawable.ic_smile_def_1);
@@ -151,7 +148,7 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
                     img_kualitas3.setImageResource(R.drawable.ic_smile_def_1);
                 }
                 R.id.img_kualitas3->{
-                    stringKualitasLayanan = "3"
+                    stringKualitasLayanan = "1"
                     img_kualitas1.setImageResource(R.drawable.ic_smile_def_3);
                     img_kualitas2.setImageResource(R.drawable.ic_smile_def_2);
                     img_kualitas3.setImageResource(R.drawable.ic_smile_1);
@@ -167,7 +164,7 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
         tv_kwitansi_date.setText(""+model.request_date)
         tv_kwitansi_nopermohonan.setText(": "+model.group_no)
         tv_kwitansi_totalbiaya.setText(": Rp. "+model.total_price)
-        tv_kwitansi_jumlahdokumen.setText(": "+model.doc_qty)
+        tv_kwitansi_jumlahdokumen.setText(": "+model.document.size)
         tv_kwitansi_transferke.setText(": "+model.dtm_trans)
         tv_kwitansi_va.setText(": "+model.trans_no)
 
@@ -197,9 +194,10 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
 
         tv_bukti_nopermohonan.setText(""+model.group_no)
         tv_bukti_tglverif.setText(""+model.open_date)
-        tv_bukti_jumlahdokumen.setText(""+model.doc_qty)
+        tv_bukti_jumlahdokumen.setText(""+model.document.size)
         tv_bukti_totalbayar.setText(""+model.total_price)
         tv_bukti_norek.setText(""+model.trans_no)
+        tv_rekeningpembayaran.setText(""+model.bank)
 
         tv_bukti_salin.setOnClickListener({
             val clip = ClipData.newPlainText(BuildConfig.application_name, model.trans_no)
@@ -290,7 +288,7 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
                         if(edt_kualitas.text.toString().equals("")){
                             GmsStatic.ToastShort(context, "Mohon tambahkan komentar Anda terlebih dahulu untuk membantu meningkatkan layanan kami")
                         } else {
-                            presenter.requestKualitasLayanan()
+                            presenter.requestKualitasLayanan(""+model.online_request_id, stringKualitasLayanan, edt_kualitas.text.toString())
                         }
                     }
                 } else {
@@ -312,7 +310,8 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
         }
     }
 
-    override fun onAfterSendingKualitasLayanan() {
+    override fun onAfterSendingKualitasLayanan(message: String) {
+        GmsStatic.ToastShort(context, message)
         isKualitasLayananDone = true
         initBuktiBayarTitle()
         menu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_download))
@@ -328,6 +327,10 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
                 RelativeLayout.LayoutParams.WRAP_CONTENT
             )
         )
+    }
+
+    override fun onErrorSendData(message: String) {
+        GmsStatic.ToastShort(context, message)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

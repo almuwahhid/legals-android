@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        android:layout_margin="@dimen/dimen_8dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        app:contentPadding="@dimen/dimen_8dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/dimen_2dp"
+        tools:context="id.go.kemlu.legalisasidokumen.app.verifikatorapp.indekskepuasanmasyarakat.adapter.AdapterIkm">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_gravity="right"
+                          style="@style/Text.Caption"
+                          android:layout_alignParentRight="true"
+                          android:textColor="@color/grey_400"
+                          android:id="@+id/tv_date"
+                          android:text="12 Jan 2019"
+                          android:layout_height="wrap_content"/>
+                <LinearLayout android:layout_width="wrap_content"
+                              android:gravity="center_vertical"
+                              android:layout_height="wrap_content">
+                    <ImageView android:layout_width="@dimen/dimen_18dp"
+                               android:id="@+id/img_smile"
+                               android:src="@drawable/ic_smile_3"
+                               android:layout_height="@dimen/dimen_18dp"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_marginLeft="@dimen/dimen_8dp"
+                              style="@style/Text.Standard.Bold"
+                              android:textColor="@color/colorPrimary"
+                              android:id="@+id/tv_name"
+                              android:text="Al Muwahhid"
+                              android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+            <TextView android:layout_width="wrap_content"
+                      style="@style/Text.Standard"
+                      android:layout_margin="6dp"
+                      android:id="@+id/tv_comment"
+                      android:text="Baik bagus tingkatkan"
+                      android:layout_height="wrap_content"/>
+        </LinearLayout>
+</androidx.cardview.widget.CardView>

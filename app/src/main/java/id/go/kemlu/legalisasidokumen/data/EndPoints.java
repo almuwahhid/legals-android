@@ -58,12 +58,24 @@ public class EndPoints {
         return c + BuildConfig.daftarRequestToVerif+"?page="+page+"&keyword"+(keyword.equals("") ? "" : "="+keyword);
     }
 
+    public static String stringGetIKM(String date1, String date2) {
+        return c + BuildConfig.getikm+"?date_from="+date1+"&date_to"+(date2.equals("") ? "" : "="+date2);
+    }
+
+    public static String stringGetIKMComment(String date1, String date2, String page) {
+        return c + BuildConfig.getikmComment+"?date_from="+date1+"&date_to"+(date2.equals("") ? "" : "="+date2+"&page="+page);
+    }
+
     public static String stringDetailRequestByGroup(String group_no) {
         return c + BuildConfig.detailOnlineRequestByGroup+"?group_no="+group_no;
     }
 
     public static String stringBuatPermohonan() {
         return c + BuildConfig.submitLegalisasi;
+    }
+
+    public static String stringSubmitIKM() {
+        return c + BuildConfig.submitikm;
     }
 
     public static String stringReferensiTipeDokumen() {

@@ -16,6 +16,18 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/ToolBarThemeMain">
+        <activity android:name=".app.verifikatorapp.indekskepuasanmasyarakat.adapter.AdapterIkm">
+        </activity>
+        <activity android:name=".app.verifikatorapp.detailpembayaran.DetailPembayaranToVerifActivity">
+        </activity>
+        <activity android:name=".app.verifikatorapp.daftarpejabat.DaftarPejabatActivity">
+        </activity>
+        <activity android:name=".dialogs.DialogRequestIkm.DialogRequestIkm">
+        </activity>
+        <activity android:name=".app.verifikatorapp.indekskepuasanmasyarakat.IKMActivity">
+        </activity>
+        <activity android:name=".app.verifikatorapp.detailpengesah.DetailPengesahDialog">
+        </activity>
         <activity android:name=".app.verifikatorapp.detailpermohonan.DetailPermohonanActivity">
         </activity>
         <activity android:name=".dialogs.DialogUploadBuktiBayar.DialogUploadBuktiBayar">

@@ -99,6 +99,9 @@ android {
             addUrl("updateRequestStatus", "verificator/update_request_status")
             addUrl("updateDocumentStatus", "verificator/update_document_status")
             addUrl("detailRequestToVerif", "verificator/get_detail_request_to_verif")
+            addUrl("submitikm", "apix/submit_ikm")
+            addUrl("getikm", "verificator/get_ikm")
+            addUrl("getikmComment", "verificator/get_ikm_comment")
         }
 
         signingConfigs {

@@ -6,7 +6,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="id.go.kemlu.legalisasidokumen.app.verifikatorapp.detaildokumen.DetailDokumenToVerifActivity">
+        tools:context="id.go.kemlu.legalisasidokumen.app.verifikatorapp.detailpembayaran.DetailPembayaranToVerifActivity">
     <include layout="@layout/toolbar_white"/>
     <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
         <LinearLayout android:layout_width="match_parent"
@@ -20,13 +20,13 @@
                               android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content"
                               android:textColor="@color/grey_500"
-                              android:text="Jenis Dokumen"
+                              android:text="Nomor Permohonan"
                               style="@style/Text.Standard"
                               android:layout_height="wrap_content"/>
                     <TextView android:layout_width="wrap_content"
                               android:textColor="@color/grey_800"
-                              android:id="@+id/tv_jenisdokumen"
-                              android:text="Surat Kuasa"
+                              android:id="@+id/tv_nopermohonan"
+                              android:text="123"
                               style="@style/Text.Title.Banner"
                               android:layout_height="wrap_content"/>
                 </LinearLayout>
@@ -37,29 +37,30 @@
                                                    app:cardCornerRadius="@dimen/dimen_12dp"
                                                    android:id="@+id/card_status"
                                                    android:layout_height="wrap_content">
-                                                    <TextView android:layout_width="wrap_content"
-                                                              android:id="@+id/tv_status"
-                                                              android:layout_marginLeft="@dimen/dimen_12dp"
-                                                              android:layout_marginRight="@dimen/dimen_12dp"
-                                                              android:text="Menunggu"
-                                                              android:textColor="@color/white"
-                                                              style="@style/Text.Standard"
-                                                              android:layout_height="wrap_content"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:id="@+id/tv_status"
+                              android:layout_marginLeft="@dimen/dimen_12dp"
+                              android:layout_marginRight="@dimen/dimen_12dp"
+                              android:text="Menunggu"
+                              android:textColor="@color/white"
+                              style="@style/Text.Standard"
+                              android:layout_height="wrap_content"/>
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>
+
             <LinearLayout android:layout_width="match_parent"
                           android:layout_marginTop="@dimen/dimen_8dp"
                           android:orientation="vertical"
                           android:layout_height="wrap_content">
                 <TextView android:layout_width="wrap_content"
                           android:textColor="@color/grey_500"
-                          android:text="Nomot Pengesahan"
+                          android:text="Nama Pemohon"
                           style="@style/Text.Standard"
                           android:layout_height="wrap_content"/>
                 <TextView android:layout_width="wrap_content"
-                          android:id="@+id/tv_nomorpengesahan"
+                          android:id="@+id/tv_namapemohon"
                           android:textColor="@color/grey_800"
-                          android:text="0021/0059/2019"
+                          android:text="Bella Husada"
                           style="@style/Text.Title.Banner"
                           android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -69,52 +70,79 @@
                           android:layout_height="wrap_content">
                 <TextView android:layout_width="wrap_content"
                           android:textColor="@color/grey_500"
-                          android:text="Instansi/Lembaga"
+                          android:text="Tanggal Verifikasi"
+                          style="@style/Text.Standard"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="wrap_content"
+                          android:id="@+id/tv_tglverifikasi"
+                          android:textColor="@color/grey_800"
+                          android:text="27 Desember 2019"
+                          style="@style/Text.Title.Banner"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_marginTop="@dimen/dimen_8dp"
+                          android:orientation="vertical"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/grey_500"
+                          android:text="Tanggal Pembayaran"
+                          style="@style/Text.Standard"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="wrap_content"
+                          android:id="@+id/tv_tglpembayaran"
+                          android:textColor="@color/grey_800"
+                          android:text="27 Desember 2019"
+                          style="@style/Text.Title.Banner"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_marginTop="@dimen/dimen_8dp"
+                          android:orientation="vertical"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/grey_500"
+                          android:text="Jumlah Dokumen disetujui"
                           style="@style/Text.Standard"
                           android:layout_height="wrap_content"/>
                 <TextView android:layout_width="wrap_content"
                           android:textColor="@color/grey_800"
-                          android:id="@+id/tv_instansilembaga"
-                          android:text="Kumham"
+                          android:id="@+id/tv_jumlahdokumen"
+                          android:text="2"
+                          style="@style/Text.Title.Banner"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_marginTop="@dimen/dimen_8dp"
+                          android:orientation="vertical"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/grey_500"
+                          android:text="Nomor Virtual Account"
+                          style="@style/Text.Standard"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/grey_800"
+                          android:id="@+id/tv_va"
+                          android:text="123313123123"
                           style="@style/Text.Title.Banner"
                           android:layout_height="wrap_content"/>
             </LinearLayout>
             <LinearLayout android:layout_width="match_parent"
                           android:orientation="vertical"
-                          android:id="@+id/lay_keterangan"
                           android:layout_height="wrap_content">
                 <TextView android:layout_width="wrap_content"
                           android:layout_marginTop="@dimen/dimen_8dp"
                           android:textColor="@color/grey_500"
                           android:id="@+id/tv_dokumendisetujui"
-                          android:text="Keterangan"
+                          android:text="Foto Bukti Transfer"
                           style="@style/Text.Standard"
                           android:layout_height="wrap_content"/>
-                <EditText android:layout_width="match_parent"
-                          android:layout_marginTop="@dimen/dimen_4dp"
-                          style="@style/Text.Standard"
-                          android:lines="4"
-                          android:id="@+id/edt_keterangan"
-                          android:gravity="top"
-                          android:padding="@dimen/dimen_16dp"
-                          android:background="@drawable/field_filled"
-                          android:layout_height="wrap_content"/>
-            </LinearLayout>
-            <LinearLayout android:layout_width="match_parent"
-                          android:orientation="vertical"
-                          android:layout_height="wrap_content">
-                <TextView android:layout_width="wrap_content"
-                          android:layout_marginTop="@dimen/dimen_8dp"
-                          android:textColor="@color/grey_500"
-                          android:text="Foto Dokumen"
-                          android:id="@+id/tv_foto_title"
-                          style="@style/Text.Standard"
-                          android:layout_height="wrap_content"/>
-                <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
-                                                           android:id="@+id/rv"
-                                                           android:layout_height="wrap_content">
-
-                </androidx.recyclerview.widget.RecyclerView>
+                <ImageView android:layout_width="match_parent"
+                           android:layout_marginTop="@dimen/dimen_8dp"
+                           android:id="@+id/img_buktitransfer"
+                           android:layout_height="@dimen/dimen_128dp" android:scaleType="centerCrop">
+                </ImageView>
             </LinearLayout>
             <LinearLayout android:layout_width="match_parent"
                           android:layout_marginTop="@dimen/dimen_16dp"

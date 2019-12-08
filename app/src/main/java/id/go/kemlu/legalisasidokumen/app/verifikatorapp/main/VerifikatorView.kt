@@ -14,7 +14,9 @@ interface VerifikatorView {
         fun onFailedRequestSomething(isFirst: Boolean, message : String)
         fun onFailedRequestMore(isFirst: Boolean, message : String)
         fun onLoadingMore()
+        fun onLoadingDetail()
         fun onHideLoading(isFirst: Boolean)
         fun onRequestDetail(model: RequestModel)
+
     }
 }

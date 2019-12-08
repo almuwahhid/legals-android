@@ -7,6 +7,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarpengesah.adapter.DaftarPengesahAdapter
+import id.go.kemlu.legalisasidokumen.app.verifikatorapp.detailpengesah.DetailPengesahDialog
 import id.go.kemlu.legalisasidokumen.data.models.PengesahModel
 import id.go.kemlu.legalisasidokumen.module.Activity.LegalisasiActivity
 import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.EndlessRecyclerViewScrollListener
@@ -39,7 +40,7 @@ class DaftarPengesahActivity : LegalisasiActivity(), DaftarPengesahView.View {
         presenter = DaftarPengesahPresenter(context, this)
         adapter = DaftarPengesahAdapter(context!!, layananModels, object : DaftarPengesahAdapter.OnClick{
             override fun onClick(model: PengesahModel) {
-
+                DetailPengesahDialog(context, model)
             }
         })
 

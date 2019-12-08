@@ -103,13 +103,13 @@ class PhotoAdapter (context: Context, list: MutableList<PhotoModel>, isEditable:
                 })
                 if(!data.url.equals("")){
                     Picasso.with(context)
-                        .load(data.uri)
+                        .load(data.url)
                         .placeholder(R.drawable.bg_grey)
                         .transform(BitmapTransform())
                         .into(img)
                 } else {
                     Picasso.with(context)
-                        .load(data.url)
+                        .load(data.uri)
                         .placeholder(R.drawable.bg_grey)
                         .transform(BitmapTransform())
                         .into(img)

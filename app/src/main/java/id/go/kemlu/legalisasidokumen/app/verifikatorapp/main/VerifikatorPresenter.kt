@@ -3,6 +3,7 @@ package id.go.kemlu.legalisasidokumen.app.verifikatorapp.main
 import android.content.Context
 import android.util.Log
 import id.go.kemlu.legalisasidokumen.data.EndPoints
+import id.go.kemlu.legalisasidokumen.data.models.RequestModel
 import id.go.kemlu.legalisasidokumen.data.models.RequestToVerifModel
 import id.go.kemlu.legalisasidokumen.utils.LegalisasiFunction
 import lib.gmsframeworkx.base.BasePresenter
@@ -82,6 +83,43 @@ class VerifikatorPresenter(context: Context, view : VerifikatorView.View) : Base
     }
 
     override fun requestDetail(model: RequestToVerifModel) {
+        GmsRequest.GET(EndPoints.stringDetailRequestByGroup(""+model.group_no), context, object : GmsRequest.OnGetRequest {
+            override fun onPreExecuted() {
+                view!!.onLoadingDetail()
+            }
 
+            override fun onSuccess(response: JSONObject) {
+                Log.d("asdResulti ", ""+response.toString())
+                view!!.onHideLoading()
+                try {
+                    if (response.getBoolean("success")) {
+                        val result = response.getJSONObject("result")
+                        view.onRequestDetail(gson.fromJson(result.toString(), RequestModel::class.java))
+                    } else {
+                        view!!.onFailedRequestMore(false, response.getString("message"))
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+
+            }
+
+            override fun onFailure(error: String) {
+                view!!.onHideLoading()
+                view!!.onFailedRequestSomething(false, "Bermasalah dengan Server")
+            }
+
+            override fun requestParam(): Map<String, String> {
+                val param = HashMap<String, String>()
+                return param
+            }
+
+            override fun requestHeaders(): Map<String, String> {
+                Log.d("gmsHeader", "onResponse: "+ LegalisasiFunction.getUserPreference(context).access_token)
+                val param = HashMap<String, String>()
+                param.put("Authorization", "Bearer "+ LegalisasiFunction.getUserPreference(context).access_token)
+                return param
+            }
+        })
     }
 }

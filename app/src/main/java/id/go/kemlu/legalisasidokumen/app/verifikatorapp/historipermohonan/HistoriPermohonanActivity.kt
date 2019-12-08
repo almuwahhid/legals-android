@@ -8,6 +8,7 @@ import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.app.verifikatorapp.main.VerifikatorPresenter
 import id.go.kemlu.legalisasidokumen.app.verifikatorapp.main.VerifikatorView
 import id.go.kemlu.legalisasidokumen.app.verifikatorapp.main.adapter.VerifikasiAdapter
+import id.go.kemlu.legalisasidokumen.data.models.RequestModel
 import id.go.kemlu.legalisasidokumen.data.models.RequestToVerifModel
 import id.go.kemlu.legalisasidokumen.module.Activity.LegalisasiActivity
 import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.EndlessRecyclerViewScrollListener
@@ -96,10 +97,6 @@ class HistoriPermohonanActivity : LegalisasiActivity(), VerifikatorView.View {
         }
     }
 
-    override fun onHideLoading() {
-
-    }
-
     override fun onErrorConnection() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -110,5 +107,17 @@ class HistoriPermohonanActivity : LegalisasiActivity(), VerifikatorView.View {
 
     override fun onLoadingMore() {
         helper_loading_more.show()
+    }
+
+    override fun onRequestDetail(model: RequestModel) {
+
+    }
+
+    override fun onHideLoading() {
+        GmsStatic.hideLoadingDialog(context)
+    }
+
+    override fun onLoadingDetail() {
+        GmsStatic.showLoadingDialog(this, R.drawable.ic_logo)
     }
 }

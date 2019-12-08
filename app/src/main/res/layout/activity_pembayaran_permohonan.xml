@@ -51,10 +51,11 @@
                       style="@style/Text.Standard"
                       android:text="Rekening Pembayaran"
                       android:layout_height="wrap_content"/>
-            <ImageView android:layout_width="@dimen/dimen_80dp"
-                       android:src="@drawable/img_mandiri"
-                       android:layout_marginTop="@dimen/dimen_4dp"
-                       android:layout_height="wrap_content"/>
+            <TextView android:layout_width="wrap_content"
+
+                      style="@style/Text.Title.Banner"
+                      android:text="Mandiri"
+                      android:layout_height="wrap_content"/>
 
             <TextView android:layout_width="wrap_content"
                       android:layout_marginTop="@dimen/dimen_8dp"

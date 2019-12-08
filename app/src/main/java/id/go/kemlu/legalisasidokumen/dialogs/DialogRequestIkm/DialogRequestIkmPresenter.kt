@@ -1,26 +1,27 @@
-package id.go.kemlu.legalisasidokumen.app.verifikatorapp.detailpermohonan
+package id.go.kemlu.legalisasidokumen.dialogs.DialogRequestIkm
 
 import android.content.Context
 import android.util.Log
 import id.go.kemlu.legalisasidokumen.data.EndPoints
-import id.go.kemlu.legalisasidokumen.data.models.RequestModel
+import id.go.kemlu.legalisasidokumen.data.models.IkmModel
 import id.go.kemlu.legalisasidokumen.utils.LegalisasiFunction
 import lib.gmsframeworkx.base.BasePresenter
 import lib.gmsframeworkx.utils.GmsRequest
 import org.json.JSONException
 import org.json.JSONObject
+import java.util.ArrayList
 import java.util.HashMap
 
-class DetailPermohonanPresenter(context: Context, view: DetailPermohonanView.View) : BasePresenter(context), DetailPermohonanView.Presenter {
+class DialogRequestIkmPresenter(context: Context, view: DialogRequestIkmView.View) : BasePresenter(context), DialogRequestIkmView.Presenter {
 
-    var view: DetailPermohonanView.View
+    var view: DialogRequestIkmView.View
 
     init {
         this.view = view
     }
 
-    override fun requestDetailPermohonan(model: RequestModel) {
-        GmsRequest.GET(EndPoints.stringDetailRequestByGroup(""+model.group_no), context, object : GmsRequest.OnGetRequest {
+    override fun requestIkmByDate(date1: String, date2: String) {
+        GmsRequest.GET(EndPoints.stringGetIKM(date1, date2), context, object : GmsRequest.OnGetRequest {
             override fun onPreExecuted() {
                 view!!.onLoading()
             }
@@ -30,8 +31,9 @@ class DetailPermohonanPresenter(context: Context, view: DetailPermohonanView.Vie
                 view!!.onHideLoading()
                 try {
                     if (response.getBoolean("success")) {
-                        val result = response.getJSONObject("result")
-                        view.onRequestDetailPermohonan(gson.fromJson(result.toString(), RequestModel::class.java))
+                        view!!.onRequestIkm(gson.fromJson(response.getJSONObject("result").toString(), IkmModel::class.java))
+                    } else {
+                        view!!.onFailedRequestSomething(response.getString("message"))
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -41,6 +43,7 @@ class DetailPermohonanPresenter(context: Context, view: DetailPermohonanView.Vie
 
             override fun onFailure(error: String) {
                 view!!.onHideLoading()
+                view!!.onFailedRequestSomething("Bermasalah dengan Server")
             }
 
             override fun requestParam(): Map<String, String> {

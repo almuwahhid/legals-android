@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        android:id="@+id/lay_dialog"
+        android:background="@drawable/bg_dialog"
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout android:layout_width="@dimen/dimen_128dp"
+                  android:layout_marginTop="@dimen/dimen_16dp"
+                  android:layout_centerHorizontal="true"
+                  android:background="@drawable/bg_grey"
+                  android:layout_height="6dp"></LinearLayout>
+    <LinearLayout
+            android:layout_marginTop="@dimen/dimen_24dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <RelativeLayout
+                android:padding="@dimen/dimen_16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:layout_centerHorizontal="true"
+                    android:text="Data Pengesah"
+                    android:textColor="@color/colorPrimary"
+                    android:id="@+id/tv_title"
+                    android:layout_centerVertical="true"
+                    style="@style/Text.TitleField.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="vertical"
+                      android:padding="@dimen/dimen_16dp"
+                      android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="vertical"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/grey_500"
+                          android:text="NIP"
+                          style="@style/Text.Standard"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/colorPrimary"
+                          android:id="@+id/tv_nip"
+                          android:text="123456654"
+                          style="@style/Text.Standard.Bold"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="vertical"
+                          android:layout_marginTop="@dimen/dimen_8dp"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/grey_500"
+                          android:text="Nama Pengesah"
+                          style="@style/Text.Standard"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/colorPrimary"
+                          android:id="@+id/tv_nama"
+                          android:text="Abidin"
+                          style="@style/Text.Standard.Bold"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_marginTop="@dimen/dimen_8dp"
+                          android:orientation="vertical"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/grey_500"
+                          android:text="Jabatan"
+                          style="@style/Text.Standard"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/colorPrimary"
+                          android:id="@+id/tv_jabatan"
+                          android:text="Deputi Manager"
+                          style="@style/Text.Standard.Bold"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_marginTop="@dimen/dimen_8dp"
+                          android:orientation="vertical"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/grey_500"
+                          android:text="Instansi/Lembaga"
+                          style="@style/Text.Standard"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/colorPrimary"
+                          android:id="@+id/tv_instansilembaga"
+                          android:text="Zainal Abidin"
+                          style="@style/Text.Standard.Bold"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_marginTop="@dimen/dimen_8dp"
+                          android:orientation="vertical"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/grey_500"
+                          android:text="Tanggal Aktif"
+                          style="@style/Text.Standard"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/colorPrimary"
+                          android:id="@+id/tv_tglaktif"
+                          android:text="26 Oktober 2019"
+                          style="@style/Text.Standard.Bold"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_marginTop="@dimen/dimen_16dp"
+                            android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="@color/grey_500"
+                          android:layout_centerVertical="true"
+                          android:text="Status Keaktifan"
+                          style="@style/Text.Standard.Bold"
+                          android:layout_height="wrap_content"/>
+                <Switch android:layout_alignParentRight="true"
+                        android:id="@+id/switching"
+                        android:checked="true"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:clickable="false"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -29,7 +29,7 @@ class DetailDokumenToVerifActivity : LegalisasiActivity(), DetailDokumenToVerifV
     lateinit var reqmodel : RequestModel
     lateinit var photoAdapter: PhotoAdapter
     var list_photo = ArrayList<PhotoModel>()
-    lateinit var presenter : DetailDokumenToVerifView.Presenter
+    lateinit var presenter : DetailDokumenToVerifPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +42,11 @@ class DetailDokumenToVerifActivity : LegalisasiActivity(), DetailDokumenToVerifV
             finish()
         }
 
+        presenter = DetailDokumenToVerifPresenter(context, this)
         setSupportActionBar(toolbar)
         supportActionBar.let {
             it!!.setDisplayHomeAsUpEnabled(true)
-            it!!.setTitle("")
+            toolbar_title.setText("Detail Dokumen")
         }
         getSupportActionBar()!!.setHomeAsUpIndicator(R.drawable.ic_chevron_left_black_24dp);
         toolbar.getNavigationIcon()!!.setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
@@ -53,13 +54,13 @@ class DetailDokumenToVerifActivity : LegalisasiActivity(), DetailDokumenToVerifV
         tv_jenisdokumen.setText(model.document_name)
         tv_nomorpengesahan.setText(model.document_legal_no)
         tv_status.setText(model.status_detail)
-        tv_instansilembaga.setText(model.status_detail)
+        tv_instansilembaga.setText(model.document_legal_by_instansi)
 
         for (i in model.images){
             list_photo.add(PhotoModel(i.image_url))
         }
 
-        if(list_photo.size > 1){
+        if(list_photo.size > 0){
             photoAdapter = PhotoAdapter(
                 getContext(),
                 list_photo,
@@ -104,6 +105,8 @@ class DetailDokumenToVerifActivity : LegalisasiActivity(), DetailDokumenToVerifV
 
             rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rv.adapter = photoAdapter
+        } else {
+            tv_foto_title.visibility = View.GONE
         }
 
         val onClick = View.OnClickListener {
@@ -166,6 +169,15 @@ class DetailDokumenToVerifActivity : LegalisasiActivity(), DetailDokumenToVerifV
             else -> {
                 card_status.setCardBackgroundColor(context.resources.getColor(R.color.orange_400))
             }
+        }
+
+        if(model.status_id == StaticData.STATUS_PERMOHONAN_DITOLAK ||
+            model.status_id == StaticData.STATUS_BUKTIBAYAR_VALID ||
+            model.status_id == StaticData.STATUS_MENUNGGU_PEMBAYARAN ||
+            model.status_id == StaticData.STATUS_MENUNGGU_VERIFIKASIPEMBAYARAN
+                ){
+            lay_verif.visibility = View.GONE
+            lay_keterangan.visibility = View.GONE
         }
     }
 
