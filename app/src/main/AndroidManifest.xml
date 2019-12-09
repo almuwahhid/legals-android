@@ -16,6 +16,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/ToolBarThemeMain">
+        <activity android:name=".dialogs.DialogVerifikasiPermohonan.DialogVerifikasiPermohonan">
+        </activity>
+        <activity android:name=".app.verifikatorapp.daftarpembayaran.DaftarPembayaranFragment">
+        </activity>
         <activity android:name=".app.verifikatorapp.indekskepuasanmasyarakat.adapter.AdapterIkm">
         </activity>
         <activity android:name=".app.verifikatorapp.detailpembayaran.DetailPembayaranToVerifActivity">

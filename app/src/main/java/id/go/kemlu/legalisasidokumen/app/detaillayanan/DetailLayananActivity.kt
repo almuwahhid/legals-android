@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.go.kemlu.legalisasidokumen.BuildConfig
 import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.app.adapters.DokumenSayaAdapter
+import id.go.kemlu.legalisasidokumen.app.verifikatorapp.detaildokumen.DetailDokumenToVerifActivity
 import id.go.kemlu.legalisasidokumen.data.StaticData
 import id.go.kemlu.legalisasidokumen.data.models.DokumenModel
 import id.go.kemlu.legalisasidokumen.data.models.RequestModel
@@ -196,7 +197,7 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
         tv_bukti_tglverif.setText(""+model.open_date)
         tv_bukti_jumlahdokumen.setText(""+model.document.size)
         tv_bukti_totalbayar.setText(""+model.total_price)
-        tv_bukti_norek.setText(""+model.trans_no)
+        tv_bukti_norek.setText(""+model.rekening)
         tv_rekeningpembayaran.setText(""+model.bank)
 
         tv_bukti_salin.setOnClickListener({
@@ -206,8 +207,8 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
         })
 
         val adapter = DokumenSayaAdapter(context, model.document, object: DokumenSayaAdapter.OnDokumenSayaAdapter{
-            override fun onDokumenClick(model: DokumenModel) {
-
+            override fun onDokumenClick(doc: DokumenModel) {
+                startActivity(Intent(context, DetailDokumenToVerifActivity::class.java).putExtra("data", doc).putExtra("parent", model))
             }
         })
         rv_bukti.layoutManager = LinearLayoutManager(context)

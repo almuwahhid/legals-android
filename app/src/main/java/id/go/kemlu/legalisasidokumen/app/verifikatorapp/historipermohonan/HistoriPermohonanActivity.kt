@@ -1,13 +1,12 @@
 package id.go.kemlu.legalisasidokumen.app.verifikatorapp.historipermohonan
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import id.go.kemlu.legalisasidokumen.R
-import id.go.kemlu.legalisasidokumen.app.verifikatorapp.main.VerifikatorPresenter
-import id.go.kemlu.legalisasidokumen.app.verifikatorapp.main.VerifikatorView
-import id.go.kemlu.legalisasidokumen.app.verifikatorapp.main.adapter.VerifikasiAdapter
+import id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarrequest.VerifikatorPresenter
+import id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarrequest.VerifikatorView
+import id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarrequest.adapter.VerifikasiAdapter
 import id.go.kemlu.legalisasidokumen.data.models.RequestModel
 import id.go.kemlu.legalisasidokumen.data.models.RequestToVerifModel
 import id.go.kemlu.legalisasidokumen.module.Activity.LegalisasiActivity
@@ -38,11 +37,15 @@ class HistoriPermohonanActivity : LegalisasiActivity(), VerifikatorView.View {
 
         presenter = VerifikatorPresenter(context, this)
 
-        daftarLayananAdapter = VerifikasiAdapter(context!!, layananModels, object : VerifikasiAdapter.OnVerifikasiAdapter{
-            override fun onClick(model: RequestToVerifModel) {
+        daftarLayananAdapter = VerifikasiAdapter(
+            context!!,
+            layananModels,
+            object :
+                VerifikasiAdapter.OnVerifikasiAdapter {
+                override fun onClick(model: RequestToVerifModel) {
 //                startActivity(Intent(context, DetailLayananActivity::class.java).putExtra("data", model))
-            }
-        })
+                }
+            })
         val layoutManager = SpeedyLinearLayoutManager(context)
         rv.layoutManager = layoutManager
         rv.adapter = daftarLayananAdapter

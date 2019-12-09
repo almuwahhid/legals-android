@@ -58,6 +58,7 @@ class HomeActivity : LegalisasiActivity(), NavigationView.OnNavigationItemSelect
         imageLoader.loadImage((nv.findViewById(R.id.avatar) as AvatarView), refreshableAvatarPlaceholder, if(userModel.user_photo_url.equals("")) "www.google.com" else userModel.user_photo_url)
 
         initComponent()
+        nav_view.getMenu().getItem(0).setChecked(true);
     }
 
     private fun initComponent(){

@@ -20,6 +20,7 @@ import id.go.kemlu.legalisasidokumen.app.detaillayanan.DetailLayananActivity
 
 class DaftarLayananFragment : Fragment(), DaftarLayananView.View {
 
+
     lateinit var daftarLayananAdapter: DaftarLayananAdapter
     var layananModels: MutableList<RequestModel> = ArrayList()
     internal lateinit var endlessRecyclerViewScrollListener: EndlessRecyclerViewScrollListener
@@ -48,7 +49,7 @@ class DaftarLayananFragment : Fragment(), DaftarLayananView.View {
         presenter = DaftarLayananPresenter(context, this)
         daftarLayananAdapter = DaftarLayananAdapter(context!!, layananModels, object : DaftarLayananAdapter.OnDaftarLayananAdapter{
             override fun onLayananClick(model: RequestModel) {
-                startActivity(Intent(context, DetailLayananActivity::class.java).putExtra("data", model))
+                presenter.getDetailRequest(model)
             }
         })
         val layoutManager = SpeedyLinearLayoutManager(context)
@@ -69,6 +70,10 @@ class DaftarLayananFragment : Fragment(), DaftarLayananView.View {
 
         presenter.requestDaftarLayanan(true, status_id)
 
+    }
+
+    override fun onGetDetailRequest(model: RequestModel) {
+        startActivity(Intent(context, DetailLayananActivity::class.java).putExtra("data", model))
     }
 
     override fun onRequestDaftarLayanan(list: MutableList<RequestModel>, isReload: Boolean) {
@@ -97,8 +102,11 @@ class DaftarLayananFragment : Fragment(), DaftarLayananView.View {
     }
 
     override fun onHideLoading() {
+        GmsStatic.hideLoadingDialog(context)
+    }
 
-
+    override fun onLoadingDetail() {
+        GmsStatic.showLoadingDialog(context, R.drawable.ic_logo)
     }
 
     override fun onLoading() {

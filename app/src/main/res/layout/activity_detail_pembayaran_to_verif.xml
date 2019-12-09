@@ -144,6 +144,25 @@
                            android:layout_height="@dimen/dimen_128dp" android:scaleType="centerCrop">
                 </ImageView>
             </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent" android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:layout_marginTop="@dimen/dimen_8dp"
+                          android:textColor="@color/grey_400"
+                          style="@style/Text.Standard"
+                          android:text="Catatan Untuk Pemohon"
+                          android:layout_height="wrap_content"/>
+                <EditText android:layout_width="match_parent"
+                          android:layout_marginTop="@dimen/dimen_4dp"
+                          style="@style/Text.Standard"
+                          android:lines="4"
+                          android:id="@+id/edt_catatan"
+                          android:gravity="top"
+                          android:padding="@dimen/dimen_16dp"
+                          android:background="@drawable/field_filled"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
             <LinearLayout android:layout_width="match_parent"
                           android:layout_marginTop="@dimen/dimen_16dp"
                           android:id="@+id/lay_verif"
@@ -155,7 +174,7 @@
                         android:background="@drawable/button_main"
                         android:clickable="false"
                         android:textColor="@color/white"
-                        android:text="Tolak"
+                        android:text="Tidak Valid"
                         android:id="@+id/btn_tolak"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -169,7 +188,7 @@
                         android:background="@drawable/button_main"
                         android:clickable="false"
                         android:textColor="@color/white"
-                        android:text="Setuju"
+                        android:text="Valid"
                         android:id="@+id/btn_setuju"
                         android:layout_width="0dp"
                         android:layout_weight="1"

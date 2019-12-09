@@ -76,6 +76,14 @@
                                                            android:layout_height="wrap_content">
 
                 </androidx.recyclerview.widget.RecyclerView>
+                <Button android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/dimen_16dp"
+                        style="@style/ButtonStandardStyle"
+                        android:id="@+id/btn_verifikasi"
+                        android:text="VERIFIKASI PERMOHONAN"
+                        android:background="@drawable/button_main"
+                        android:backgroundTint="@color/green_400"
+                        android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

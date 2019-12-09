@@ -54,8 +54,15 @@ public class EndPoints {
         return c + BuildConfig.daftarPengesah+"?page="+page;
     }
 
+    public static String stringDaftarPejabat(String page) {
+        return c + BuildConfig.daftarPejabat+"?page="+page;
+    }
+
     public static String stringDaftarRequestToVerif(String page, String keyword) {
         return c + BuildConfig.daftarRequestToVerif+"?page="+page+"&keyword"+(keyword.equals("") ? "" : "="+keyword);
+    }
+    public static String stringDaftarPembayaranToVerif(String page, String keyword) {
+        return c + BuildConfig.getPaymentRequest+"?page="+page+"&keyword"+(keyword.equals("") ? "" : "="+keyword);
     }
 
     public static String stringGetIKM(String date1, String date2) {

@@ -85,6 +85,8 @@ class DaftarPengesahActivity : LegalisasiActivity(), DaftarPengesahView.View {
 
     override fun onFailedRequestMore(isFirst: Boolean, message: String) {
         if(isFirst){
+            layananModels.clear()
+            adapter.notifyDataSetChanged()
             helper_nodata.visibility = View.VISIBLE
             tv_nodata.text = message
         }
@@ -95,6 +97,7 @@ class DaftarPengesahActivity : LegalisasiActivity(), DaftarPengesahView.View {
     }
 
     override fun onHideLoading(isFirst: Boolean) {
+        helper_error.visibility = View.GONE
         helper_nodata.visibility = View.GONE
         if(isFirst){
             helper_loading_top.hide()

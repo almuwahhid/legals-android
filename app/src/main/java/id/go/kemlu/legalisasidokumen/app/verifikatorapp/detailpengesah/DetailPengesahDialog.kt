@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.data.models.PengesahModel
 import kotlinx.android.synthetic.main.dialog_detail_pengesah.*
@@ -26,7 +27,14 @@ class DetailPengesahDialog(context: Context, model: PengesahModel) : DialogBuild
 
             switching.isChecked = model.is_active
         }
-
         show()
+    }
+
+    fun initPejabat(){
+        with(dialog){
+            lay_keaktifan.visibility = View.GONE
+            tv_title.setText("Data Pejabat")
+            tv_title_name.setText("Nama Pejabat")
+        }
     }
 }

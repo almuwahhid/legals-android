@@ -2,58 +2,41 @@ package id.go.kemlu.legalisasidokumen.app.verifikatorapp.main
 
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.tabs.TabLayout
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.app.login.LoginActivity
 import id.go.kemlu.legalisasidokumen.app.tentangaplikasi.TentangAplikasiActivity
+import id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarpejabat.DaftarPejabatActivity
 import id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarpengesah.DaftarPengesahActivity
-import id.go.kemlu.legalisasidokumen.app.verifikatorapp.detailpembayaran.DetailPembayaranToVerifActivity
-import id.go.kemlu.legalisasidokumen.app.verifikatorapp.detailpermohonan.DetailPermohonanActivity
 import id.go.kemlu.legalisasidokumen.app.verifikatorapp.indekskepuasanmasyarakat.IKMActivity
-import id.go.kemlu.legalisasidokumen.app.verifikatorapp.main.adapter.VerifikasiAdapter
 import id.go.kemlu.legalisasidokumen.data.Preferences
-import id.go.kemlu.legalisasidokumen.data.StaticData
 import id.go.kemlu.legalisasidokumen.data.models.IkmModel
-import id.go.kemlu.legalisasidokumen.data.models.RequestModel
-import id.go.kemlu.legalisasidokumen.data.models.RequestToVerifModel
 import id.go.kemlu.legalisasidokumen.dialogs.DialogRequestIkm.DialogRequestIkm
 import id.go.kemlu.legalisasidokumen.module.Activity.LegalisasiActivity
-import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.EndlessRecyclerViewScrollListener
-import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.SpeedyLinearLayoutManager
 import id.go.kemlu.legalisasidokumen.utils.LegalisasiFunction
 import id.go.kemlu.legalisasidokumen.utils.avatarview.AvatarPlaceholder
 import id.go.kemlu.legalisasidokumen.utils.avatarview.loader.PicassoLoader
 import id.go.kemlu.legalisasidokumen.utils.avatarview.views.AvatarView
 import kotlinx.android.synthetic.main.activity_verifikator.*
 import kotlinx.android.synthetic.main.app_bar_verifikator.*
-import kotlinx.android.synthetic.main.layout_helper.*
 import lib.gmsframeworkx.utils.AlertDialogBuilder
 import lib.gmsframeworkx.utils.GmsStatic
 import java.util.*
-import kotlin.collections.ArrayList
 
 
-class VerifikatorActivity : LegalisasiActivity(), NavigationView.OnNavigationItemSelectedListener, VerifikatorView.View, DatePickerDialog.OnDateSetListener {
+class VerifikatorActivity : LegalisasiActivity(), NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
     val imageLoader = PicassoLoader()
-    lateinit var presenter : VerifikatorPresenter
     lateinit var dialogIkm : DialogRequestIkm
-
-    lateinit var daftarLayananAdapter: VerifikasiAdapter
-    var layananModels: MutableList<RequestToVerifModel> = ArrayList()
-    internal lateinit var endlessRecyclerViewScrollListener: EndlessRecyclerViewScrollListener
 
     var keyIkm = 0
 
@@ -61,8 +44,6 @@ class VerifikatorActivity : LegalisasiActivity(), NavigationView.OnNavigationIte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verifikator)
         setSupportActionBar(toolbar)
-
-        presenter = VerifikatorPresenter(context, this)
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val toggle = ActionBarDrawerToggle(
@@ -81,31 +62,34 @@ class VerifikatorActivity : LegalisasiActivity(), NavigationView.OnNavigationIte
         (nv.findViewById(R.id.tv_nav_header) as TextView).setText(userModel.user_name)
         imageLoader.loadImage((nv.findViewById(R.id.avatar) as AvatarView), refreshableAvatarPlaceholder, if(userModel.user_photo_url.equals("")) "www.google.com" else userModel.user_photo_url)
 
+        initComponent()
 
-        daftarLayananAdapter = VerifikasiAdapter(context!!, layananModels, object : VerifikasiAdapter.OnVerifikasiAdapter{
-            override fun onClick(model: RequestToVerifModel) {
-                presenter.requestDetail(model)
-            }
-        })
-        val layoutManager = SpeedyLinearLayoutManager(context)
-        rv.layoutManager = layoutManager
-        rv.adapter = daftarLayananAdapter
-        endlessRecyclerViewScrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
-            override fun onLoadMore(var1: Int, var2: Int, var3: RecyclerView) {
-                presenter.requestDataVerifikasi(false)
-            }
-        }
-        rv.addOnScrollListener(endlessRecyclerViewScrollListener)
+        nav_view.getMenu().getItem(0).setChecked(true);
+    }
 
-
-        swipe.setOnRefreshListener {
-            swipe.isRefreshing = false
-            presenter.requestDataVerifikasi(true)
-        }
-
-        presenter.requestDataVerifikasi(true)
+    private fun initComponent(){
         nav_view.getMenu().getItem(0).setChecked(true);
 
+        viewPager.setAdapter(TabVerifikator(getSupportFragmentManager()))
+        viewPager.setOffscreenPageLimit(0)
+        tablayout.setupWithViewPager(viewPager)
+        tablayout.getTabAt(0)!!.setText("Permohonan")
+        tablayout.getTabAt(1)!!.setText("Pembayaran")
+
+        tablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabUnselected(p0: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabSelected(p0: TabLayout.Tab?) {
+
+            }
+
+        })
     }
 
     override fun onBackPressed() {
@@ -117,11 +101,11 @@ class VerifikatorActivity : LegalisasiActivity(), NavigationView.OnNavigationIte
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.verifikator, menu)
         return true
-    }
+    }*/
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -135,7 +119,6 @@ class VerifikatorActivity : LegalisasiActivity(), NavigationView.OnNavigationIte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_beranda -> {
 
@@ -172,6 +155,10 @@ class VerifikatorActivity : LegalisasiActivity(), NavigationView.OnNavigationIte
                 nav_view.getMenu().getItem(0).setChecked(true);
                 startActivity(Intent(context, DaftarPengesahActivity::class.java))
             }
+            R.id.nav_pejabat -> {
+                nav_view.getMenu().getItem(0).setChecked(true);
+                startActivity(Intent(context, DaftarPejabatActivity::class.java))
+            }
             R.id.nav_logout -> {
                 AlertDialogBuilder(context,
                     "Apakah Anda yakin ingin logout?",
@@ -198,72 +185,5 @@ class VerifikatorActivity : LegalisasiActivity(), NavigationView.OnNavigationIte
 
     override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
          dialogIkm.onDateClicked(year.toString() + "-" + (monthOfYear + 1) + "-" + dayOfMonth, keyIkm)
-    }
-
-    override fun onRequestDataVerifikasi(list: MutableList<RequestToVerifModel>, isReload: Boolean) {
-        endlessRecyclerViewScrollListener.resetState()
-        if(isReload){
-            layananModels.clear()
-        }
-
-        layananModels.addAll(list)
-        daftarLayananAdapter.notifyDataSetChanged()
-    }
-
-    override fun onFailedRequestSomething(isFirst: Boolean, message: String) {
-        if(isFirst){
-            helper_error.visibility = View.VISIBLE
-            tv_error.setText(message)
-        } else {
-            GmsStatic.ToastShort(context, message)
-        }
-    }
-
-    override fun onFailedRequestMore(isFirst: Boolean, message : String) {
-        if(isFirst){
-            helper_nodata.visibility = View.VISIBLE
-            tv_nodata.text = message
-        }
-    }
-
-    override fun onHideLoading(isFirst: Boolean) {
-        helper_nodata.visibility = View.GONE
-        if(isFirst){
-            helper_loading_top.hide()
-        } else {
-            helper_loading_more.hide()
-        }
-    }
-
-    override fun onHideLoading() {
-        GmsStatic.hideLoadingDialog(context)
-    }
-
-    override fun onLoadingDetail() {
-        GmsStatic.showLoadingDialog(this, R.drawable.ic_logo)
-    }
-
-    override fun onErrorConnection() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onLoading() {
-        helper_loading_top.show()
-    }
-
-    override fun onLoadingMore() {
-        helper_loading_more.show()
-    }
-
-    override fun onRequestDetail(model: RequestModel) {
-        when(model.status_id){
-            StaticData.STATUS_MENUNGGU_VERIFIKASIPEMBAYARAN -> {
-                startActivity(Intent(context, DetailPembayaranToVerifActivity::class.java).putExtra("data", model))
-            }
-            else -> {
-                startActivity(Intent(context, DetailPermohonanActivity::class.java).putExtra("data", model))
-            }
-        }
-
     }
 }

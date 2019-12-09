@@ -19,7 +19,6 @@ class DaftarPengesahAdapter(context: Context, list: MutableList<PengesahModel>, 
     init {
         this.context = context
         this.list = list
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DaftarPengesahAdapter.Holder {
@@ -45,9 +44,9 @@ class DaftarPengesahAdapter(context: Context, list: MutableList<PengesahModel>, 
             setOnClickListener({
                 onNotifikasiClick.onClick(data)
             })
-            tv_status.text = data.official_position
-            tv_nama.text = data.official_name
-            tv_lokasi.text = data.oi_name
+            tv_status.text = if(data.official_position.equals("")) "-" else data.official_position
+            tv_nama.text = if(data.official_name.equals("")) "-" else data.official_name
+            tv_lokasi.text = if(data.oi_name.equals("")) "-" else data.oi_name
         }
     }
 

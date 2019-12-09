@@ -1,4 +1,4 @@
-package id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarrequest
+package id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarpembayaran
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,63 +8,59 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import id.go.kemlu.legalisasidokumen.R
-import id.go.kemlu.legalisasidokumen.app.home.HomeViewModel
-import id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarrequest.adapter.VerifikasiAdapter
-import id.go.kemlu.legalisasidokumen.data.models.RequestModel
-import id.go.kemlu.legalisasidokumen.data.models.RequestToVerifModel
-import id.go.kemlu.legalisasidokumen.dialogs.DialogRequestIkm.DialogRequestIkm
-import id.go.kemlu.legalisasidokumen.module.Activity.LegalisasiActivity
+import id.go.kemlu.legalisasidokumen.data.models.PembayaranToVerifModel
 import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.EndlessRecyclerViewScrollListener
 import kotlinx.android.synthetic.main.layout_helper.*
 import lib.gmsframeworkx.utils.GmsStatic
-import id.go.kemlu.legalisasidokumen.data.StaticData.STATUS_MENUNGGU_VERIFIKASIPEMBAYARAN
-import id.go.kemlu.legalisasidokumen.app.verifikatorapp.detailpembayaran.*
-import id.go.kemlu.legalisasidokumen.app.verifikatorapp.detailpermohonan.DetailPermohonanActivity
-import kotlinx.android.synthetic.main.activity_daftar_request.*
+import id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarpembayaran.adapter.AdapterDaftarPembayaran
 import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.SpeedyLinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_daftar_pembayaran.*
+import id.go.kemlu.legalisasidokumen.app.verifikatorapp.detailpembayaran.DetailPembayaranToVerifActivity
 
-class DaftarRequestActivity : Fragment(), VerifikatorView.View{
+class DaftarPembayaranFragment : Fragment(), DaftarPembayaranView.View {
 
-    lateinit var presenter : VerifikatorPresenter
-
-    lateinit var daftarLayananAdapter: VerifikasiAdapter
-    var layananModels: MutableList<RequestToVerifModel> = ArrayList()
+    lateinit var presenter : DaftarPembayaranPresenter
+    lateinit var daftarLayananAdapter: AdapterDaftarPembayaran
+    var layananModels: MutableList<PembayaranToVerifModel> = ArrayList()
     internal lateinit var endlessRecyclerViewScrollListener: EndlessRecyclerViewScrollListener
 
+    var isNeedToRefresh = false
+
     companion object{
-        public fun newInstance(): DaftarRequestActivity {
-            val fragment = DaftarRequestActivity()
+        public fun newInstance(): DaftarPembayaranFragment {
+            val fragment = DaftarPembayaranFragment()
             return fragment
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.activity_daftar_request, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_daftar_pembayaran, container, false)
         return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        presenter = VerifikatorPresenter(context!!, this)
+        presenter = DaftarPembayaranPresenter(context!!, this)
 
-        daftarLayananAdapter = VerifikasiAdapter(
+        daftarLayananAdapter = AdapterDaftarPembayaran(
             context!!,
             layananModels,
             object :
-                VerifikasiAdapter.OnVerifikasiAdapter {
-                override fun onClick(model: RequestToVerifModel) {
-                    presenter.requestDetail(model)
+                AdapterDaftarPembayaran.OnPembayaranClick {
+                override fun onClick(model: PembayaranToVerifModel) {
+                    isNeedToRefresh = true
+                    startActivity(Intent(context, DetailPembayaranToVerifActivity::class.java).putExtra("data", model))
                 }
             })
+
         val layoutManager = SpeedyLinearLayoutManager(context)
         rv.layoutManager = layoutManager
         rv.adapter = daftarLayananAdapter
         endlessRecyclerViewScrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
             override fun onLoadMore(var1: Int, var2: Int, var3: RecyclerView) {
-                presenter.requestDataVerifikasi(false)
+                presenter.requestDaftarLayanan(false)
             }
         }
         rv.addOnScrollListener(endlessRecyclerViewScrollListener)
@@ -72,14 +68,24 @@ class DaftarRequestActivity : Fragment(), VerifikatorView.View{
 
         swipe.setOnRefreshListener {
             swipe.isRefreshing = false
-            presenter.requestDataVerifikasi(true)
+            presenter.requestDaftarLayanan(true)
         }
 
-        presenter.requestDataVerifikasi(true)
+        presenter.requestDaftarLayanan(true)
 
     }
 
-    override fun onRequestDataVerifikasi(list: MutableList<RequestToVerifModel>, isReload: Boolean) {
+    override fun onResume() {
+        super.onResume()
+        if(isNeedToRefresh){
+            isNeedToRefresh = false
+            presenter.requestDaftarLayanan(true)
+        }
+    }
+
+    override fun onRequestDaftarLayanan(list: MutableList<PembayaranToVerifModel>, isReload: Boolean) {
+        helper_nodata.visibility = View.GONE
+        helper_error.visibility = View.GONE
         endlessRecyclerViewScrollListener.resetState()
         if(isReload){
             layananModels.clear()
@@ -109,6 +115,7 @@ class DaftarRequestActivity : Fragment(), VerifikatorView.View{
 
     override fun onHideLoading(isFirst: Boolean) {
         helper_nodata.visibility = View.GONE
+        helper_error.visibility = View.GONE
         if(isFirst){
             helper_loading_top.hide()
         } else {
@@ -118,10 +125,6 @@ class DaftarRequestActivity : Fragment(), VerifikatorView.View{
 
     override fun onHideLoading() {
         GmsStatic.hideLoadingDialog(context)
-    }
-
-    override fun onLoadingDetail() {
-        GmsStatic.showLoadingDialog(context, R.drawable.ic_logo)
     }
 
     override fun onErrorConnection() {
@@ -134,17 +137,5 @@ class DaftarRequestActivity : Fragment(), VerifikatorView.View{
 
     override fun onLoadingMore() {
         helper_loading_more.show()
-    }
-
-    override fun onRequestDetail(model: RequestModel) {
-        /*when(model.status_id){
-            STATUS_MENUNGGU_VERIFIKASIPEMBAYARAN -> {
-
-            }
-            else -> {
-            }
-        }*/
-        startActivity(Intent(context, DetailPermohonanActivity::class.java).putExtra("data", model))
-
     }
 }

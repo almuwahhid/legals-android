@@ -8,7 +8,10 @@ import lib.gmsframeworkx.base.BasePresenter
 import lib.gmsframeworkx.utils.GmsRequest
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.HashMap
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class DialogUploadBuktiPresenter(context: Context, view : DialogUploadBuktiView.View) : BasePresenter(context), DialogUploadBuktiView.Presenter {
 
@@ -19,6 +22,11 @@ class DialogUploadBuktiPresenter(context: Context, view : DialogUploadBuktiView.
     }
 
     override fun uploadBukti(base64: String, reqid: String) {
+
+        val formatter = SimpleDateFormat("yyyy-MM-dd")
+        val date = Date()
+
+
         GmsRequest.POST(EndPoints.stringUploadPaymentTransfer(), context, object : GmsRequest.OnPostRequest {
             override fun onPreExecuted() {
                 view!!.onLoading()
@@ -47,7 +55,7 @@ class DialogUploadBuktiPresenter(context: Context, view : DialogUploadBuktiView.
                 val param = HashMap<String, String>()
                 param["request_id"] = reqid
                 param["image"] = base64
-                param["date_time"] = ""
+                param["date_time"] = formatter.format(date)
                 return param
             }
 

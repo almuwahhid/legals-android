@@ -102,6 +102,8 @@ android {
             addUrl("submitikm", "apix/submit_ikm")
             addUrl("getikm", "verificator/get_ikm")
             addUrl("getikmComment", "verificator/get_ikm_comment")
+            addUrl("daftarPejabat", "apix/list_pejabat")
+            addUrl("getPaymentRequest", "verificator/get_payment_online_request")
         }
 
         signingConfigs {

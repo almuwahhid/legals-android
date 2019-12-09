@@ -13,5 +13,6 @@ interface DaftarPengesahView {
     }
     interface Presenter{
         fun requestPengesah(isReload: Boolean)
+        fun requestPejabat(isReload: Boolean)
     }
 }

@@ -1,4 +1,4 @@
-package id.go.kemlu.legalisasidokumen.app.verifikatorapp.main
+package id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarrequest
 
 import id.go.kemlu.legalisasidokumen.data.models.RequestModel
 import id.go.kemlu.legalisasidokumen.data.models.RequestToVerifModel

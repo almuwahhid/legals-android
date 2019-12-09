@@ -6,6 +6,7 @@ import lib.gmsframeworkx.base.BaseView
 interface DetailPermohonanView {
     interface Presenter{
         fun requestDetailPermohonan(requestModel: RequestModel)
+
     }
 
     interface View: BaseView{

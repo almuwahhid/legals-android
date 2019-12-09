@@ -1,4 +1,4 @@
-package id.go.kemlu.legalisasidokumen.app.verifikatorapp.main
+package id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarrequest
 
 import android.content.Context
 import android.util.Log
@@ -13,7 +13,8 @@ import org.json.JSONObject
 import java.util.ArrayList
 import java.util.HashMap
 
-class VerifikatorPresenter(context: Context, view : VerifikatorView.View) : BasePresenter(context), VerifikatorView.Presenter {
+class VerifikatorPresenter(context: Context, view : VerifikatorView.View) : BasePresenter(context),
+    VerifikatorView.Presenter {
 
     var view : VerifikatorView.View
     var page = 1
