@@ -14,5 +14,6 @@ interface DaftarPembayaranView {
         fun onFailedRequestMore(isFirst: Boolean, message : String)
         fun onLoadingMore()
         fun onHideLoading(isFirst: Boolean)
+        fun noInternetConnection(isFirst: Boolean)
     }
 }

@@ -21,10 +21,11 @@ class DialogUploadBuktiPresenter(context: Context, view : DialogUploadBuktiView.
         this.view = view
     }
 
-    override fun uploadBukti(base64: String, reqid: String) {
+    override fun uploadBukti(base64: String, reqid: String, date: String) {
 
-        val formatter = SimpleDateFormat("yyyy-MM-dd")
-        val date = Date()
+//        val formatter = SimpleDateFormat("yyyy-MM-dd")
+//        val date = Date()
+//        formatter.format(date)
 
 
         GmsRequest.POST(EndPoints.stringUploadPaymentTransfer(), context, object : GmsRequest.OnPostRequest {
@@ -55,7 +56,7 @@ class DialogUploadBuktiPresenter(context: Context, view : DialogUploadBuktiView.
                 val param = HashMap<String, String>()
                 param["request_id"] = reqid
                 param["image"] = base64
-                param["date_time"] = formatter.format(date)
+                param["date_time"] = date
                 return param
             }
 

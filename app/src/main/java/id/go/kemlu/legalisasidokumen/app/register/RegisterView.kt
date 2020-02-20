@@ -7,7 +7,7 @@ import lib.gmsframeworkx.base.BaseView
 
 interface RegisterView {
     interface Presenter{
-        fun submitRegister(registerUiModel: RegisterUiModel)
+        fun submitRegister(registerUiModel: RegisterUiModel, isneedPw : Boolean)
     }
 
     interface View: BaseView {

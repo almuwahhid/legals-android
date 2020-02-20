@@ -113,9 +113,16 @@ class DaftarPembayaranFragment : Fragment(), DaftarPembayaranView.View {
         }
     }
 
+    override fun noInternetConnection(isFirst: Boolean) {
+        if(isFirst && layananModels.size == 0){
+            helper_noconnection.visibility = View.VISIBLE
+        }
+    }
+
     override fun onHideLoading(isFirst: Boolean) {
         helper_nodata.visibility = View.GONE
         helper_error.visibility = View.GONE
+        helper_noconnection.visibility = View.GONE
         if(isFirst){
             helper_loading_top.hide()
         } else {

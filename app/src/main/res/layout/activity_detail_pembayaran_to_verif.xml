@@ -141,6 +141,8 @@
                 <ImageView android:layout_width="match_parent"
                            android:layout_marginTop="@dimen/dimen_8dp"
                            android:id="@+id/img_buktitransfer"
+                           android:transitionName="image"
+                           android:clickable="true"
                            android:layout_height="@dimen/dimen_128dp" android:scaleType="centerCrop">
                 </ImageView>
             </LinearLayout>

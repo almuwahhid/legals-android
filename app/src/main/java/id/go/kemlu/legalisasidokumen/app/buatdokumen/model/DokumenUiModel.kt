@@ -7,6 +7,7 @@ data class DokumenUiModel (var document_type_id: String = "",
                            var certifier_number : String= "",
                            var certifier_name : String= "",
                            var certifier_institution : String= "",
+                           var official_sinstitution_id : String= "",
                            var description : String= "",
                            var file : MutableList<String> = ArrayList(),
                            var file_uri : MutableList<Uri> = ArrayList()){

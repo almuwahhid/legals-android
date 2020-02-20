@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "572984051611-s9hlo3epj5o83qv69tnamjicbqvps3ou.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.go.kemlu.legalisasidokumen",
+            "certificate_hash": "90317432e8bb95237522046400b48a7a71f9c5fb"
+          }
+        },
+        {
           "client_id": "572984051611-f8veikab9i326b7mdufjfcg8h0amcss6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

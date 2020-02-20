@@ -14,8 +14,6 @@ import id.go.kemlu.legalisasidokumen.data.models.JenisDokumenModel
 import id.go.kemlu.legalisasidokumen.data.models.PhotoModel
 import id.go.kemlu.legalisasidokumen.data.models.PickerModel
 import id.go.kemlu.legalisasidokumen.dialogs.DialogPicker.DialogPicker
-import id.go.kemlu.legalisasidokumen.utils.LegalisasiFunction
-import kotlinx.android.synthetic.main.adapter_photo.*
 import kotlinx.android.synthetic.main.dialog_tambah_dokumen.*
 import lib.gmsframeworkx.utils.AlertDialogBuilder
 import lib.gmsframeworkx.utils.DialogBuilder
@@ -25,12 +23,12 @@ class TambahDokumenDialog(context: Context?, onDokumenListener: DokumenListener 
 
     lateinit var photoAdapter: PhotoAdapter
     lateinit var presenter: TambahDokumenPresenter
-    lateinit var onDokumenListener: DokumenListener
+    var onDokumenListener: DokumenListener
     var list_photo = ArrayList<PhotoModel>()
     var dokumenUiModel = DokumenUiModel()
     var isEdited = false
     var position_edited = 0
-    lateinit var forms: MutableList<Int>
+    var forms: MutableList<Int>
 
     init {
         this.onDokumenListener = onDokumenListener
@@ -42,6 +40,16 @@ class TambahDokumenDialog(context: Context?, onDokumenListener: DokumenListener 
         initContent(onDokumenListener)
 
         show()
+    }
+
+    override fun onRequestLembaga(list: MutableList<PickerModel>) {
+        DialogPicker(context, "Pilih Lembaga", false, list, object : DialogPicker.OnPickerListener{
+            override fun onItemClick(pickerModel: PickerModel) {
+                dokumenUiModel.official_sinstitution_id = pickerModel.id
+                dokumenUiModel.certifier_institution = pickerModel.name
+                dialog.edt_instansi.setText(pickerModel.name)
+            }
+        })
     }
 
     private fun initContent(onDokumenListener: DokumenListener){
@@ -71,39 +79,46 @@ class TambahDokumenDialog(context: Context?, onDokumenListener: DokumenListener 
 
             })
 
-        dialog.rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        dialog.rv.adapter = photoAdapter
+        with(dialog){
+            rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            rv.adapter = photoAdapter
 
-        val onCLick = View.OnClickListener {
-            when(it.id){
-                R.id.img_ok -> {
-                    validate()
-                }
-                R.id.edt_jenisdokumen -> {
-                    presenter.requestJenisDokumen()
-                }
-                R.id.img_back -> {
-                    AlertDialogBuilder(context,
-                        "Apakah Anda yakin ingin kembali?",
-                        "Ya",
-                        "Tidak",
-                        object : AlertDialogBuilder.OnAlertDialog{
-                            override fun onPositiveButton(dialog: DialogInterface?) {
-                                dismiss()
-                            }
+            val onCLick = View.OnClickListener {
+                when(it.id){
+                    R.id.img_ok -> {
+                        validate()
+                    }
+                    R.id.edt_jenisdokumen -> {
+                        presenter.requestJenisDokumen()
+                    }
+                    R.id.edt_instansi -> {
+                        presenter.requestLembaga()
+                    }
+                    R.id.img_back -> {
+                        AlertDialogBuilder(context,
+                            "Apakah Anda yakin ingin kembali?",
+                            "Ya",
+                            "Tidak",
+                            object : AlertDialogBuilder.OnAlertDialog{
+                                override fun onPositiveButton(dialog: DialogInterface?) {
+                                    dismiss()
+                                }
 
-                            override fun onNegativeButton(dialog: DialogInterface?) {
+                                override fun onNegativeButton(dialog: DialogInterface?) {
 
-                            }
+                                }
 
-                        })
+                            })
 
+                    }
                 }
             }
+            img_ok.setOnClickListener(onCLick)
+            edt_jenisdokumen.setOnClickListener(onCLick)
+            edt_jenisdokumen.setOnClickListener(onCLick)
+            edt_instansi.setOnClickListener(onCLick)
         }
-        dialog.img_ok.setOnClickListener(onCLick)
-        dialog.edt_jenisdokumen.setOnClickListener(onCLick)
-        dialog.img_back.setOnClickListener(onCLick)
+
     }
 
     private fun validate(){
@@ -130,7 +145,7 @@ class TambahDokumenDialog(context: Context?, onDokumenListener: DokumenListener 
         }
     }
 
-    public fun editDokumen(position: Int, dokumenUiModel: DokumenUiModel){
+    fun editDokumen(position: Int, dokumenUiModel: DokumenUiModel){
         isEdited = true
         position_edited = position
         this.dokumenUiModel = dokumenUiModel

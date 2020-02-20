@@ -53,6 +53,28 @@
                         android:id="@+id/img_buktibayar"
                        android:layout_height="match_parent" android:scaleType="centerCrop"/>
         </RelativeLayout>
+        <RelativeLayout
+                android:layout_marginLeft="@dimen/dimen_16dp"
+                android:layout_marginRight="@dimen/dimen_16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:layout_width="match_parent"
+                    style="@style/EditText.Form"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:inputType="textEmailAddress"
+                        android:id="@+id/edt_tglbayar"
+                        android:layout_width="match_parent"
+                        style="@style/EditText.Form"
+                        android:drawableRight="@drawable/ic_keyboard_arrow_down_black_24dp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="Tanggal Pembayaran"
+                        android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
         <Button android:layout_width="match_parent"
                 android:layout_margin="@dimen/dimen_16dp"
                 android:textColor="@color/colorPrimary"

@@ -16,7 +16,7 @@ class TabMain(fm: FragmentManager, internal var viewModel: HomeViewModel) : Frag
             0 -> fragment = DaftarLayananFragment.newInstance(viewModel, 0)
             1 -> fragment = DaftarLayananFragment.newInstance(viewModel, 110)
             2 -> fragment = DaftarLayananFragment.newInstance(viewModel, 120)
-            3 -> fragment = DaftarLayananFragment.newInstance(viewModel, 160)
+            3 -> fragment = DaftarLayananFragment.newInstance(viewModel, 140)
             4 -> fragment = DaftarLayananFragment.newInstance(viewModel, 190)
         }
         return fragment

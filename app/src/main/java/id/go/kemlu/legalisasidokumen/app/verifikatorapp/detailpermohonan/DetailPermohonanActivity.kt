@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.app.adapters.DokumenSayaAdapter
 import id.go.kemlu.legalisasidokumen.app.verifikatorapp.detaildokumen.DetailDokumenToVerifActivity
+import id.go.kemlu.legalisasidokumen.data.Preferences
 import id.go.kemlu.legalisasidokumen.data.StaticData
 import id.go.kemlu.legalisasidokumen.data.models.DokumenModel
 import id.go.kemlu.legalisasidokumen.data.models.RequestModel
@@ -93,6 +94,7 @@ class DetailPermohonanActivity : LegalisasiActivity(), DetailPermohonanView.View
                         override fun onPositiveButton(dialog: DialogInterface?) {
                             DialogVerifikasiPermohonan(context, model, object : DialogVerifikasiPermohonan.OnVerifikasi{
                                 override fun onSuccessVerifikasi() {
+                                    GmsStatic.setSPBoolean(context, Preferences.LAYANAN_TOVERIF_ON_REFRESH, true)
                                     finish()
                                 }
                             })

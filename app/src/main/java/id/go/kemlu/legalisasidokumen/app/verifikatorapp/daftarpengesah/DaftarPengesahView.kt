@@ -10,6 +10,7 @@ interface DaftarPengesahView {
         fun onFailedRequestMore(isFirst: Boolean, message : String)
         fun onLoadingMore()
         fun onHideLoading(isFirst: Boolean)
+        fun noInternetConnection(isFirst: Boolean)
     }
     interface Presenter{
         fun requestPengesah(isReload: Boolean)

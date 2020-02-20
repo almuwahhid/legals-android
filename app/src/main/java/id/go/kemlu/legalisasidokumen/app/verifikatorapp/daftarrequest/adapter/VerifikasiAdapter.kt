@@ -52,7 +52,7 @@ class VerifikasiAdapter (context: Context, list: MutableList<RequestToVerifModel
             tv_country.text = data.country_name
             tv_namapemohon.text = data.request_name
             tv_status.text = data.status_detail
-            tv_date.text = data.dtmReq
+            tv_date.text = data.dtm_req
 
             when(data.status_id){
                 StaticData.STATUS_MENUGGGU_VERIFIKASI -> {

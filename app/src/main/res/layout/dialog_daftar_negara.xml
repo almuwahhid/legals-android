@@ -48,7 +48,7 @@
                     android:imeOptions="actionSearch"
                     android:inputType="textAutoComplete"
                     android:id="@+id/edt_search"
-                    android:hint="Cari Negarai"
+                    android:hint="Cari Negara"
                     style="@style/Text.Title"
                     android:background="@null"
                     android:layout_width="match_parent"

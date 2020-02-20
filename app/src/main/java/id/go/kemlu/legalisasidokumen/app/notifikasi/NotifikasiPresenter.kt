@@ -78,8 +78,8 @@ class NotifikasiPresenter(context: Context, view: NotifikasiView.View) : BasePre
         })
     }
 
-    override fun requestDetailNotifikasi(id: String) {
-        GmsRequest.GET(EndPoints.stringDetailRequestByGroup(""+id), context, object : GmsRequest.OnGetRequest {
+    override fun requestDetailNotifikasi(id: String, notif_id: String) {
+        GmsRequest.GET(EndPoints.stringDetailRequestByGroupNotif(""+id, ""+notif_id), context, object : GmsRequest.OnGetRequest {
             override fun onPreExecuted() {
                 view!!.onLoadingDetail()
             }

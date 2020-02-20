@@ -17,5 +17,6 @@ interface DaftarLayananView {
         fun onHideLoading(isFirst: Boolean)
         fun onGetDetailRequest(requestModel: RequestModel)
         fun onLoadingDetail()
+        fun noInternetConnection(isFirst: Boolean)
     }
 }

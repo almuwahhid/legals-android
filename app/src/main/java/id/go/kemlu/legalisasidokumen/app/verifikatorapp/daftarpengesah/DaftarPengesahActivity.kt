@@ -9,6 +9,7 @@ import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarpengesah.adapter.DaftarPengesahAdapter
 import id.go.kemlu.legalisasidokumen.app.verifikatorapp.detailpengesah.DetailPengesahDialog
 import id.go.kemlu.legalisasidokumen.data.models.PengesahModel
+import id.go.kemlu.legalisasidokumen.dialogs.DialogAddPejabat.DialogAddPejabat
 import id.go.kemlu.legalisasidokumen.module.Activity.LegalisasiActivity
 import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.EndlessRecyclerViewScrollListener
 import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.SpeedyLinearLayoutManager
@@ -60,6 +61,14 @@ class DaftarPengesahActivity : LegalisasiActivity(), DaftarPengesahView.View {
             presenter.requestPengesah(true)
         }
 
+        fab_add.setOnClickListener({
+            DialogAddPejabat(context, "Pengesah", object: DialogAddPejabat.OnDialogAddPejabat{
+                override fun onSuccessAddPejabat() {
+                    presenter.requestPengesah(true)
+                }
+            })
+        })
+
         presenter.requestPengesah(true)
 
     }
@@ -72,6 +81,12 @@ class DaftarPengesahActivity : LegalisasiActivity(), DaftarPengesahView.View {
 
         layananModels.addAll(list)
         adapter.notifyDataSetChanged()
+    }
+
+    override fun noInternetConnection(isFirst: Boolean) {
+        if(isFirst && layananModels.size == 0){
+            helper_noconnection.visibility = View.VISIBLE
+        }
     }
 
     override fun onFailedRequestSomething(isFirst: Boolean, message: String) {
@@ -99,6 +114,7 @@ class DaftarPengesahActivity : LegalisasiActivity(), DaftarPengesahView.View {
     override fun onHideLoading(isFirst: Boolean) {
         helper_error.visibility = View.GONE
         helper_nodata.visibility = View.GONE
+        helper_noconnection.visibility = View.GONE
         if(isFirst){
             helper_loading_top.hide()
         } else {

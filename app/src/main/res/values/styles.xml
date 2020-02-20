@@ -213,7 +213,7 @@
     </style>
 
     <style name="EditText.Form" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-        <item name="boxStrokeColor">#4f609c</item>
+        <item name="boxStrokeColor">#31718f</item>
         <item name="android:textSize">@dimen/text_medium</item>
         <item name="boxStrokeWidth">2dp</item>
     </style>

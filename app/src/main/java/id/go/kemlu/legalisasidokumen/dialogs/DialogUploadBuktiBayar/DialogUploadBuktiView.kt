@@ -7,6 +7,6 @@ interface DialogUploadBuktiView {
         fun onUploadBukti(isSuccess: Boolean, message: String)
     }
     interface Presenter{
-        fun uploadBukti(base64: String, reqid: String)
+        fun uploadBukti(base64: String, reqid: String, date: String)
     }
 }

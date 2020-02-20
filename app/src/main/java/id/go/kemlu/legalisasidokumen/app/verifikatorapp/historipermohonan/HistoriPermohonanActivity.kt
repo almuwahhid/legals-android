@@ -65,6 +65,12 @@ class HistoriPermohonanActivity : LegalisasiActivity(), VerifikatorView.View {
         presenter.requestDataVerifikasi(true)
     }
 
+    override fun noInternetConnection(isFirst: Boolean) {
+        if(isFirst && layananModels.size == 0){
+            helper_noconnection.visibility = View.VISIBLE
+        }
+    }
+
     override fun onRequestDataVerifikasi(list: MutableList<RequestToVerifModel>, isReload: Boolean) {
         endlessRecyclerViewScrollListener.resetState()
         if(isReload){
@@ -93,6 +99,8 @@ class HistoriPermohonanActivity : LegalisasiActivity(), VerifikatorView.View {
 
     override fun onHideLoading(isFirst: Boolean) {
         helper_nodata.visibility = View.GONE
+        helper_noconnection.visibility = View.GONE
+        helper_error.visibility = View.GONE
         if(isFirst){
             helper_loading_top.hide()
         } else {

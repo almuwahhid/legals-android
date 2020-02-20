@@ -17,6 +17,6 @@ interface VerifikatorView {
         fun onLoadingDetail()
         fun onHideLoading(isFirst: Boolean)
         fun onRequestDetail(model: RequestModel)
-
+        fun noInternetConnection(isFirst: Boolean)
     }
 }

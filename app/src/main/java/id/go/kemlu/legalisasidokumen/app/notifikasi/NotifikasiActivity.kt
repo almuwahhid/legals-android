@@ -43,7 +43,7 @@ class NotifikasiActivity : LegalisasiActivity(), NotifikasiView.View {
         presenter = NotifikasiPresenter(context, this)
         adapter = NotifikasiAdapter(context!!, layananModels, object : NotifikasiAdapter.OnNotifikasiClick{
             override fun onClick(model: NotifikasiModel) {
-                presenter.requestDetailNotifikasi(""+model.strNotifGroupNo)
+                presenter.requestDetailNotifikasi(""+model.strNotifGroupNo, ""+model.intNotifid)
             }
         })
         val layoutManager = SpeedyLinearLayoutManager(context)

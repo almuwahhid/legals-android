@@ -23,26 +23,26 @@ class NotifikasiAdapter (context: Context, list: MutableList<NotifikasiModel>, p
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotifikasiAdapter.Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val layoutView: View
         layoutView = LayoutInflater.from(parent.context).inflate(R.layout.adapter_notifikasi, parent, false)
-        return NotifikasiAdapter.Holder(layoutView, viewType)
+        return Holder(layoutView, viewType)
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    override fun onBindViewHolder(holder: NotifikasiAdapter.Holder, position: Int) {
-        holder.bind(position, list.get(position), onDaftarLayananAdapter)
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        holder.bind(list.get(position), onDaftarLayananAdapter)
     }
 
-    public interface OnNotifikasiClick{
+    interface OnNotifikasiClick{
         fun onClick(model: NotifikasiModel)
     }
 
     class Holder (itemView: View, viewType: Int) : RecyclerView.ViewHolder(itemView) {
-        fun bind(position: Int, data: NotifikasiModel, onNotifikasiClick: OnNotifikasiClick): Unit = with(itemView) {
+        fun bind(data: NotifikasiModel, onNotifikasiClick: OnNotifikasiClick): Unit = with(itemView) {
             setOnClickListener({
                 onNotifikasiClick.onClick(data)
             })

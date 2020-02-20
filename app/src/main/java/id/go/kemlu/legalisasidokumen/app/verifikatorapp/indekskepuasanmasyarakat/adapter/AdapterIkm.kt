@@ -42,6 +42,7 @@ class AdapterIkm (context: Context, list: MutableList<IKMCommentModel>) : Recycl
         fun bind(position: Int, data: IKMCommentModel): Unit = with(itemView) {
             tv_date.setText(data.dtm_req)
             tv_name.setText(data.request_name)
+            tv_no_grup.setText(data.group_no)
             img_smile.setImageResource(
                 when(data.ikm){
                     1 -> R.drawable.ic_smile_1

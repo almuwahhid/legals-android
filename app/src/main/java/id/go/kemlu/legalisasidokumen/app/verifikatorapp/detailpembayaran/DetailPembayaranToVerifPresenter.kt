@@ -19,7 +19,7 @@ class DetailPembayaranToVerifPresenter(context: Context, view: DetailPembayaranT
     }
 
     override fun updatePembayaran(request_id: String, status_id: String, note: String) {
-        GmsRequest.POST(EndPoints.stringUpdateDocumentStatus(), context, object : GmsRequest.OnPostRequest {
+        GmsRequest.POST(EndPoints.stringUpdatePaymentRequest(), context, object : GmsRequest.OnPostRequest {
             override fun onPreExecuted() {
                 view!!.onLoading()
             }

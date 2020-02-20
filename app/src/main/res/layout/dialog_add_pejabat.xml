@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        android:id="@+id/lay_dialog"
+        android:background="@drawable/bg_dialog"
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout android:layout_width="@dimen/dimen_128dp"
+                  android:layout_marginTop="@dimen/dimen_16dp"
+                  android:layout_centerHorizontal="true"
+                  android:background="@drawable/bg_grey"
+                  android:layout_height="6dp"></LinearLayout>
+    <LinearLayout
+            android:layout_marginTop="@dimen/dimen_24dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <RelativeLayout
+                android:padding="@dimen/dimen_16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:text="Tambah Pejabat"
+                    android:textColor="@color/colorPrimary"
+                    android:id="@+id/tv_title"
+                    android:layout_centerVertical="true"
+                    style="@style/Text.TitleField.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            <ImageView android:layout_width="wrap_content"
+                       android:visibility="gone"
+                       android:src="@drawable/ic_close_black_24dp"
+                       android:layout_alignParentRight="true"
+                       android:layout_height="wrap_content"/>
+        </RelativeLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/dimen_16dp"
+                android:layout_marginRight="@dimen/dimen_16dp"
+                android:layout_marginBottom="@dimen/dimen_8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:layout_width="match_parent"
+                    style="@style/EditText.Form"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_namalengkap"
+                        android:inputType="text"
+                        android:layout_width="match_parent"
+                        style="@style/EditText.Form"
+                        android:hint="Nama Lengkap"
+                        android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:layout_width="match_parent"
+                    style="@style/EditText.Form"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        style="@style/EditText.Form"
+                        android:hint="NIP"
+                        android:id="@+id/edt_nip"
+                        android:inputType="textEmailAddress"
+                        android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:layout_width="match_parent"
+                    style="@style/EditText.Form"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:inputType="textEmailAddress"
+                        android:id="@+id/edt_jabatan"
+                        android:layout_width="match_parent"
+                        style="@style/EditText.Form"
+                        android:drawableRight="@drawable/ic_keyboard_arrow_down_black_24dp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="Jabatan"
+                        android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:layout_width="match_parent"
+                    style="@style/EditText.Form"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:inputType="textEmailAddress"
+                        android:id="@+id/edt_lembaga"
+                        android:layout_width="match_parent"
+                        style="@style/EditText.Form"
+                        android:drawableRight="@drawable/ic_keyboard_arrow_down_black_24dp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="Lembaga"
+                        android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/btn_kirim"
+                android:layout_gravity="right"
+                android:layout_margin="@dimen/dimen_16dp"
+                android:text="TAMBAH"
+                android:background="@drawable/button_main"
+                style="@style/Button"/>
+    </LinearLayout>
+</RelativeLayout>

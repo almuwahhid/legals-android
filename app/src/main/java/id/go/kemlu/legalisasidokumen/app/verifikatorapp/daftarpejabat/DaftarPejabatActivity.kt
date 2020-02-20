@@ -12,6 +12,7 @@ import id.go.kemlu.legalisasidokumen.app.verifikatorapp.daftarpengesah.adapter.D
 import id.go.kemlu.legalisasidokumen.app.verifikatorapp.detailpengesah.DetailPengesahDialog
 import id.go.kemlu.legalisasidokumen.data.models.PejabatModel
 import id.go.kemlu.legalisasidokumen.data.models.PengesahModel
+import id.go.kemlu.legalisasidokumen.dialogs.DialogAddPejabat.DialogAddPejabat
 import id.go.kemlu.legalisasidokumen.module.Activity.LegalisasiActivity
 import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.EndlessRecyclerViewScrollListener
 import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.SpeedyLinearLayoutManager
@@ -63,6 +64,14 @@ class DaftarPejabatActivity : LegalisasiActivity(), DaftarPengesahView.View {
             presenter.requestPejabat(true)
         }
 
+        fab_add.setOnClickListener({
+            DialogAddPejabat(context, "Pejabat", object: DialogAddPejabat.OnDialogAddPejabat{
+                override fun onSuccessAddPejabat() {
+                    presenter.requestPejabat(true)
+                }
+            })
+        })
+
         presenter.requestPejabat(true)
     }
 
@@ -85,6 +94,12 @@ class DaftarPejabatActivity : LegalisasiActivity(), DaftarPengesahView.View {
         }
     }
 
+    override fun noInternetConnection(isFirst: Boolean) {
+        if(isFirst && layananModels.size == 0){
+            helper_noconnection.visibility = View.VISIBLE
+        }
+    }
+
     override fun onFailedRequestMore(isFirst: Boolean, message: String) {
         if(isFirst){
             helper_nodata.visibility = View.VISIBLE
@@ -98,6 +113,8 @@ class DaftarPejabatActivity : LegalisasiActivity(), DaftarPengesahView.View {
 
     override fun onHideLoading(isFirst: Boolean) {
         helper_nodata.visibility = View.GONE
+        helper_error.visibility = View.GONE
+        helper_noconnection.visibility = View.GONE
         if(isFirst){
             helper_loading_top.hide()
         } else {
@@ -106,7 +123,7 @@ class DaftarPejabatActivity : LegalisasiActivity(), DaftarPengesahView.View {
     }
 
     override fun onHideLoading() {
-
+        helper_noconnection.visibility = View.GONE
     }
 
     override fun onErrorConnection() {

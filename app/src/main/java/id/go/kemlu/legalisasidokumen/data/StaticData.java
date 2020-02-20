@@ -10,7 +10,7 @@ public class StaticData {
     public static final int STATUS_MENUNGGU_PEMBAYARAN                  = 120;
     public static final int STATUS_BUKTIBAYAR_TIDAKVALID                  = 121;
     public static final int STATUS_MENUNGGU_VERIFIKASIPEMBAYARAN                  = 150;
-    public static final int STATUS_BUKTIBAYAR_VALID                  = 160;
+    public static final int STATUS_BUKTIBAYAR_VALID                  = 140;
     public static final int STATUS_PERMOHONAN_DITOLAK                  = 190;
 
     public static final int IKM_DATE_1                  = 1;

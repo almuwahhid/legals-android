@@ -18,7 +18,7 @@ class RegisterPresenter(context: Context?, view: RegisterView.View): BasePresent
         this.view = view
     }
 
-    override fun  submitRegister(registerUiModel: RegisterUiModel) {
+    override fun  submitRegister(registerUiModel: RegisterUiModel, isneedPw : Boolean) {
         GmsRequest.POST(EndPoints.stringRegister(), context, object : GmsRequest.OnPostRequest {
             override fun onPreExecuted() {
                 view!!.onLoading()
@@ -47,11 +47,14 @@ class RegisterPresenter(context: Context?, view: RegisterView.View): BasePresent
                 val param = HashMap<String, String>()
                 param["user_name"] = registerUiModel.user_name
                 param["user_nip"] = registerUiModel.user_nip
-                param["user_phone"] = registerUiModel.user_phone
+                param["user_phone"] = "+62"+registerUiModel.user_phone
                 param["user_email"] = registerUiModel.user_email
-                param["user_password"] = registerUiModel.user_password
-                param["user_re_password"] = registerUiModel.user_re_password
-                param["user_re_password"] = registerUiModel.user_re_password
+                if(isneedPw){
+                    param["user_password"] = registerUiModel.user_password
+                    param["user_re_password"] = registerUiModel.user_re_password
+                } else {
+                    param["id_token"] = registerUiModel.id_token
+                }
                 param["user_photo"] = registerUiModel.user_photo
                 param["device_type"] = registerUiModel.device_type
                 param["user_type"] = registerUiModel.user_type

@@ -24,6 +24,7 @@ import id.go.kemlu.legalisasidokumen.app.verifikatorapp.detailpembayaran.*
 import id.go.kemlu.legalisasidokumen.app.verifikatorapp.detailpermohonan.DetailPermohonanActivity
 import kotlinx.android.synthetic.main.activity_daftar_request.*
 import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.SpeedyLinearLayoutManager
+import id.go.kemlu.legalisasidokumen.data.Preferences
 
 class DaftarRequestActivity : Fragment(), VerifikatorView.View{
 
@@ -79,7 +80,24 @@ class DaftarRequestActivity : Fragment(), VerifikatorView.View{
 
     }
 
+    override fun noInternetConnection(isFirst: Boolean) {
+        if(isFirst && layananModels.size == 0){
+            helper_noconnection.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(GmsStatic.getSPBoolean(context, Preferences.LAYANAN_TOVERIF_ON_REFRESH)){
+            GmsStatic.setSPBoolean(context, Preferences.LAYANAN_TOVERIF_ON_REFRESH, false)
+            presenter.requestDataVerifikasi(true)
+        }
+    }
+
     override fun onRequestDataVerifikasi(list: MutableList<RequestToVerifModel>, isReload: Boolean) {
+        helper_nodata.visibility = View.GONE
+        helper_error.visibility = View.GONE
+
         endlessRecyclerViewScrollListener.resetState()
         if(isReload){
             layananModels.clear()
@@ -109,6 +127,8 @@ class DaftarRequestActivity : Fragment(), VerifikatorView.View{
 
     override fun onHideLoading(isFirst: Boolean) {
         helper_nodata.visibility = View.GONE
+        helper_noconnection.visibility = View.GONE
+        helper_error.visibility = View.GONE
         if(isFirst){
             helper_loading_top.hide()
         } else {
@@ -118,6 +138,7 @@ class DaftarRequestActivity : Fragment(), VerifikatorView.View{
 
     override fun onHideLoading() {
         GmsStatic.hideLoadingDialog(context)
+        helper_noconnection.visibility = View.GONE
     }
 
     override fun onLoadingDetail() {

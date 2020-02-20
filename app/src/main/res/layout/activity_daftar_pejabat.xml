@@ -19,6 +19,22 @@
 
             </androidx.recyclerview.widget.RecyclerView>
             <include layout="@layout/layout_helper"/>
+            <RelativeLayout android:layout_width="wrap_content"
+                            android:id="@+id/lay_fab"
+                            app:layout_anchor="@+id/include"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_height="wrap_content">
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="140dp"
+                        android:layout_margin="@dimen/dimen_16dp"
+                        app:backgroundTint="@color/colorPrimary"
+                        android:id="@+id/fab_add"
+                        android:tint="@color/colorAccent"
+                        android:src="@drawable/ic_add_black_24dp"
+                />
+            </RelativeLayout>
         </RelativeLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

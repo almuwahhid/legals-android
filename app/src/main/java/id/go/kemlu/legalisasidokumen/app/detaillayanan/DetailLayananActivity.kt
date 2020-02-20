@@ -19,18 +19,21 @@ import android.view.View
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.theartofdev.edmodo.cropper.CropImage
 import id.go.kemlu.legalisasidokumen.BuildConfig
 import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.app.adapters.DokumenSayaAdapter
+import id.go.kemlu.legalisasidokumen.app.home.HomeActivity
 import id.go.kemlu.legalisasidokumen.app.verifikatorapp.detaildokumen.DetailDokumenToVerifActivity
+import id.go.kemlu.legalisasidokumen.data.Preferences
 import id.go.kemlu.legalisasidokumen.data.StaticData
 import id.go.kemlu.legalisasidokumen.data.models.DokumenModel
+import id.go.kemlu.legalisasidokumen.data.models.NotifikasiModel
 import id.go.kemlu.legalisasidokumen.data.models.RequestModel
 import id.go.kemlu.legalisasidokumen.dialogs.DialogImagePicker
 import id.go.kemlu.legalisasidokumen.dialogs.DialogUploadBuktiBayar.DialogUploadBuktiBayar
 import id.go.kemlu.legalisasidokumen.module.Activity.LegalisasiPermissionActivity
 import id.go.kemlu.legalisasidokumen.utils.LegalisasiFunction
-import kotlinx.android.synthetic.main.activity_kwitansi.*
 import kotlinx.android.synthetic.main.layout_buktipembayaran.*
 import kotlinx.android.synthetic.main.layout_detail_permohonan.*
 import kotlinx.android.synthetic.main.layout_kualitas_layanan.*
@@ -52,6 +55,8 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
     var isKualitasLayananDone = false
     var stringKualitasLayanan = ""
     lateinit var clipboard: ClipboardManager
+
+    var needStart = false
 
     lateinit var menu : Menu
     lateinit var dialoguploadbukti : DialogUploadBuktiBayar
@@ -86,10 +91,20 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
 
         if(intent.hasExtra("data")){
             model = intent.getSerializableExtra("data") as RequestModel
+            initComponent()
         } else {
-            finish()
+            if(intent.hasExtra("raw_data")){
+                needStart = true
+                val notif = intent.getSerializableExtra("data") as NotifikasiModel
+                presenter.requestDetailNotifikasi(""+notif.strNotifGroupNo, ""+notif.intNotifid)
+            } else {
+                finish()
+            }
         }
 
+    }
+
+    private fun initComponent(){
         when(model.status_id){
             StaticData.STATUS_MENUGGGU_VERIFIKASI -> {
                 toolbar_title.setText("Permohonan Terkirim")
@@ -115,6 +130,11 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
                 initPermohonanDitolak()
             }
         }
+    }
+
+    override fun onRequestDetailNotifikasi(requestModel: RequestModel) {
+        model = requestModel
+        initComponent()
     }
 
     override fun onErrorConnection() {
@@ -161,13 +181,13 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
         img_kualitas2.setOnClickListener(onClickKualitas)
         img_kualitas3.setOnClickListener(onClickKualitas)
 
-        tv_kwitansi_nama.setText(": "+model.document_legal_by)
+        tv_kwitansi_nama.setText(": "+model.request_name)
         tv_kwitansi_date.setText(""+model.request_date)
         tv_kwitansi_nopermohonan.setText(": "+model.group_no)
         tv_kwitansi_totalbiaya.setText(": Rp. "+model.total_price)
         tv_kwitansi_jumlahdokumen.setText(": "+model.document.size)
-        tv_kwitansi_transferke.setText(": "+model.dtm_trans)
-        tv_kwitansi_va.setText(": "+model.trans_no)
+        tv_kwitansi_transferke.setText(": "+model.bank)
+        tv_kwitansi_va.setText(": "+model.rekening)
 
     }
 
@@ -187,6 +207,10 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
         tv_country.text = model.country_name
         tv_nomorpermohonan.text = model.group_no
         webview.loadData(String.format(COMMENT_WEBVIEW_STYLE, narasiPermohonanTerkirim()), mime, encoding);
+        if(model.detail_notification != null){
+            webview.loadData(String.format(COMMENT_WEBVIEW_STYLE, model.detail_notification.strNotifDesc), mime, encoding);
+        }
+
     }
 
     private fun initBuktiPembayaran(){
@@ -199,6 +223,25 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
         tv_bukti_totalbayar.setText(""+model.total_price)
         tv_bukti_norek.setText(""+model.rekening)
         tv_rekeningpembayaran.setText(""+model.bank)
+
+        tv_mandiri_mobile.setOnClickListener({
+            val launchIntent = getPackageManager().getLaunchIntentForPackage("com.bankmandiri.mandirionline");
+            if (launchIntent != null) {
+               startActivity(launchIntent)
+            } else {
+                try {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=com.bankmandiri.mandirionline")
+                        )
+                    )
+                } catch (exception: android.content.ActivityNotFoundException) {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.bankmandiri.mandirionline")))
+                }
+
+            }
+        })
 
         tv_bukti_salin.setOnClickListener({
             val clip = ClipData.newPlainText(BuildConfig.application_name, model.trans_no)
@@ -242,7 +285,8 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
                 }
 
                 override fun onAfterUploadBukti() {
-
+                    GmsStatic.setSPBoolean(context, Preferences.LAYANAN_ON_REFRESH, true)
+                    finish()
                 }
 
             })
@@ -253,6 +297,11 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
         layout_detail_permohonan.visibility = View.VISIBLE
         tv_country.text = model.country_name
         tv_nomorpermohonan.text = model.group_no
+
+        webview.loadData(String.format(COMMENT_WEBVIEW_STYLE, narasiPermohonanTerkirim()), mime, encoding);
+        if(model.detail_notification != null){
+            webview.loadData(String.format(COMMENT_WEBVIEW_STYLE, model.detail_notification.strNotifDesc), mime, encoding);
+        }
     }
 
     private fun initPermohonanDitolak(){
@@ -260,6 +309,9 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
         tv_country.text = model.country_name
         tv_nomorpermohonan.text = model.group_no
         webview.loadData(String.format(COMMENT_WEBVIEW_STYLE, narasiPermohonanDitolak()), mime, encoding);
+        if(model.detail_notification != null){
+            webview.loadData(String.format(COMMENT_WEBVIEW_STYLE, model.detail_notification.strNotifDesc), mime, encoding);
+        }
     }
 
     private fun narasiPermohonanTerkirim(): String{
@@ -281,6 +333,14 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            android.R.id.home->{
+                if(needStart){
+                    startActivity(Intent(context, HomeActivity::class.java))
+                } else {
+                    finish()
+                }
+                true
+            }
             R.id.action_buktibayarvalid -> {
                 if(!isKualitasLayananDone){
                     if(stringKualitasLayanan.equals("")){
@@ -334,14 +394,37 @@ class DetailLayananActivity : LegalisasiPermissionActivity(), DetailLayananView.
         GmsStatic.ToastShort(context, message)
     }
 
+    private fun startCropActivity(uri: Uri) {
+        CropImage.activity(uri)
+//            .setCropShape(CropImageView.CropShape.RECTANGLE)
+            .start(this@DetailLayananActivity)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        EasyImage.handleActivityResult(requestCode, resultCode, data, activity, object : DefaultCallback(){
-            override fun onImagesPicked(imageFiles: MutableList<File>, source: EasyImage.ImageSource?, type: Int) {
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == RESULT_OK) {
                 Log.d("ikiopo", "")
-                val uri = Uri.fromFile(imageFiles.get(0))
+                val uri = result.uri
                 val bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri)
                 dialoguploadbukti.setImage(bitmap)
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                val error = result.error.toString()
+                GmsStatic.ToastShort(context, "" + error)
+            }
+        } else {
+            EasyImage.handleActivityResult(requestCode, resultCode, data, activity, object : DefaultCallback(){
+                override fun onImagesPicked(imageFiles: MutableList<File>, source: EasyImage.ImageSource?, type: Int) {
+                    startCropActivity(Uri.fromFile(imageFiles[0]))
+                }
+            })
+        }
+
+        EasyImage.handleActivityResult(requestCode, resultCode, data, activity, object : DefaultCallback(){
+            override fun onImagesPicked(imageFiles: MutableList<File>, source: EasyImage.ImageSource?, type: Int) {
+
             }
         })
     }

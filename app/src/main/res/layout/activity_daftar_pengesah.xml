@@ -31,7 +31,6 @@
                         android:layout_height="140dp"
                         android:layout_margin="@dimen/dimen_16dp"
                         app:backgroundTint="@color/colorPrimary"
-                        android:visibility="gone"
                         android:id="@+id/fab_add"
                         android:tint="@color/colorAccent"
                         android:src="@drawable/ic_add_black_24dp"

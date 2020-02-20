@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.theartofdev.edmodo.cropper.CropImage
 import id.ac.uny.riset.ride.menu.register.RegisterPresenter
 import id.ac.uny.riset.ride.menu.register.RegisterView
 import id.go.kemlu.legalisasidokumen.R
@@ -41,6 +42,7 @@ class RegisterActivity : LegalisasiPermissionActivity(), RegisterView.View {
     lateinit var list_photo: MutableList<PhotoModel>
 
     val imageLoader = PicassoLoader()
+    var isNeedPw = true
 
     protected var RequiredPermissions = arrayOf(
         Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -61,8 +63,19 @@ class RegisterActivity : LegalisasiPermissionActivity(), RegisterView.View {
         toolbar.getNavigationIcon()!!.setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
         toolbar_title.setText("Pendaftaran")
 
+        setFormsToValidate()
         if(intent.hasExtra("data")){
             edt_email.setText(intent.getStringExtra("data"))
+            if(!edt_email.text.toString().equals("")){
+                edt_email.isEnabled = false
+            }
+            if(intent.hasExtra("isThirdParty")){
+                lay_password.visibility = View.GONE
+                lay_konfirmasipassword.visibility = View.GONE
+                registerUiModel.user_type = intent.getStringExtra("isThirdParty")
+                registerUiModel.id_token = intent.getStringExtra("id_token")
+                setFormsWithoutPwToValidate()
+            }
         }
 
         list_photo = ArrayList()
@@ -137,7 +150,7 @@ class RegisterActivity : LegalisasiPermissionActivity(), RegisterView.View {
         rv_photo.adapter = photoAdapter
 
         presenter = RegisterPresenter(context, this)
-        setFormsToValidate()
+
 
         tv_masuk.setOnClickListener({
             finish()
@@ -172,29 +185,34 @@ class RegisterActivity : LegalisasiPermissionActivity(), RegisterView.View {
     }
 
     private fun validate() {
-        if(list_photo.size < 2){
+        /*if(list_photo.size < 2){
             GmsStatic.ToastShort(context, "Tambahkan terlebih dahulu identitas Anda")
         } else {
-            if (GmsStatic.isFormValid(this, window.decorView, forms)) {
-                if(edt_password.text.toString().equals(edt_konfirmasipassword.text.toString())){
-                    registerUiModel = RegisterUiModel(edt_namalengkap.text.toString(),
-                        edt_identitas.text.toString(),
-                        edt_telp.text.toString(),
-                        edt_email.text.toString(),
-                        edt_password.text.toString(),
-                        edt_konfirmasipassword.text.toString())
-                    for(x in list_photo){
-                        if(!x.base64.equals("")){
-                            registerUiModel.user_photo = x.base64
-                        }
+
+        }*/
+        if (GmsStatic.isFormValid(this, window.decorView, forms)) {
+            val thirdparty = registerUiModel.user_type
+            val thirdparty_id = registerUiModel.id_token
+            if(edt_password.text.toString().equals(edt_konfirmasipassword.text.toString())){
+                registerUiModel = RegisterUiModel(edt_namalengkap.text.toString(),
+                    edt_identitas.text.toString(),
+                    edt_telp.text.toString(),
+                    edt_email.text.toString(),
+                    edt_password.text.toString(),
+                    edt_konfirmasipassword.text.toString())
+                /*for(x in list_photo){
+                    if(!x.base64.equals("")){
+                        registerUiModel.user_photo = x.base64
                     }
-                    presenter!!.submitRegister(registerUiModel)
-                } else {
-                    GmsStatic.ToastShort(context, "Password belum sesuai")
-                    edt_konfirmasipassword.setError("Password belum sesuai")
-                }
-//
+                }*/
+                registerUiModel.user_type = thirdparty
+                registerUiModel.id_token = thirdparty_id
+                presenter!!.submitRegister(registerUiModel, isNeedPw)
+            } else {
+                GmsStatic.ToastShort(context, "Password belum sesuai")
+                edt_konfirmasipassword.setError("Password belum sesuai")
             }
+//
         }
     }
 
@@ -207,16 +225,41 @@ class RegisterActivity : LegalisasiPermissionActivity(), RegisterView.View {
         forms.add(R.id.edt_konfirmasipassword)
     }
 
+    private fun setFormsWithoutPwToValidate() {
+        isNeedPw = false
+        forms.clear()
+        forms.add(R.id.edt_namalengkap)
+        forms.add(R.id.edt_telp)
+        forms.add(R.id.edt_email)
+    }
+
+    private fun startCropActivity(uri: Uri) {
+        CropImage.activity(uri)
+//            .setCropShape(CropImageView.CropShape.RECTANGLE)
+            .start(this@RegisterActivity)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        EasyImage.handleActivityResult(requestCode, resultCode, data, activity, object : DefaultCallback(){
-            override fun onImagesPicked(imageFiles: MutableList<File>, source: EasyImage.ImageSource?, type: Int) {
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == RESULT_OK) {
                 Log.d("ikiopo", "")
-                val uri = Uri.fromFile(imageFiles.get(0))
+                val uri = result.uri
                 val bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri)
                 list_photo.add(PhotoModel("", GmsStatic.convertToBase64(bitmap), uri))
                 photoAdapter.notifyDataSetChanged()
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                val error = result.error.toString()
+                GmsStatic.ToastShort(context, "" + error)
             }
-        })
+        } else {
+            EasyImage.handleActivityResult(requestCode, resultCode, data, activity, object : DefaultCallback(){
+                override fun onImagesPicked(imageFiles: MutableList<File>, source: EasyImage.ImageSource?, type: Int) {
+                    startCropActivity(Uri.fromFile(imageFiles[0]))
+                }
+            })
+        }
     }
 }

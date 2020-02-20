@@ -14,12 +14,15 @@ import android.widget.CompoundButton
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.gcacace.signaturepad.views.SignaturePad
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.dialogs.DialogImagePicker
 import id.go.kemlu.legalisasidokumen.app.buatdokumen.TambahDokumenDialog
 import id.go.kemlu.legalisasidokumen.app.buatdokumen.model.DokumenUiModel
 import id.go.kemlu.legalisasidokumen.app.buatpermohonan.adapter.DokumenAttachmentAdapter
 import id.go.kemlu.legalisasidokumen.app.buatpermohonan.model.BuatPermohonanUiModel
+import id.go.kemlu.legalisasidokumen.data.Preferences
 import id.go.kemlu.legalisasidokumen.data.models.CountryModel
 import id.go.kemlu.legalisasidokumen.data.models.InstansiModel
 import id.go.kemlu.legalisasidokumen.data.models.PickerModel
@@ -37,10 +40,6 @@ import lib.gmsframeworkx.utils.GmsStatic
 import java.io.File
 
 class BuatPermohonanActivity : LegalisasiPermissionActivity(), BuatPermohonanView.View {
-    override fun onSuccessSubmitPermohonan(message: String) {
-        GmsStatic.ToastShort(context, message)
-        finish()
-    }
 
     lateinit var tambahDokumenDialog: TambahDokumenDialog
     lateinit var presenter: BuatPermohonanPresenter
@@ -157,42 +156,52 @@ class BuatPermohonanActivity : LegalisasiPermissionActivity(), BuatPermohonanVie
         }
     }
 
+    override fun onSuccessSubmitPermohonan(message: String) {
+        GmsStatic.ToastShort(context, message)
+        GmsStatic.setSPBoolean(context, Preferences.LAYANAN_ON_REFRESH, true)
+        finish()
+    }
+
     private fun initNewDokumen(){
-        tambahDokumenDialog = TambahDokumenDialog(context, object : TambahDokumenDialog.DokumenListener{
-            override fun onEdit(position: Int, dokumenUiModel: DokumenUiModel) {
-                listDokumenUiModel.set(position, dokumenUiModel)
-                dokumenAttachmentAdapter.notifyDataSetChanged()
-                tambahDokumenDialog.dismiss()
-            }
+        if(listDokumenUiModel.size < 10){
+            tambahDokumenDialog = TambahDokumenDialog(context, object : TambahDokumenDialog.DokumenListener{
+                override fun onEdit(position: Int, dokumenUiModel: DokumenUiModel) {
+                    listDokumenUiModel.set(position, dokumenUiModel)
+                    dokumenAttachmentAdapter.notifyDataSetChanged()
+                    tambahDokumenDialog.dismiss()
+                }
 
-            override fun onSubmit(dokumenUiModel: DokumenUiModel) {
-                listDokumenUiModel.add(dokumenUiModel)
-                dokumenAttachmentAdapter.notifyDataSetChanged()
-                tambahDokumenDialog.dismiss()
-            }
+                override fun onSubmit(dokumenUiModel: DokumenUiModel) {
+                    listDokumenUiModel.add(dokumenUiModel)
+                    dokumenAttachmentAdapter.notifyDataSetChanged()
+                    tambahDokumenDialog.dismiss()
+                }
 
-            override fun onAddPhoto() {
-                askCompactPermissions(RequiredPermissions, object : PermissionResultInterface {
-                    override fun permissionDenied() {
+                override fun onAddPhoto() {
+                    askCompactPermissions(RequiredPermissions, object : PermissionResultInterface {
+                        override fun permissionDenied() {
 
-                    }
+                        }
 
-                    override fun permissionGranted() {
-                        DialogImagePicker(context, object : DialogImagePicker.OnDialogImagePicker{
-                            override fun onCameraClick() {
-                                EasyImage.openCamera(this@BuatPermohonanActivity, 0)
-                            }
+                        override fun permissionGranted() {
+                            DialogImagePicker(context, object : DialogImagePicker.OnDialogImagePicker{
+                                override fun onCameraClick() {
+                                    EasyImage.openCamera(this@BuatPermohonanActivity, 0)
+                                }
 
-                            override fun onFileManagerClick() {
-                                EasyImage.openGallery(this@BuatPermohonanActivity, 0)
-                            }
+                                override fun onFileManagerClick() {
+                                    EasyImage.openGallery(this@BuatPermohonanActivity, 0)
+                                }
 
-                        })
-                    }
+                            })
+                        }
 
-                })
-            }
-        })
+                    })
+                }
+            })
+        } else {
+            GmsStatic.ToastShort(context, "Lampiran dokumen maksimal berjumlah 10")
+        }
     }
 
     override fun onRequestInstansi(list: MutableList<InstansiModel>) {
@@ -246,17 +255,36 @@ class BuatPermohonanActivity : LegalisasiPermissionActivity(), BuatPermohonanVie
         GmsStatic.showLoadingDialog(context, R.drawable.ic_logo)
     }
 
+    private fun startCropActivity(uri: Uri) {
+        CropImage.activity(uri)
+//            .setCropShape(CropImageView.CropShape.RECTANGLE)
+            .start(this@BuatPermohonanActivity)
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        EasyImage.handleActivityResult(requestCode, resultCode, data, activity, object : DefaultCallback(){
-            override fun onImagesPicked(imageFiles: MutableList<File>, source: EasyImage.ImageSource?, type: Int) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == RESULT_OK) {
                 Log.d("ikiopo", "")
-                val uri = Uri.fromFile(imageFiles.get(0))
+//                val uri = Uri.fromFile(imageFiles.get(0))
+                val uri = result.uri
                 tambahDokumenDialog.setPhoto(uri)
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                val error = result.error.toString()
+                GmsStatic.ToastShort(context, "" + error)
             }
-        })
+        } else {
+            EasyImage.handleActivityResult(requestCode, resultCode, data, activity, object : DefaultCallback(){
+                override fun onImagesPicked(imageFiles: MutableList<File>, source: EasyImage.ImageSource?, type: Int) {
+                    startCropActivity(Uri.fromFile(imageFiles[0]))
+                }
+            })
+        }
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -308,6 +336,7 @@ class BuatPermohonanActivity : LegalisasiPermissionActivity(), BuatPermohonanVie
               } else {
                   if(isSignValidate(true)){
                       permohonanUiModel.document = listDokumenUiModel
+                      permohonanUiModel.institution_id = "8";
                       presenter.submitPermohonan(permohonanUiModel)
                   }
               }
@@ -333,7 +362,7 @@ class BuatPermohonanActivity : LegalisasiPermissionActivity(), BuatPermohonanVie
 
     internal var forms: ArrayList<Int> = java.util.ArrayList()
     private fun setFormsToValidate() {
-        forms.add(R.id.edt_instansi)
+//        forms.add(R.id.edt_instansi)
         forms.add(R.id.edt_negaratujuan)
     }
 
@@ -343,11 +372,13 @@ class BuatPermohonanActivity : LegalisasiPermissionActivity(), BuatPermohonanVie
             lay_wrapper.displaying(lay_buatpermohonan)
             lay_wrapper.hide(lay_buattandatangan)
             menu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_chevron_right_black_24dp))
+            menu.getItem(0).setVisible(true)
         } else {
             lay_wrapper.setInOutAnimation(R.anim.pull_in_right, R.anim.push_out_left)
             lay_wrapper.displaying(lay_buattandatangan)
             lay_wrapper.hide(lay_buatpermohonan)
-            menu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_check_black_24dp))
+//            menu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_check_black_24dp))
+            menu.getItem(0).setVisible(false)
         }
         isLastStep = !isLastStep
     }

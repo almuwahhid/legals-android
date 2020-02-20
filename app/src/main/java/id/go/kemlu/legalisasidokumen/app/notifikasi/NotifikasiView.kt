@@ -16,6 +16,6 @@ interface NotifikasiView {
     }
     interface Presenter{
         fun requestNotifikasi(isReload: Boolean)
-        fun requestDetailNotifikasi(id: String)
+        fun requestDetailNotifikasi(id: String, notif_id: String)
     }
 }

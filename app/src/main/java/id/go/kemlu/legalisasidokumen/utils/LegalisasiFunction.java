@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 
 
@@ -48,6 +49,19 @@ public class LegalisasiFunction {
 
     public static void logoutUser(Context context){
         GmsStatic.removeSPString(context, Preferences.USER_ACCESS);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    FirebaseInstanceId.getInstance().deleteInstanceId();
+                    FirebaseInstanceId.getInstance().getToken();
+                    Log.d("firebaselogout", "setUserLogout: yess");
+                } catch (IOException e) {
+                    Log.d("firebaselogout", "setUserLogout: oh failed "+e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     public static boolean checkUserPreference(Context context){

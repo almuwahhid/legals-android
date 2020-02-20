@@ -17,13 +17,30 @@ public class EndPoints {
     public static String stringAuthEmail() {
         return c + BuildConfig.authEmail;
     }
-//
+
+    public static String stringLoginGoogle() {
+        return c + BuildConfig.loginGoogle;
+    }
+
+    public static String stringLoginFacebook() {
+        return c + BuildConfig.loginFacebook;
+    }
+
+    public static String stringUpdateDeviceToken() {
+        return c + BuildConfig.updateDeviceToken;
+    }
+
+    //
     public static String stringRegister() {
         return c + BuildConfig.register;
     }
 
     public static String stringUploadPaymentTransfer() {
         return c + BuildConfig.uploadPaymentTransfer;
+    }
+
+    public static String stringUpdatePaymentRequest() {
+        return c + BuildConfig.updatePaymentRequest;
     }
 
     public static String stringUpdateRequestStatus() {
@@ -75,6 +92,22 @@ public class EndPoints {
 
     public static String stringDetailRequestByGroup(String group_no) {
         return c + BuildConfig.detailOnlineRequestByGroup+"?group_no="+group_no;
+    }
+
+    public static String stringDaftarJabatan() {
+        return c + BuildConfig.listPosition;
+    }
+
+    public static String stringDaftarInstansi() {
+        return c + BuildConfig.listInstitusi;
+    }
+
+    public static String stringRequestAddPejabat() {
+        return c + BuildConfig.addPejabat;
+    }
+
+    public static String stringDetailRequestByGroupNotif(String group_no, String notif_id) {
+        return c + BuildConfig.detailOnlineRequestByGroup+"?group_no="+group_no+"&notif_id="+notif_id;
     }
 
     public static String stringBuatPermohonan() {

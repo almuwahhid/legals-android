@@ -73,7 +73,13 @@ class DaftarLayananPresenter(context: Context?, daftarLayananView: DaftarLayanan
 
             override fun onFailure(error: String) {
                 view!!.onHideLoading(isReload)
-                view!!.onFailedRequestSomething(if(page == 1)true else false, "Bermasalah dengan Server")
+                Log.d("error", error)
+                if(error.equals("1019") || error.equals("1012")){
+                    view!!.noInternetConnection(isReload)
+                } else {
+                    view!!.onFailedRequestSomething(if(page == 1)true else false, "Bermasalah dengan Server")
+                }
+
             }
 
             override fun requestParam(): Map<String, String> {

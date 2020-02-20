@@ -17,6 +17,8 @@ import id.go.kemlu.legalisasidokumen.utils.LayoutManagerUtil.SpeedyLinearLayoutM
 import kotlinx.android.synthetic.main.layout_helper.*
 import lib.gmsframeworkx.utils.GmsStatic
 import id.go.kemlu.legalisasidokumen.app.detaillayanan.DetailLayananActivity
+import id.go.kemlu.legalisasidokumen.data.Preferences
+import kotlinx.android.synthetic.main.adapter_dokumen_saya.*
 
 class DaftarLayananFragment : Fragment(), DaftarLayananView.View {
 
@@ -72,6 +74,14 @@ class DaftarLayananFragment : Fragment(), DaftarLayananView.View {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        if(GmsStatic.getSPBoolean(context, Preferences.LAYANAN_ON_REFRESH)){
+            GmsStatic.setSPBoolean(context, Preferences.LAYANAN_ON_REFRESH, false)
+            presenter.requestDaftarLayanan(true, status_id)
+        }
+    }
+
     override fun onGetDetailRequest(model: RequestModel) {
         startActivity(Intent(context, DetailLayananActivity::class.java).putExtra("data", model))
     }
@@ -90,6 +100,8 @@ class DaftarLayananFragment : Fragment(), DaftarLayananView.View {
 
     override fun onFailedRequestSomething(isFirst: Boolean, message: String) {
         if(isFirst){
+            layananModels.clear()
+            daftarLayananAdapter.notifyDataSetChanged()
             helper_error.visibility = View.VISIBLE
             tv_error.setText(message)
         } else {
@@ -99,6 +111,12 @@ class DaftarLayananFragment : Fragment(), DaftarLayananView.View {
 
     override fun onErrorConnection() {
 
+    }
+
+    override fun noInternetConnection(isFirst: Boolean) {
+        if(isFirst && layananModels.size == 0){
+            helper_noconnection.visibility = View.VISIBLE
+        }
     }
 
     override fun onHideLoading() {
@@ -119,6 +137,8 @@ class DaftarLayananFragment : Fragment(), DaftarLayananView.View {
 
     override fun onFailedRequestMore(isFirst: Boolean, message : String) {
         if(isFirst){
+            layananModels.clear()
+            daftarLayananAdapter.notifyDataSetChanged()
             helper_nodata.visibility = View.VISIBLE
             tv_nodata.text = message
         }
@@ -126,6 +146,8 @@ class DaftarLayananFragment : Fragment(), DaftarLayananView.View {
 
     override fun onHideLoading(isFirst: Boolean) {
         helper_nodata.visibility = View.GONE
+        helper_noconnection.visibility = View.GONE
+        helper_error.visibility = View.GONE
         if(isFirst){
             helper_loading_top.hide()
         } else {

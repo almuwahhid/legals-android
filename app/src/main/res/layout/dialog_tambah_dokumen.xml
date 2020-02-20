@@ -121,11 +121,12 @@
                     android:layout_height="wrap_content">
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_instansi"
-                        android:clickable="true"
                         android:inputType="text"
                         android:layout_width="match_parent"
-                        android:padding="@dimen/dimen_14dp"
                         style="@style/EditText.Form"
+                        android:drawableRight="@drawable/ic_keyboard_arrow_down_black_24dp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:hint="Instansi/Lembaga"
                         android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>

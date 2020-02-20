@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import id.go.kemlu.legalisasidokumen.R
 import id.go.kemlu.legalisasidokumen.app.login.LoginActivity
@@ -165,6 +166,7 @@ class VerifikatorActivity : LegalisasiActivity(), NavigationView.OnNavigationIte
                     "Ya",
                     "Tidak", object : AlertDialogBuilder.OnAlertDialog{
                         override fun onPositiveButton(dialog: DialogInterface?) {
+                            FirebaseAuth.getInstance().signOut()
                             GmsStatic.setSPString(context, Preferences.USER_INTRO, "")
                             LegalisasiFunction.logoutUser(context)
                             startActivity(Intent(context, LoginActivity::class.java))

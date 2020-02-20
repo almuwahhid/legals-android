@@ -33,7 +33,6 @@ class PhotoPreviewActivity : LegalisasiActivity() {
                 val uri = Uri.parse(data.getString("image"))
                 Picasso.with(context)
                     .load(uri)
-                    .transform(BitmapTransform())
                     .placeholder(R.drawable.ic_logo)
                     .into(img_preview, object : Callback {
                         override fun onError() {
@@ -52,7 +51,6 @@ class PhotoPreviewActivity : LegalisasiActivity() {
             "image" -> {
                 Picasso.with(context)
                     .load(data.getString("image"))
-                    .transform(BitmapTransform())
                     .placeholder(R.drawable.ic_logo)
                     .into(img_preview, object : Callback {
                         override fun onError() {

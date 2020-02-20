@@ -40,7 +40,7 @@ class DaftarPembayaranPresenter(context: Context, view: DaftarPembayaranView.Vie
                     if (response.getBoolean("success")) {
                         val list = ArrayList<PembayaranToVerifModel>()
                         val result = response.getJSONObject("result")
-                        val data = result.getJSONArray("list_request_to_verif")
+                        val data = result.getJSONArray("list_online_request")
                         for (i in 0 until data.length()) {
                             list.add(
                                 gson.fromJson(data.getJSONObject(i).toString(), PembayaranToVerifModel::class.java)
@@ -64,7 +64,11 @@ class DaftarPembayaranPresenter(context: Context, view: DaftarPembayaranView.Vie
 
             override fun onFailure(error: String) {
                 view!!.onHideLoading(isReload)
-                view!!.onFailedRequestSomething(if(page == 1)true else false, "Bermasalah dengan Server")
+                if(error.equals("1019") || error.equals("1012")){
+                    view!!.noInternetConnection(isReload)
+                } else {
+                    view!!.onFailedRequestSomething(if(page == 1)true else false, "Bermasalah dengan Server")
+                }
             }
 
             override fun requestParam(): Map<String, String> {

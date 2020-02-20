@@ -17,7 +17,7 @@
             <ImageView
                 android:layout_width="@dimen/dimen_128dp"
                 android:layout_height="@dimen/dimen_128dp"
-                android:src="@drawable/ic_searching"/>
+                android:src="@drawable/ic_nodata"/>
             <TextView
                     android:id="@+id/tv_nodata"
                 android:layout_marginTop="@dimen/dimen_18dp"
@@ -25,6 +25,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Data tidak tersedia"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/helper_noconnection"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <ImageView
+                    android:layout_width="@dimen/dimen_128dp"
+                    android:layout_height="@dimen/dimen_128dp"
+                    android:src="@drawable/ic_noconnection"/>
+            <TextView
+                    android:id="@+id/tv_noconnection"
+                    android:layout_marginTop="@dimen/dimen_18dp"
+                    style="@style/Text.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tidak ada akses internet"/>
         </LinearLayout>
     </RelativeLayout>
     <RelativeLayout
@@ -43,7 +69,7 @@
             <ImageView
                     android:layout_width="@dimen/dimen_128dp"
                     android:layout_height="@dimen/dimen_128dp"
-                android:src="@drawable/ic_error_404"/>
+                android:src="@drawable/ic_errordata"/>
             <TextView
                     android:id="@+id/tv_error"
                 android:layout_marginTop="@dimen/dimen_18dp"
